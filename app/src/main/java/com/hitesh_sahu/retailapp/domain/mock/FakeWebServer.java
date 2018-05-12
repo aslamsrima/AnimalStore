@@ -42,17 +42,17 @@ public class FakeWebServer {
 
         listOfCategory
                 .add(new ProductCategoryModel(
-                        "Electronic",
-                        "Electric Items",
+                        "Animals",
+                        "Animals Items",
                         "10%",
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeNSONF3fr9bZ6g0ztTAIPXPRCYN9vtKp1dXQB2UnBm8n5L34r"));
+                        "https://cdn.pixabay.com/photo/2018/04/25/10/07/animal-3349127_1280.jpg"));
 
         listOfCategory
                 .add(new ProductCategoryModel(
-                        "Furnitures",
-                        "Furnitures Items",
+                        "Pets",
+                        "Pets Items",
                         "15%",
-                        "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRaUR5_wzLgBOuNtkWjOxhgaYaPBm821Hb_71xTyQ-OdUd-ojMMvw"));
+                        "http://www.hdnicewallpapers.com/Walls/Big/Dog/Cute_Pet_Dog_Wallpaper.jpg"));
 
         CenterRepository.getCenterRepository().setListOfCategory(listOfCategory);
     }
@@ -124,7 +124,7 @@ public class FakeWebServer {
                         "http://img6a.flixcart.com/image/microwave-new/y/k/m/ifb-25sc4-400x400-imaef2pztynvqjaf.jpeg",
                         "oven_5"));
 
-        productMap.put("Microwave oven", productlist);
+        productMap.put("Animals", productlist);
 
         ArrayList<Product> tvList = new ArrayList<Product>();
 
@@ -184,7 +184,7 @@ public class FakeWebServer {
                 "http://img6a.flixcart.com/image/television/s/r/t/lg-32lf550a-400x400-imae8nyvxyjds3qu.jpeg",
                 "tv_5"));
 
-        productMap.put("Television", tvList);
+        productMap.put("Foods", tvList);
 
         productlist = new ArrayList<Product>();
 
@@ -249,11 +249,9 @@ public class FakeWebServer {
                         "http://img6a.flixcart.com/image/vacuum-cleaner/s/c/j/eureka-forbes-trendy-steel-trendy-steel-400x400-imae7vashkfj2hgk.jpeg",
                         "v_cleaner_5"));
 
-        productMap.put("Vaccum Cleaner", productlist);
-
 
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
-
+        productMap.put("Accesories", productlist);
     }
 
     public void getAllFurnitures() {
@@ -335,7 +333,7 @@ public class FakeWebServer {
                         "http://img5a.flixcart.com/image/coffee-table/k/y/h/1-particle-board-wood-an-wood-coffee-400x400-imae7uvzqsf4ynan.jpeg",
                         "table_6"));
 
-        productMap.put("Tables", productlist);
+        productMap.put("Accesories", productlist);
 
         productlist = new ArrayList<Product>();
 

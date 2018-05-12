@@ -169,7 +169,7 @@ public class ECartHomeActivity extends AppCompatActivity {
 
                                 return true;
 
-                            case R.id.my_cart:
+                            case R.id.my_buy:
 
                                 mDrawerLayout.closeDrawers();
 
