@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hitesh_sahu.retailapp.R;
+import com.hitesh_sahu.retailapp.domain.mock.FakeWebServer;
 import com.hitesh_sahu.retailapp.model.entities.Product;
 import com.hitesh_sahu.retailapp.util.Utils;
 import com.hitesh_sahu.retailapp.util.Utils.AnimationType;
@@ -97,6 +98,7 @@ public class SearchProductFragment extends Fragment {
 
                 heading.setText("Showing results for "
                         + inputString.toString().toLowerCase());
+
             }
 
             @Override
@@ -185,6 +187,7 @@ public class SearchProductFragment extends Fragment {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
                     heading.setText("Showing Results for " + result.get(0));
+
 
                     break;
                 }

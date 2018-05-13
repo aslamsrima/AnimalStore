@@ -8,7 +8,9 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hitesh_sahu.retailapp">
+    package="com.hitesh_sahu.retailapp"
+    >
+
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -21,6 +23,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+
         android:name=".AppController"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
@@ -37,6 +40,11 @@
             android:name=".view.activities.APrioriResultActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".view.activities.SellActivity"
+            android:label="Add Post"
+            android:screenOrientation="portrait"></activity>
+
 
         <!-- Splash Activity -->
         <activity

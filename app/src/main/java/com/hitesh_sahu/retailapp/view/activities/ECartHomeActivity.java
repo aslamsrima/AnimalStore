@@ -174,9 +174,19 @@ public class ECartHomeActivity extends AppCompatActivity {
                                 mDrawerLayout.closeDrawers();
 
                                 Utils.switchContent(R.id.frag_container,
-                                        Utils.SHOPPING_LIST_TAG,
+                                        Utils.HOME_FRAGMENT,
                                         ECartHomeActivity.this,
                                         AnimationType.SLIDE_LEFT);
+                                //Utils.switchContent(R.id.frag_container,
+                                  //      Utils.SHOPPING_LIST_TAG,
+                                    //    ECartHomeActivity.this,
+                                    //    AnimationType.SLIDE_LEFT);
+                                return true;
+
+                            case R.id.my_sell:
+                                mDrawerLayout.closeDrawers();
+                                startActivity(new Intent(ECartHomeActivity.this, SellActivity.class));
+
                                 return true;
 
                             case R.id.apriori_result:
