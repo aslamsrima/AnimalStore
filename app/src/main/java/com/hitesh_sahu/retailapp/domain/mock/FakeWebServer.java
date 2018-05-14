@@ -45,14 +45,14 @@ public class FakeWebServer {
                         "Animals",
                         "Animals Items",
                         "10%",
-                        "https://cdn.pixabay.com/photo/2018/04/25/10/07/animal-3349127_1280.jpg"));
+                        "https://cdn.pixabay.com/photo/2017/08/04/09/39/indian-cow-2579534_960_720.jpg"));
 
         listOfCategory
                 .add(new ProductCategoryModel(
                         "Pets",
                         "Pets Items",
                         "15%",
-                        "http://www.hdnicewallpapers.com/Walls/Big/Dog/Cute_Pet_Dog_Wallpaper.jpg"));
+                        "https://images8.alphacoders.com/496/496528.jpg"));
 
         CenterRepository.getCenterRepository().setListOfCategory(listOfCategory);
     }
@@ -184,7 +184,7 @@ public class FakeWebServer {
                 "http://img6a.flixcart.com/image/television/s/r/t/lg-32lf550a-400x400-imae8nyvxyjds3qu.jpeg",
                 "tv_5"));
 
-        productMap.put("Foods", tvList);
+        productMap.put("Animal Foods", tvList);
 
         productlist = new ArrayList<Product>();
 
@@ -251,7 +251,8 @@ public class FakeWebServer {
 
 
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
-        productMap.put("Accesories", productlist);
+        productMap.put("Animal Accesories", productlist);
+        productMap.put("Animal Medicine", productlist);
     }
 
     public void getAllFurnitures() {
@@ -333,7 +334,7 @@ public class FakeWebServer {
                         "http://img5a.flixcart.com/image/coffee-table/k/y/h/1-particle-board-wood-an-wood-coffee-400x400-imae7uvzqsf4ynan.jpeg",
                         "table_6"));
 
-        productMap.put("Accesories", productlist);
+        productMap.put("Pets", productlist);
 
         productlist = new ArrayList<Product>();
 
@@ -446,7 +447,7 @@ public class FakeWebServer {
                         "http://img5a.flixcart.com/image/bean-bag/3/h/w/rydclassicgreenl-rockyard-large-400x400-imae6zfaz6qzj3jd.jpeg",
                         "chair_9"));
 
-        productMap.put("Chairs", productlist);
+        productMap.put("Pets Food", productlist);
 
         productlist = new ArrayList<Product>();
 
@@ -523,9 +524,9 @@ public class FakeWebServer {
                         "http://img6a.flixcart.com/image/wardrobe-closet/f/b/p/srw-167-jute-pindia-purple-400x400-imaeb9g4d8uvatck.jpeg",
                         "almirah_6"));
 
-        productMap.put("Almirah", productlist);
+        productMap.put("Pets Accesories", productlist);
 
-        productMap.put("Almirah", productlist);
+        productMap.put("Pets Medicine", productlist);
 
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
 

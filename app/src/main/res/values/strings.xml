@@ -35,5 +35,12 @@
     <string name="lab_locations">Locations</string>
     <string name="pune">Pune</string>
     <string name="address_value">C 1002, Lorelle Socity Wakad Pune</string>
+    <string name="country_prompt">Choose a country</string>
+
+    <string-array name="Category">
+        <item>Select Category</item>
+        <item>Animal</item>
+        <item>Pet</item>
+    </string-array>
 
 </resources>
