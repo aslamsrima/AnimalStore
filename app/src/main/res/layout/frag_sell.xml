@@ -52,7 +52,19 @@
                 android:entries="@array/Category"
                 android:layout_marginTop="5dip"
                 android:prompt="@string/country_prompt" />
-
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Type"
+                android:layout_marginTop="10dip"
+                android:textStyle="bold"/>
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/AnimalType"
+                android:layout_marginTop="5dip"
+                android:prompt="@string/country_prompt" />
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
