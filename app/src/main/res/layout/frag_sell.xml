@@ -46,7 +46,7 @@
                 android:text="Category"
                 android:textStyle="bold"/>
             <Spinner
-                android:id="@+id/spinner1"
+                android:id="@+id/category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/Category"
@@ -59,10 +59,10 @@
                 android:layout_marginTop="10dip"
                 android:textStyle="bold"/>
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/AnimalType"
+
                 android:layout_marginTop="5dip"
                 android:prompt="@string/country_prompt" />
             <TextView android:layout_width="fill_parent"
@@ -77,29 +77,24 @@
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <RelativeLayout
-                        android:id="@+id/Male"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
+                    android:orientation="horizontal"
+                  >
+
                         <RadioButton android:id="@+id/radio_pirates"
                             android:layout_marginTop="10dip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Male"
                             />
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
+
+
                         <RadioButton android:id="@+id/radio_ninjas"
+                            android:layout_marginTop="10dip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Female"
                             />
-                    </RelativeLayout>
+
                 </RadioGroup>
             </RelativeLayout>
             <TextView android:layout_width="fill_parent"
