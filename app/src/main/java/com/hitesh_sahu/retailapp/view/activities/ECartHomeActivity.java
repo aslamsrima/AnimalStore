@@ -241,6 +241,9 @@ public class ECartHomeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_settings:
                 return true;
+            case R.id.action_login:
+                startActivity(new Intent(ECartHomeActivity.this, LogInActivity.class));
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

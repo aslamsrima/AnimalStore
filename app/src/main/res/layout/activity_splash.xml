@@ -11,7 +11,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_green"
+    android:background="@color/even"
     android:gravity="center">
 
     <RelativeLayout
@@ -25,31 +25,16 @@
             android:layout_height="wrap_content"
             android:gravity="center">
 
-            <TextView
-                android:id="@+id/pro_txt"
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerVertical="true"
-                android:shadowColor="#000"
-                android:shadowDx="2"
-                android:shadowDy="2"
-                android:shadowRadius="1.0"
-                android:text="@string/app_name"
-                android:textColor="#fff"
-                android:textSize="40sp"
-                android:textStyle="bold"
-
-                />
 
             <ImageView
                 android:id="@+id/logo_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/pro_txt"
-                android:src="@drawable/app_icon" />
+                android:layout_gravity="center"
+
+                android:src="@drawable/applogo" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="@string/sub_title"
-            android:textColor="#fff"
+            android:textColor="@color/light_brown"
             android:textSize="20sp"
 
             android:textStyle="bold"/>
@@ -86,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="@string/Company_name"
-                android:textColor="#fff"
+                android:textColor="@color/light_brown"
                 android:textSize="20sp"
 
                 android:textStyle="bold"/>

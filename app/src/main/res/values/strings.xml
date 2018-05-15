@@ -8,7 +8,7 @@
 
 <resources>
 
-    <string name="app_name">AgriStore</string>
+    <string name="app_name">Animal World</string>
     <string name="sub_title">Powered By:- ICS</string>
     <string name="Company_name">(Inara Consultancy Service)</string>
     <string name="action_login">Login</string>

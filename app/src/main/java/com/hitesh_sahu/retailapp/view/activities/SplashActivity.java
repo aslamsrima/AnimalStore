@@ -37,7 +37,7 @@ public class SplashActivity extends FragmentActivity {
 
         logo = (ImageView) findViewById(R.id.logo_img);
         appTitle = (TextView) findViewById(R.id.textView2);
-        appSlogan = (TextView) findViewById(R.id.pro_txt);
+        //appSlogan = (TextView) findViewById(R.id.pro_txt);
         companyName = (TextView) findViewById(R.id.textView3);
         // Font path
         String fontPath = "font/CircleD_Font_by_CrazyForMusic.ttf";
@@ -46,7 +46,7 @@ public class SplashActivity extends FragmentActivity {
 
         // Applying font
         appTitle.setTypeface(tf);
-        appSlogan.setTypeface(tf);
+        //appSlogan.setTypeface(tf);
         companyName.setTypeface(tf);
 
         if (savedInstanceState == null) {
@@ -67,11 +67,11 @@ public class SplashActivity extends FragmentActivity {
         logo.startAnimation(animation);
 
         animation = AnimationUtils.loadAnimation(this,
-                R.anim.app_name_animation);
-        appTitle.startAnimation(animation);
+               R.anim.app_name_animation);
+       appTitle.startAnimation(animation);
 
-        animation = AnimationUtils.loadAnimation(this, R.anim.pro_animation);
-        appSlogan.startAnimation(animation);
+        //animation = AnimationUtils.loadAnimation(this, R.anim.pro_animation);
+        //appSlogan.startAnimation(animation);
         companyName.startAnimation(animation);
     }
 
@@ -81,12 +81,12 @@ public class SplashActivity extends FragmentActivity {
         logo.startAnimation(animation);
 
         animation = AnimationUtils.loadAnimation(this,
-                R.anim.app_name_animation_back);
+              R.anim.app_name_animation_back);
         appTitle.startAnimation(animation);
 
         animation = AnimationUtils.loadAnimation(this,
                 R.anim.pro_animation_back);
-        appSlogan.startAnimation(animation);
+        //appSlogan.startAnimation(animation);
         companyName.startAnimation(animation);
 
         animation.setAnimationListener(new AnimationListener() {
