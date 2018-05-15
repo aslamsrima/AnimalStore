@@ -17,16 +17,16 @@
             android:title="Home" />
         <item
             android:id="@+id/my_buy"
-            android:icon="@drawable/cart"
+            android:icon="@drawable/buy"
             android:title="Buy" />
         <item
             android:id="@+id/my_sell"
-            android:icon="@android:drawable/ic_menu_info_details"
+            android:icon="@drawable/sell"
             android:title="Sell" />
 
         <item
             android:id="@+id/apriori_result"
-            android:icon="@android:drawable/ic_menu_info_details"
+            android:icon="@drawable/inquiry"
             android:title="My Inquiries" />
         <item
             android:id="@+id/contact_us"
