@@ -42,12 +42,12 @@ public class SplashActivity extends FragmentActivity {
         // Font path
         String fontPath = "font/CircleD_Font_by_CrazyForMusic.ttf";
         // Loading Font Face
-        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+       // Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
 
         // Applying font
-        appTitle.setTypeface(tf);
+        //appTitle.setTypeface(tf);
         //appSlogan.setTypeface(tf);
-        companyName.setTypeface(tf);
+        //companyName.setTypeface(tf);
 
         if (savedInstanceState == null) {
             flyIn();

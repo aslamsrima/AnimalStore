@@ -48,7 +48,10 @@
             android:name=".view.activities.LogInActivity"
             android:label="SignIn"
             android:screenOrientation="portrait"></activity>
-
+        <activity
+            android:name=".view.activities.RegisterActivity"
+            android:label="Register"
+            android:screenOrientation="portrait"></activity>
 
         <!-- Splash Activity -->
         <activity

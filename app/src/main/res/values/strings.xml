@@ -36,24 +36,11 @@
     <string name="pune">Pune</string>
     <string name="address_value">C 1002, Lorelle Socity Wakad Pune</string>
     <string name="country_prompt">Choose a country</string>
-
+    <string name="register_link"><u>Do not have an Account?</u></string>
     <string-array name="Category">
         <item>Select Category</item>
         <item>Animal</item>
         <item>Pet</item>
     </string-array>
-    <string-array name="AnimalType">
-        <item>Select Type</item>
-        <item>Animal</item>
-        <item>Animal Accesories</item>
-        <item>Animal Food</item>
-        <item>Animal Medicine</item>
-    </string-array>
-    <string-array name="PetType">
-        <item>Select Type</item>
-        <item>Pet</item>
-        <item>Pet Accesories</item>
-        <item>Pet Food</item>
-        <item>Pet Medicine</item>
-    </string-array>
+
 </resources>

@@ -63,7 +63,7 @@ public class SellActivity extends AppCompatActivity{
                     type.setVisibility(View.VISIBLE);
                 }else if(position==2){
                     type.setAdapter(petAdapter);
-                    type.setVisibility(View.VISIBLE);
+                    type.setVisibility(View.GONE);
                 }
             }
 
