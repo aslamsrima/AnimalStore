@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.hitesh_sahu.retailapp.R;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class SellActivity extends AppCompatActivity{
     private RadioButton male,female;
+    private TextView milktxt;
     private EditText breed, milkRec,Price,Age;
     private Spinner category, type;
     ArrayAdapter<String> dataAdapter,petAdapter;
@@ -28,7 +30,10 @@ public class SellActivity extends AppCompatActivity{
         setContentView(R.layout.frag_sell);
         category=(Spinner)findViewById(R.id.category);
         type=(Spinner)findViewById(R.id.type);
-        
+        milkRec=(EditText)findViewById(R.id.milkval);
+        milktxt=(TextView)findViewById(R.id.milktext);
+        milkRec.setVisibility(View.GONE);
+        milktxt.setVisibility(View.GONE);
         type.setVisibility(View.GONE);
         List<String> animalList = new ArrayList<String>();
         animalList.add("Animal");
@@ -58,12 +63,21 @@ public class SellActivity extends AppCompatActivity{
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
+                if(position==0){
+                    type.setVisibility(View.GONE);
+                    milkRec.setVisibility(View.GONE);
+                    milktxt.setVisibility(View.GONE);
+                }
                 if(position==1){
                     type.setAdapter(dataAdapter);
                     type.setVisibility(View.VISIBLE);
+                    milkRec.setVisibility(View.VISIBLE);
+                    milktxt.setVisibility(View.VISIBLE);
                 }else if(position==2){
                     type.setAdapter(petAdapter);
                     type.setVisibility(View.GONE);
+                    milkRec.setVisibility(View.GONE);
+                    milktxt.setVisibility(View.GONE);
                 }
             }
 
