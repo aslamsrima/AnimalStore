@@ -50,7 +50,7 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 >
                 <Spinner
-                    android:id="@+id/category"
+                    android:id="@+id/categoryLanguage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dip"

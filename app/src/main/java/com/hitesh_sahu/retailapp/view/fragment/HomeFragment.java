@@ -8,13 +8,18 @@
 
 package com.hitesh_sahu.retailapp.view.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +29,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.hitesh_sahu.retailapp.R;
@@ -33,14 +40,32 @@ import com.hitesh_sahu.retailapp.util.Utils;
 import com.hitesh_sahu.retailapp.util.Utils.AnimationType;
 import com.hitesh_sahu.retailapp.view.activities.ECartHomeActivity;
 
+import java.util.Locale;
+
+import static android.content.Context.MODE_PRIVATE;
+
 public class HomeFragment extends Fragment {
     int mutedColor = R.attr.colorPrimary;
     private CollapsingToolbarLayout collapsingToolbar;
     private RecyclerView recyclerView;
+    private Spinner languageSipnner;
+    private static Locale myLocale;
+    private static final String LOCALE_KEY = "localekey";
+    private static final String HINDI_LOCALE = "hi";
+    private static final String ENGLISH_LOCALE = "en_US";
+    private String LOCALE_PREF_KEY = "localePref";
+    private Locale locale;
+    String lang = "en";//Default Language
+    //Shared Preferences Variables
+    private static final String Locale_Preference = "Locale Preference";
+    private static final String Locale_KeyValue = "Saved Locale";
+    private static SharedPreferences sharedPreferences;
+    //private static SharedPreferences.Editor editor;
     /**
      * The double back to exit pressed once.
      */
     private boolean doubleBackToExitPressedOnce;
+
     private final Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
@@ -72,6 +97,8 @@ public class HomeFragment extends Fragment {
         ((ECartHomeActivity) getActivity()).setSupportActionBar(toolbar);
         ((ECartHomeActivity) getActivity()).getSupportActionBar()
                 .setDisplayHomeAsUpEnabled(true);
+
+        languageSipnner = (Spinner) view.findViewById(R.id.categoryLanguage);
 
         toolbar.setNavigationIcon(R.drawable.ic_drawer);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -112,6 +139,7 @@ public class HomeFragment extends Fragment {
 
         new ProductCategoryLoaderTask(recyclerView, getActivity()).execute();
 
+
 //
 //		if (simpleRecyclerAdapter == null) {
 //			simpleRecyclerAdapter = new CategoryListAdapter(getActivity());
@@ -139,6 +167,33 @@ public class HomeFragment extends Fragment {
 //						}
 //					});
 //		}
+
+        languageSipnner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+
+                if(position==0){
+                    lang = "en";
+                    changeLocale(lang);
+                }
+                if(position==1){
+                    lang = "hi";
+                    changeLocale(lang);
+                }else if(position==2){
+                    lang = "mr";
+                    changeLocale(lang);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
 
         view.setFocusableInTouchMode(true);
         view.requestFocus();
@@ -176,6 +231,38 @@ public class HomeFragment extends Fragment {
 
         return view;
 
+    }
+
+    public void changeLocale(String lang) {
+        if (lang.equalsIgnoreCase(""))
+            return;
+        myLocale = new Locale(lang);//Set Selected Locale
+      //  saveLocale(lang);//Save the selected locale
+        Locale.setDefault(myLocale);//set new locale as default
+        Configuration config = new Configuration();//get Configuration
+        config.locale = myLocale;//set config locale as selected locale
+        getContext().getResources().updateConfiguration(config, getContext().getResources().getDisplayMetrics());//Update the config
+        updateTexts();//Update texts according to locale
+    }
+
+    //Save locale method in preferences
+    public void saveLocale(String lang) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Locale_KeyValue, lang);
+        editor.commit();
+
+    }
+
+    //Get locale method in preferences
+    public void loadLocale() {
+        String language = sharedPreferences.getString(Locale_KeyValue, "");
+        changeLocale(language);
+    }
+
+    //Update text methods
+    private void updateTexts() {
+        String title = this.getString(R.string.category);
+        collapsingToolbar.setTitle(title);
     }
 
 }

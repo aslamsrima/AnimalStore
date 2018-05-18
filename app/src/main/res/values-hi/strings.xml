@@ -8,11 +8,11 @@
 
 <resources>
 
-    <string name="app_name">Animal World</string>
-    <string name="sub_title">Powered By:- ICS</string>
-    <string name="Company_name">(Inara Consultancy Service)</string>
-    <string name="action_login">Login</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">प्राणी जगत</string>
+    <string name="sub_title">द्वारा संचालित: - आईसीएस</string>
+    <string name="Company_name">(इना कंसल्टेंसी सेवा)</string>
+    <string name="action_login">लॉग इन करें</string>
+    <string name="action_settings">सेटिंग्स</string>
     <string name="empty_text">Select song from below to play</string>
     <string name="standard">Standard</string>
     <string name="title_changelog">Change log</string>
@@ -37,11 +37,11 @@
     <string name="address_value">C 1002, Lorelle Socity Wakad Pune</string>
     <string name="country_prompt">Choose a country</string>
     <string name="register_link"><u>Do not have an Account?</u></string>
-    <string name="category"><u>Categories</u></string>
+    <string name="category"><u>श्रेणियाँ</u></string>
     <string-array name="Category">
-        <item>Select Category</item>
-        <item>Animal</item>
-        <item>Pet</item>
+        <item>श्रेणी का चयन करें</item>
+        <item>जानवर</item>
+        <item>पालतू पशु</item>
     </string-array>
     <string-array name="Language">
         <item>English</item>
