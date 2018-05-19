@@ -63,7 +63,7 @@ public class SettingsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.frag_settings, container,
                 false);
 
-        getActivity().setTitle("About App");
+        getActivity().setTitle("Settings");
 
         mToolbar = (Toolbar) rootView.findViewById(R.id.htab_toolbar);
         if (mToolbar != null) {
@@ -88,7 +88,7 @@ public class SettingsFragment extends Fragment {
 
         mToolbar.setTitleTextColor(Color.WHITE);
 
-        submitLog = (TextView) rootView.findViewById(R.id.submit_log_txt);
+        /*submitLog = (TextView) rootView.findViewById(R.id.submit_log_txt);
 
         if (PreferenceHelper.getPrefernceHelperInstace().getBoolean(
                 getActivity(), PreferenceHelper.SUBMIT_LOGS, true)) {
@@ -122,7 +122,7 @@ public class SettingsFragment extends Fragment {
 
                     }
                 });
-
+*/
         rootView.setFocusableInTouchMode(true);
         rootView.requestFocus();
         rootView.setOnKeyListener(new View.OnKeyListener() {
@@ -143,7 +143,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        rootView.findViewById(R.id.picasso).setOnClickListener(
+  /*      rootView.findViewById(R.id.picasso).setOnClickListener(
                 new OnClickListener() {
 
                     @Override
@@ -237,7 +237,7 @@ public class SettingsFragment extends Fragment {
 
                     }
                 });
-
+*/
         return rootView;
     }
 }

@@ -240,9 +240,19 @@ public class ECartHomeActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_settings:
+                Utils.switchContent(R.id.frag_container,
+                        Utils.SETTINGS_FRAGMENT_TAG,
+                        ECartHomeActivity.this,
+                        AnimationType.SLIDE_LEFT);
                 return true;
             case R.id.action_login:
                 startActivity(new Intent(ECartHomeActivity.this, LogInActivity.class));
+                return true;
+            case R.id.action_about:
+                Utils.switchContent(R.id.frag_container,
+                        Utils.CONTACT_US_FRAGMENT,
+                        ECartHomeActivity.this,
+                        AnimationType.SLIDE_LEFT);
                 return true;
         }
         return super.onOptionsItemSelected(item);

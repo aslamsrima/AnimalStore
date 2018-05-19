@@ -53,7 +53,7 @@ public class ContactUsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.frag_about, container,
                 false);
 
-        getActivity().setTitle("Contact Us");
+        getActivity().setTitle("About App");
 
 
         mToolbar = (Toolbar) rootView.findViewById(R.id.htab_toolbar);
