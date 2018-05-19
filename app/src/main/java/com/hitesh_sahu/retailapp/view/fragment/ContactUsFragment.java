@@ -79,7 +79,7 @@ public class ContactUsFragment extends Fragment {
 
         mToolbar.setTitleTextColor(Color.WHITE);
 
-        rootView.findViewById(R.id.locations).setOnClickListener(
+        /*rootView.findViewById(R.id.locations).setOnClickListener(
                 new OnClickListener() {
 
                     @Override
@@ -100,7 +100,7 @@ public class ContactUsFragment extends Fragment {
 
                     }
                 });
-
+*/
         rootView.setFocusableInTouchMode(true);
         rootView.requestFocus();
         rootView.setOnKeyListener(new View.OnKeyListener() {
@@ -121,7 +121,7 @@ public class ContactUsFragment extends Fragment {
             }
         });
 
-        rootView.findViewById(R.id.site_dev).setOnClickListener(
+        /*rootView.findViewById(R.id.site_dev).setOnClickListener(
                 new OnClickListener() {
 
                     @Override
@@ -133,8 +133,8 @@ public class ContactUsFragment extends Fragment {
 
                     }
                 });
-
-        rootView.findViewById(R.id.email).setOnClickListener(
+*/
+        /*rootView.findViewById(R.id.email).setOnClickListener(
                 new OnClickListener() {
 
                     @Override
@@ -166,7 +166,7 @@ public class ContactUsFragment extends Fragment {
 
                     }
                 });
-
+*/
         return rootView;
     }
 }

@@ -42,6 +42,7 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".view.activities.SellActivity"
+            android:parentActivityName=".view.activities.ECartHomeActivity"
             android:label="Add Post"
             android:screenOrientation="portrait"></activity>
         <activity

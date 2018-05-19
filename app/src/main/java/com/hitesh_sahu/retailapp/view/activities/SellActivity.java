@@ -1,7 +1,14 @@
 package com.hitesh_sahu.retailapp.view.activities;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.app.ActionBar;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.hitesh_sahu.retailapp.R;
+import com.hitesh_sahu.retailapp.util.Animatrix;
+import com.hitesh_sahu.retailapp.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +30,9 @@ public class SellActivity extends AppCompatActivity{
     private TextView milktxt;
     private EditText breed, milkRec,Price,Age;
     private Spinner category, type;
+    View appRoot;
+
+    Toolbar toolbar;
     ArrayAdapter<String> dataAdapter,petAdapter;
 
 
@@ -28,13 +40,22 @@ public class SellActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frag_sell);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         category=(Spinner)findViewById(R.id.category);
         type=(Spinner)findViewById(R.id.type);
         milkRec=(EditText)findViewById(R.id.milkval);
         milktxt=(TextView)findViewById(R.id.milktext);
+        appRoot = (View) findViewById(R.id.app_root);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         milkRec.setVisibility(View.GONE);
         milktxt.setVisibility(View.GONE);
         type.setVisibility(View.GONE);
+
+
+
+
+
+
         List<String> animalList = new ArrayList<String>();
         animalList.add("Animal");
         animalList.add("Animal Accesories");
@@ -85,6 +106,12 @@ public class SellActivity extends AppCompatActivity{
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
             }
+
+
+
+
+
+
 
         });
 
