@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited
+  ~ If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+  ~ along with the project.
+  ~  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/even"
+    android:gravity="center">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+
+
+            <ImageView
+                android:id="@+id/logo_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+
+                android:src="@drawable/applogo" />
+        </LinearLayout>
+
+        <LinearLayout
+        android:id="@+id/SubtitleLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Title"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="50dp">
+
+        <TextView
+            android:id="@+id/textView2"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/sub_title"
+            android:textColor="@color/light_brown"
+            android:textSize="20sp"
+
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/SubtitleLayout"
+            >
+
+            <TextView
+                android:id="@+id/textView3"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/Company_name"
+                android:textColor="@color/light_brown"
+                android:textSize="20sp"
+
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</FrameLayout>
