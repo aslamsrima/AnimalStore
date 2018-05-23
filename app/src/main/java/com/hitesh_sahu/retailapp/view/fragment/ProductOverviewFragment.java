@@ -156,10 +156,10 @@ public class ProductOverviewFragment extends Fragment {
                         switch (tab.getPosition()) {
                             case 0:
 
-                                header.setImageResource(R.drawable.header);
+                                header.setImageResource(R.drawable.header_1);
 
                                 bitmap = BitmapFactory.decodeResource(
-                                        getResources(), R.drawable.header);
+                                        getResources(), R.drawable.header_1);
 
                                 Palette.from(bitmap).generate(
                                         new Palette.PaletteAsyncListener() {
@@ -180,10 +180,10 @@ public class ProductOverviewFragment extends Fragment {
                                 break;
                             case 1:
 
-                                header.setImageResource(R.drawable.header_1);
+                                header.setImageResource(R.drawable.header_2);
 
                                 bitmap = BitmapFactory.decodeResource(
-                                        getResources(), R.drawable.header_1);
+                                        getResources(), R.drawable.header_2);
 
                                 Palette.from(bitmap).generate(
                                         new Palette.PaletteAsyncListener() {

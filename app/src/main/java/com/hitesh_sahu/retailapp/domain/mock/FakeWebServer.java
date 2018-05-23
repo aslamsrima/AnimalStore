@@ -76,7 +76,7 @@ public class FakeWebServer {
                         "http://img6a.flixcart.com/image/microwave-new/3/3/z/ifb-17pmmec1-400x400-imae4g4uzzjsumhk.jpeg",
                         "oven_1"));
 
-        productlist
+        /*productlist
                 .add(new Product(
                         "Solo Microwave Oven",
                         "Bajaj 1701MT 17 L Solo Microwave Oven",
@@ -123,7 +123,7 @@ public class FakeWebServer {
                         "0",
                         "http://img6a.flixcart.com/image/microwave-new/y/k/m/ifb-25sc4-400x400-imaef2pztynvqjaf.jpeg",
                         "oven_5"));
-
+*/
         productMap.put("Animals", productlist);
 
         ArrayList<Product> tvList = new ArrayList<Product>();
@@ -140,7 +140,7 @@ public class FakeWebServer {
                 "http://img5a.flixcart.com/image/television/g/y/w/vu-32k160mrevd-400x400-imae93ahpwtchzys.jpeg",
                 "tv_1"));
 
-        tvList.add(new Product(
+       /* tvList.add(new Product(
                 "LED 1",
                 "Vu 80cm (32) HD Ready LED TV",
                 "Enjoy movie night with the family on this 80cm LED TV from Vu. With an A+ grade panel, this TV renders crisp details that make what you're watching look realistic.",
@@ -183,13 +183,13 @@ public class FakeWebServer {
                 "0",
                 "http://img6a.flixcart.com/image/television/s/r/t/lg-32lf550a-400x400-imae8nyvxyjds3qu.jpeg",
                 "tv_5"));
-
+*/
         productMap.put("Animal Foods", tvList);
 
         productlist = new ArrayList<Product>();
 
         // Vaccum Cleaner
-        productlist
+       productlist
                 .add(new Product(
                         "Easy Clean Plus Hand-held ",
                         "Eureka Forbes Easy Clean Plus Hand-held Vacuum Cleaner",
@@ -201,7 +201,7 @@ public class FakeWebServer {
                         "http://img5a.flixcart.com/image/vacuum-cleaner/e/e/g/eureka-forbes-easy-clean-easy-clean-plus-400x400-imae7dam5ey3vaeb.jpeg",
                         "v_cleaner_1"));
 
-        productlist
+      /*   productlist
                 .add(new Product(
                         "Easy Clean Plus Hand-held ",
                         "Eureka Forbes Easy Clean Plus Hand-held Vacuum Cleaner",
@@ -249,7 +249,7 @@ public class FakeWebServer {
                         "http://img6a.flixcart.com/image/vacuum-cleaner/s/c/j/eureka-forbes-trendy-steel-trendy-steel-400x400-imae7vashkfj2hgk.jpeg",
                         "v_cleaner_5"));
 
-
+*/
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
         productMap.put("Animal Accesories", productlist);
         productMap.put("Animal Medicine", productlist);
@@ -274,7 +274,7 @@ public class FakeWebServer {
                         "http://img6a.flixcart.com/image/coffee-table/q/f/4/ct15bl-mdf-royal-oak-dark-400x400-imaeehkd8xuheh2u.jpeg",
                         "table_1"));
 
-        productlist
+     /*   productlist
                 .add(new Product(
                         " Wood Coffee Table",
                         "Royal Oak Engineered Wood Coffee Table",
@@ -333,13 +333,13 @@ public class FakeWebServer {
                         "0",
                         "http://img5a.flixcart.com/image/coffee-table/k/y/h/1-particle-board-wood-an-wood-coffee-400x400-imae7uvzqsf4ynan.jpeg",
                         "table_6"));
-
+*/
         productMap.put("Pets", productlist);
 
         productlist = new ArrayList<Product>();
 
         // Chair
-        productlist
+      productlist
                 .add(new Product(
                         "Bean Bag Chair Cover",
                         "ab Homez XXXL Bean Bag Chair Cover (Without Filling)",
@@ -351,7 +351,7 @@ public class FakeWebServer {
                         "http://img5a.flixcart.com/image/bean-bag/5/b/b/boss-moda-chair-br1088-comf-on-xxxl-400x400-imae9k78vg8gjh3q.jpeg",
                         "chair_1"));
 
-        productlist
+     /*     productlist
                 .add(new Product(
                         "Bean Bag Chair Cover",
                         "ab Homez XXXL Bean Bag Chair Cover (Without Filling)",
@@ -446,13 +446,13 @@ public class FakeWebServer {
                         "0",
                         "http://img5a.flixcart.com/image/bean-bag/3/h/w/rydclassicgreenl-rockyard-large-400x400-imae6zfaz6qzj3jd.jpeg",
                         "chair_9"));
-
+*/
         productMap.put("Pets Food", productlist);
 
         productlist = new ArrayList<Product>();
 
         // Chair
-        productlist
+       productlist
                 .add(new Product(
                         "l Collapsible Wardrobe",
                         "Everything Imported Carbon Steel Collapsible Wardrobe",
@@ -464,7 +464,7 @@ public class FakeWebServer {
                         "http://img5a.flixcart.com/image/collapsible-wardrobe/h/h/g/best-quality-3-5-feet-foldable-storage-cabinet-almirah-shelf-400x400-imaees5fq7wbndak.jpeg",
                         "almirah_1"));
 
-        productlist
+    /*     productlist
                 .add(new Product(
                         "l Collapsible Wardrobe",
                         "Everything Imported Carbon Steel Collapsible Wardrobe",
@@ -523,7 +523,7 @@ public class FakeWebServer {
                         "0",
                         "http://img6a.flixcart.com/image/wardrobe-closet/f/b/p/srw-167-jute-pindia-purple-400x400-imaeb9g4d8uvatck.jpeg",
                         "almirah_6"));
-
+*/
         productMap.put("Pets Accesories", productlist);
 
         productMap.put("Pets Medicine", productlist);
