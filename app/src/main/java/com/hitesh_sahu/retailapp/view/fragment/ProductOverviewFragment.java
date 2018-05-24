@@ -51,7 +51,7 @@ public class ProductOverviewFragment extends Fragment {
         View view = inflater.inflate(R.layout.frag_category_details,
                 container, false);
 
-        getActivity().setTitle("Products");
+        getActivity().setTitle("Animal World");
 
         // Simulate Web service calls
         FakeWebServer.getFakeWebServer().getAllProducts(

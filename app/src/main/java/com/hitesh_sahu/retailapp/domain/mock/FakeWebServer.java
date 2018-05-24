@@ -66,15 +66,15 @@ public class FakeWebServer {
         // Ovens
         productlist
                 .add(new Product(
-                        "Solo Microwave Oven",
-                        "IFB 17PMMEC1 17 L Solo Microwave Oven",
-                        "Explore the joys of cooking with IFB 17PM MEC1 Solo Microwave Oven. The budget-friendly appliance has several nifty features including Multi Power Levels and Speed Defrost to make cooking a fun-filled experience.",
-                        "5490",
-                        "10",
-                        "4290",
-                        "0",
-                        "http://img6a.flixcart.com/image/microwave-new/3/3/z/ifb-17pmmec1-400x400-imae4g4uzzjsumhk.jpeg",
-                        "oven_1"));
+                        "Sahiwal Cow",
+                        "Most common Indian breed cow",
+                        "Commonly found breed in India. It gives highest avarage milk in litre per day as comapared to other",
+                        "12000",
+                        "500",
+                        "12500",
+                        "1",
+                        "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg",
+                        "cow_1"));
 
         /*productlist
                 .add(new Product(
@@ -130,14 +130,14 @@ public class FakeWebServer {
 
         // TV
         tvList.add(new Product(
-                "LED",
-                "Vu 80cm (32) HD Ready LED TV",
-                "Enjoy movie night with the family on this 80cm LED TV from Vu. With an A+ grade panel, this TV renders crisp details that make what you're watching look realistic.",
-                "16000",
-                "12",
-                "13990",
-                "0",
-                "http://img5a.flixcart.com/image/television/g/y/w/vu-32k160mrevd-400x400-imae93ahpwtchzys.jpeg",
+                "Calf Starter",
+                "Amul Varden Calf Starter",
+                "Sand Silica 4%, Crude Protein 18-20%, Crude Fibre 12%, Fat 2% ",
+                "2500",
+                "100",
+                "2400",
+                "20",
+                "http://5.imimg.com/data5/VG/QR/MY-203796/varden-250x250.jpg",
                 "tv_1"));
 
        /* tvList.add(new Product(
@@ -191,14 +191,14 @@ public class FakeWebServer {
         // Vaccum Cleaner
        productlist
                 .add(new Product(
-                        "Easy Clean Plus Hand-held ",
-                        "Eureka Forbes Easy Clean Plus Hand-held Vacuum Cleaner",
-                        "The Eureka Forbes Easy Clean vacuum cleaner is best for those who are looking for a machine that makes cleaning easier and is convenient to use. It is a compact and powerful machine with high suction and low power consumption.",
-                        "2699",
+                        "Animal Anorexia Herbal Powder",
+                        "Leveraging on our wide expertise & skills, we are renowned as one of the most profound manufacturers and exporters of Animal Anorexia Herbal Powder.",
+                        " Our offered range of Anorexia Herbal Powder is appreciated by the clients due to its precise pH value, non toxicity and accurate composition.",
+                        "85",
+                        "5",
+                        "90",
                         "10",
-                        "2566",
-                        "0",
-                        "http://img5a.flixcart.com/image/vacuum-cleaner/e/e/g/eureka-forbes-easy-clean-easy-clean-plus-400x400-imae7dam5ey3vaeb.jpeg",
+                        "http://4.imimg.com/data4/SX/AM/MY-2969813/anorexia-herbal-powder-500x500.jpg",
                         "v_cleaner_1"));
 
       /*   productlist
@@ -251,8 +251,9 @@ public class FakeWebServer {
 
 */
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
-        productMap.put("Animal Accesories", productlist);
         productMap.put("Animal Medicine", productlist);
+        /*productMap.put("Animal Accesories", productlist);*/
+
     }
 
     public void getAllFurnitures() {
@@ -264,15 +265,15 @@ public class FakeWebServer {
         // Table
         productlist
                 .add(new Product(
-                        " Wood Coffee Table",
-                        "Royal Oak Engineered Wood Coffee Table",
-                        "With a contemporary design and gorgeous finish, this coffee table will be a brilliant addition to modern homes and even offices. The table has a glass table top with a floral print, and a pull-out drawer in the center.",
-                        "10200",
-                        "12",
-                        "7000",
-                        "0",
-                        "http://img6a.flixcart.com/image/coffee-table/q/f/4/ct15bl-mdf-royal-oak-dark-400x400-imaeehkd8xuheh2u.jpeg",
-                        "table_1"));
+                        " Bulldog ",
+                        "All Line Sitting Bulldog Puppy Figurine",
+                        "Sold and Shipped from USA. More Delivery options available.Beautifully Painted With Lifelike Details.",
+                        "3314",
+                        "186",
+                        "3500",
+                        "1",
+                        "https://images-na.ssl-images-amazon.com/images/I/51eYpWIIWjL.jpg",
+                        "pet_1"));
 
      /*   productlist
                 .add(new Product(
@@ -341,15 +342,15 @@ public class FakeWebServer {
         // Chair
       productlist
                 .add(new Product(
-                        "Bean Bag Chair Cover",
-                        "ab Homez XXXL Bean Bag Chair Cover (Without Filling)",
-                        "With a contemporary design and gorgeous finish, this coffee table will be a brilliant addition to modern homes and even offices. The table has a glass table top with a floral print, and a pull-out drawer in the center.",
-                        "36500",
-                        "20",
-                        "1200",
+                        "Royal Canin",
+                        "Royal Canin Maxi Starter, 1 kg",
+                        "Item Weight: 1.08 Kg. Nutritional profile which is adapted to the bitch’s high energy needs at end of gestation and during lactation",
+                        "759",
+                        "1",
+                        "770",
                         "0",
-                        "http://img5a.flixcart.com/image/bean-bag/5/b/b/boss-moda-chair-br1088-comf-on-xxxl-400x400-imae9k78vg8gjh3q.jpeg",
-                        "chair_1"));
+                        "https://images-na.ssl-images-amazon.com/images/I/41lE5rA8NAL._SY450_.jpg",
+                        "pet_food__1"));
 
      /*     productlist
                 .add(new Product(
@@ -454,15 +455,16 @@ public class FakeWebServer {
         // Chair
        productlist
                 .add(new Product(
-                        "l Collapsible Wardrobe",
-                        "Everything Imported Carbon Steel Collapsible Wardrobe",
-                        "Portable Wardrobe Has Hanging Space And Shelves Which Are Very Practical And The Roll Down Cover Keeps The Dust Out",
-                        "2999",
-                        "20",
-                        "1999",
+                        "Simparica Flea",
+                        "Simparica Flea & Tick Chewable Tablets for Dogs",
+                        "Simparica is a tasty chew for dogs that delivers new advances in fl ea, tick and mite control, helping to deliver improved client and patient satisfaction. \n" +
+                                "Simparica brings a new innovative way to keep on top of fl eas and ticks by providing immediate and persistent killing activity for at least 35 days",
+                        "2276",
+                        "3",
+                        "2500",
                         "0",
-                        "http://img5a.flixcart.com/image/collapsible-wardrobe/h/h/g/best-quality-3-5-feet-foldable-storage-cabinet-almirah-shelf-400x400-imaees5fq7wbndak.jpeg",
-                        "almirah_1"));
+                        "https://www.vetproductsdirect.co.in/media/catalog/product/cache/373d83a1644451bb1cbf61008798968a/s/i/simparica-80mg-flea-tick-chewable-tablet-dogs-44-88-lbs-20-40-kg.jpg",
+                        "pets_medicine_1"));
 
     /*     productlist
                 .add(new Product(
@@ -524,7 +526,7 @@ public class FakeWebServer {
                         "http://img6a.flixcart.com/image/wardrobe-closet/f/b/p/srw-167-jute-pindia-purple-400x400-imaeb9g4d8uvatck.jpeg",
                         "almirah_6"));
 */
-        productMap.put("Pets Accesories", productlist);
+       /* productMap.put("Pets Accesories", productlist);*/
 
         productMap.put("Pets Medicine", productlist);
 
