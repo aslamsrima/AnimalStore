@@ -69,9 +69,9 @@ public class FakeWebServer {
                         "Sahiwal Cow",
                         "Most common Indian breed cow",
                         "Commonly found breed in India. It gives highest avarage milk in litre per day as comapared to other",
-                        "12000",
-                        "500",
                         "12500",
+                        "3",
+                        "12000",
                         "1",
                         "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg",
                         "cow_1"));
@@ -134,7 +134,7 @@ public class FakeWebServer {
                 "Amul Varden Calf Starter",
                 "Sand Silica 4%, Crude Protein 18-20%, Crude Fibre 12%, Fat 2% ",
                 "2500",
-                "100",
+                "6",
                 "2400",
                 "20",
                 "http://5.imimg.com/data5/VG/QR/MY-203796/varden-250x250.jpg",
@@ -184,7 +184,7 @@ public class FakeWebServer {
                 "http://img6a.flixcart.com/image/television/s/r/t/lg-32lf550a-400x400-imae8nyvxyjds3qu.jpeg",
                 "tv_5"));
 */
-        productMap.put("Animal Foods", tvList);
+        productMap.put("Animals Foods", tvList);
 
         productlist = new ArrayList<Product>();
 
@@ -195,7 +195,7 @@ public class FakeWebServer {
                         "Leveraging on our wide expertise & skills, we are renowned as one of the most profound manufacturers and exporters of Animal Anorexia Herbal Powder.",
                         " Our offered range of Anorexia Herbal Powder is appreciated by the clients due to its precise pH value, non toxicity and accurate composition.",
                         "85",
-                        "5",
+                        "1",
                         "90",
                         "10",
                         "http://4.imimg.com/data4/SX/AM/MY-2969813/anorexia-herbal-powder-500x500.jpg",
@@ -251,8 +251,11 @@ public class FakeWebServer {
 
 */
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
-        productMap.put("Animal Medicine", productlist);
-        /*productMap.put("Animal Accesories", productlist);*/
+        productMap.put("Animals Medicine", productlist);
+        productlist = new ArrayList<Product>();
+        productMap.put("Animals Accesories", productlist);
+
+
 
     }
 
@@ -269,7 +272,7 @@ public class FakeWebServer {
                         "All Line Sitting Bulldog Puppy Figurine",
                         "Sold and Shipped from USA. More Delivery options available.Beautifully Painted With Lifelike Details.",
                         "3314",
-                        "186",
+                        "2",
                         "3500",
                         "1",
                         "https://images-na.ssl-images-amazon.com/images/I/51eYpWIIWjL.jpg",

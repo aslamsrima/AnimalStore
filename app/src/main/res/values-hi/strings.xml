@@ -10,7 +10,7 @@
 
     <string name="app_name">प्राणी जगत</string>
     <string name="sub_title">द्वारा संचालित: - आईसीएस</string>
-    <string name="Company_name">(इना कंसल्टेंसी सेवा)</string>
+    <string name="Company_name">(इनारा कंसल्टेंसी सेवा)</string>
     <string name="action_login">लॉग इन करें</string>
     <string name="action_settings">सेटिंग्स</string>
     <string name="empty_text">Select song from below to play</string>
@@ -26,20 +26,12 @@
     <string name="offer_banner">"Shop for 2000 to get Rs 100 discount and shop for 3000 to get Rs 200 discount"</string>
     <string name="checkout">CheckOut</string>
     <string name="similar_product">You may also like</string>
-    <string name="slogan">Assignment</string>
-    <string name="email_developer_">Email Developer:</string>
-    <string name="personal_website_">Personal Website :</string>
-    <string name="site_hitesh">www.hiteshsahu.com</string>
-    <string name="contact_number">Contact Number</string>
-    <string name="mob_num">8888813275</string>
     <string name="lab_locations">Locations</string>
-    <string name="pune">Pune</string>
-    <string name="address_value">C 1002, Lorelle Socity Wakad Pune</string>
     <string name="country_prompt">Choose a country</string>
     <string name="register_link"><u>Do not have an Account?</u></string>
-    <string name="category"><u>श्रेणियाँ</u></string>
+    <string name="category"><u>विविधताँ</u></string>
     <string-array name="Category">
-        <item>श्रेणी का चयन करें</item>
+        <item>कृपया चुने</item>
         <item>जानवर</item>
         <item>पालतू पशु</item>
     </string-array>

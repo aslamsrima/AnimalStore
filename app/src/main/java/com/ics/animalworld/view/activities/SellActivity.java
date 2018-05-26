@@ -134,7 +134,7 @@ public class SellActivity extends AppCompatActivity{
                     milktxt.setVisibility(View.VISIBLE);
                 }else if(position==2){
                     type.setAdapter(petAdapter);
-                    type.setVisibility(View.GONE);
+                    type.setVisibility(View.VISIBLE);
                     milkRec.setVisibility(View.GONE);
                     milktxt.setVisibility(View.GONE);
                 }

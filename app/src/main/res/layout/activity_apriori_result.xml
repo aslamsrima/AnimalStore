@@ -18,7 +18,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/accent"
+        android:background="@color/primary"
         android:fitsSystemWindows="true">
 
         <android.support.v7.widget.Toolbar
@@ -26,9 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentTop="true"
-            android:background="@color/accent_700"
+            android:background="@color/primary"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="Apriori Algo Result"
+            app:title="My Adds"
             app:titleTextColor="#FFF" />
 
         <FrameLayout

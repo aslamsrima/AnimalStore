@@ -105,7 +105,7 @@ public class SearchProductFragment extends Fragment {
             public void beforeTextChanged(CharSequence arg0, int arg1,
                                           int arg2, int arg3) {
 
-                heading.setText("Search Products");
+                heading.setText("Search");
 
             }
 

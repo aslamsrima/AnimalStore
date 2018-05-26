@@ -27,7 +27,7 @@
         <item
             android:id="@+id/apriori_result"
             android:icon="@drawable/inquiry"
-            android:title="My Inquiries" />
+            android:title="My Adds" />
         <item
             android:id="@+id/contact_us"
             android:icon="@android:drawable/ic_menu_call"
