@@ -22,6 +22,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.ics.animalworld.R;
@@ -33,6 +35,8 @@ import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
 import com.ics.animalworld.view.adapter.ProductsInCategoryPagerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class ProductOverviewFragment extends Fragment {
@@ -44,14 +48,16 @@ public class ProductOverviewFragment extends Fragment {
     private ViewPager viewPager;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TabLayout tabLayout;
-
+    private Spinner SortBy;
+    ArrayAdapter<String> dataAdapter;
+    List<String> animalList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_category_details,
                 container, false);
 
-        getActivity().setTitle("Animal World");
+        //getActivity().setTitle("Animal World");
 
         // Simulate Web service calls
         FakeWebServer.getFakeWebServer().getAllProducts(
@@ -67,7 +73,7 @@ public class ProductOverviewFragment extends Fragment {
         // time consuming Leain it now
 
         viewPager = (ViewPager) view.findViewById(R.id.htab_viewpager);
-
+        SortBy=(Spinner)view.findViewById(R.id.Sort);
         collapsingToolbarLayout = (CollapsingToolbarLayout) view
                 .findViewById(R.id.htab_collapse_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
@@ -97,6 +103,17 @@ public class ProductOverviewFragment extends Fragment {
                         .openDrawer(GravityCompat.START);
             }
         });
+        animalList = new ArrayList<String>();
+        animalList.add("Buffloes");
+        animalList.add("Cows");
+        animalList.add("Goats");
+        animalList.add("Sheeps");
+        animalList.add("Horse");
+
+
+
+        dataAdapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_spinner_item,animalList);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         setUpUi();
 
@@ -179,7 +196,9 @@ public class ProductOverviewFragment extends Fragment {
                                         });
                                 break;
                             case 1:
-
+                                dataAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,animalList);
+                                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                SortBy.setAdapter(dataAdapter);
                                 header.setImageResource(R.drawable.header_2);
 
                                 bitmap = BitmapFactory.decodeResource(
