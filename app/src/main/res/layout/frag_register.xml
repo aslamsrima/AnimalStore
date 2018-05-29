@@ -7,7 +7,7 @@
     android:scrollbarAlwaysDrawVerticalTrack="true">
 
     <TextView
-        android:id="@+id/login_title"
+        android:id="@+id/register_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -21,10 +21,10 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_title"
+        android:layout_below="@+id/register_title"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@color/trans_grey"
         android:alpha="0.8"
         android:elevation="4dp"
@@ -47,10 +47,10 @@
                 <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-
+                    android:id="@+id/email"
                     android:drawableTint="#FF4081"
                     android:singleLine="true"
-                    android:hint="Full Name"
+                    android:hint="Email"
                     android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
@@ -63,12 +63,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:singleLine="true"
-
+                    android:id="@+id/password"
                     android:drawableTint="#FF4081"
-                    android:hint="Mobile Number"
-                    android:inputType="text" />
+                    android:hint="Password"
+                    android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+           <!-- <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -110,11 +110,12 @@
                     android:drawableTint="#FF4081"
                     android:hint="State"
                     android:inputType="text" />
-            </android.support.design.widget.TextInputLayout>
+            </android.support.design.widget.TextInputLayout>-->
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="22dp"
+                android:id="@+id/sign_up_button"
+                android:layout_marginTop="22dp"
                 android:background="#d67601"
                 android:text="Create My Account"
                 android:textAllCaps="false"

@@ -6,6 +6,29 @@
   ~ along with the project.
   ~  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
   -->
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/anim_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        >
+        <Spinner
+            android:id="@+id/categoryLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:entries="@array/Language"
+            android:gravity="right"
+            app:layout_collapseParallaxMultiplier="1.0" />
+    </android.support.v7.widget.Toolbar>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dummyfrag_bg"
@@ -141,5 +164,5 @@
             </FrameLayout>
         </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
-
 </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -104,6 +104,7 @@ public class ProductOverviewFragment extends Fragment {
             }
         });
         animalList = new ArrayList<String>();
+        animalList.add("Select Animal");
         animalList.add("Buffloes");
         animalList.add("Cows");
         animalList.add("Goats");
