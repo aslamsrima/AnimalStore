@@ -53,6 +53,21 @@
                 android:entries="@array/Category"
                 android:layout_marginTop="5dip"
                  />
+
+            <!-- Sub category -->
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Sub Category"
+                android:textStyle="bold"/>
+            <Spinner
+                android:id="@+id/subCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/Category"
+                android:layout_marginTop="5dip"
+                />
+
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
@@ -80,7 +95,7 @@
                     android:orientation="horizontal"
                   >
 
-                        <RadioButton android:id="@+id/radio_pirates"
+                        <RadioButton android:id="@+id/radio_male"
                             android:layout_marginTop="10dip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -88,7 +103,7 @@
                             />
 
 
-                        <RadioButton android:id="@+id/radio_ninjas"
+                        <RadioButton android:id="@+id/radio_female"
                             android:layout_marginTop="10dip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -103,7 +118,7 @@
                 android:text="Breed"
                 android:layout_marginTop="10dip"
                 android:textStyle="bold"/>
-            <EditText android:id="@+id/reg_fullname"
+            <EditText android:id="@+id/reg_breed"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
@@ -117,7 +132,7 @@
                 android:textColor="#372c24"
                 android:text="Age"
                 android:textStyle="bold"/>
-            <EditText android:id="@+id/reg_email"
+            <EditText android:id="@+id/reg_age"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
@@ -150,6 +165,67 @@
                 android:singleLine="true"
                 android:layout_marginTop="5dip"/>
 
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Description"
+                android:layout_marginTop="10dip"
+                android:textStyle="bold"/>
+            <EditText android:id="@+id/reg_description"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:singleLine="true"
+                android:layout_marginBottom="20dip"/>
+
+
+
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="City"
+                android:layout_marginTop="10dip"
+                android:textStyle="bold"/>
+            <EditText android:id="@+id/reg_city"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:singleLine="true"
+                android:layout_marginBottom="20dip"/>
+
+
+
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="District"
+                android:layout_marginTop="10dip"
+                android:textStyle="bold"/>
+            <EditText android:id="@+id/reg_district"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:singleLine="true"
+                android:layout_marginBottom="20dip"/>
+
+
+
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Supplier Contact"
+                android:layout_marginTop="10dip"
+                android:textStyle="bold"/>
+            <EditText android:id="@+id/reg_supplier_contact"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:singleLine="true"
+                android:layout_marginBottom="20dip"/>
+
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -166,11 +242,11 @@
 
 
             <CheckBox
-                android:id="@+id/chkIos"
+                android:id="@+id/chk_is_negotiable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Negotiable price" />
-            <Button android:id="@+id/btnRegister"
+            <Button android:id="@+id/btnAddPost"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/primary"
