@@ -3,6 +3,7 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.ActionBar;
+import android.app.LauncherActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,6 +24,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -31,7 +33,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ics.animalworld.R;
+import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.util.Animatrix;
 import com.ics.animalworld.util.Utils;
 
@@ -41,16 +46,21 @@ import java.lang.annotation.RetentionPolicy;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SellActivity extends AppCompatActivity{
     private RadioButton male,female;
     private TextView milktxt;
     private EditText breed, milkRec,Price,Age;
     private Spinner category, type;
+    private Button AddPost;
     View appRoot;
     ImageView productImage;
-
+    DatabaseReference mDB;
+    DatabaseReference mAnimalRef;
+    private ArrayList<Animals> mAnimal;
     Toolbar toolbar;
     ArrayAdapter<String> dataAdapter,petAdapter;
     private static final int CAMERA_REQUEST = 1888;
@@ -75,7 +85,14 @@ public class SellActivity extends AppCompatActivity{
         milktxt.setVisibility(View.GONE);
         type.setVisibility(View.GONE);
         productImage = (ImageView) findViewById(R.id.viewImage) ;
+        AddPost=(Button) findViewById(R.id.btnAddPost);
 
+        AddPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createNewListItem();
+            }
+        });
         ActivityCompat.requestPermissions(SellActivity.this,
                 new String[]{Manifest.permission.CAMERA},
                 1);
@@ -145,13 +162,10 @@ public class SellActivity extends AppCompatActivity{
                 // your code here
             }
 
-
-
-
-
-
-
         });
+        mDB= FirebaseDatabase.getInstance().getReference();
+        mAnimalRef = mDB.child("Animals");
+        mAnimal = new ArrayList<>();
 
     }
 
@@ -291,6 +305,24 @@ public class SellActivity extends AppCompatActivity{
             return DENIED;
         }
         return GRANTED;
+    }
+    public void createNewListItem() {
+        // Create new List Item  at /listItem
+
+        final String key = FirebaseDatabase.getInstance().getReference().child("listItem").push().getKey();
+        //LayoutInflater li = LayoutInflater.from(this);
+        //View getListItemView = li.inflate(R.layout.dialog_get_list_item, null);
+
+        //String listItemText = userInput.getText().toString();
+        Animals animal = new Animals();
+
+        Map<String, Object> listItemValues = animal.toMap(animal);
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/Animals/" + key, listItemValues);
+        FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
+        // set dialog message
+
+
     }
 
 
