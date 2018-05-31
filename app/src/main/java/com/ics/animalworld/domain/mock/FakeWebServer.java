@@ -8,11 +8,19 @@
 
 package com.ics.animalworld.domain.mock;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ics.animalworld.model.CenterRepository;
+import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.model.entities.ProductCategoryModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /*
@@ -21,6 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class FakeWebServer {
 
     private static FakeWebServer fakeServer;
+    private DatabaseReference mDatabase;
 
     public static FakeWebServer getFakeWebServer() {
 
@@ -57,14 +66,28 @@ public class FakeWebServer {
         CenterRepository.getCenterRepository().setListOfCategory(listOfCategory);
     }
 
-    public void getAllElectronics() {
+    public void getAllElectronics(Map<String,Object> animal) {
 
-        ConcurrentHashMap<String, ArrayList<Product>> productMap = new ConcurrentHashMap<String, ArrayList<Product>>();
+        ConcurrentHashMap<String, ArrayList<Animals>> productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
 
-        ArrayList<Product> productlist = new ArrayList<Product>();
+        ArrayList<Animals> productlist = new ArrayList<Animals>();
+        //Map<String,String> newMap =new HashMap<String,String>();
+        Animals myAnimal=new Animals();
+		for (Map.Entry<String,Object> entry : animal.entrySet()){
+            if(entry.getValue() instanceof Object){
+              //  newMap.put(entry.getKey(), (String) entry.getValue());
+            }
+        }
 
+                //productlist.add((Animals) entry.getValue());
+        //Get phone field and append to list
+
+
+
+        
+		 
         // Ovens
-        productlist
+        /*productlist
                 .add(new Product(
                         "Sahiwal Cow",
                         "Most common Indian breed cow",
@@ -75,7 +98,7 @@ public class FakeWebServer {
                         "1",
                         "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg",
                         "cow_1"));
-
+*/
         /*productlist
                 .add(new Product(
                         "Solo Microwave Oven",
@@ -126,10 +149,10 @@ public class FakeWebServer {
 */
         productMap.put("Animals", productlist);
 
-        ArrayList<Product> tvList = new ArrayList<Product>();
+       // ArrayList<Product> tvList = new ArrayList<Product>();
 
         // TV
-        tvList.add(new Product(
+       /* tvList.add(new Product(
                 "Calf Starter",
                 "Amul Varden Calf Starter",
                 "Sand Silica 4%, Crude Protein 18-20%, Crude Fibre 12%, Fat 2% ",
@@ -139,7 +162,7 @@ public class FakeWebServer {
                 "20",
                 "http://5.imimg.com/data5/VG/QR/MY-203796/varden-250x250.jpg",
                 "tv_1"));
-
+*/
        /* tvList.add(new Product(
                 "LED 1",
                 "Vu 80cm (32) HD Ready LED TV",
@@ -184,9 +207,9 @@ public class FakeWebServer {
                 "http://img6a.flixcart.com/image/television/s/r/t/lg-32lf550a-400x400-imae8nyvxyjds3qu.jpeg",
                 "tv_5"));
 */
-        productMap.put("Animals Foods", tvList);
+      //  productMap.put("Animals Foods", tvList);
 
-        productlist = new ArrayList<Product>();
+      /*  productlist = new ArrayList<Product>();
 
         // Vaccum Cleaner
        productlist
@@ -200,7 +223,7 @@ public class FakeWebServer {
                         "10",
                         "http://4.imimg.com/data4/SX/AM/MY-2969813/anorexia-herbal-powder-500x500.jpg",
                         "v_cleaner_1"));
-
+*/
       /*   productlist
                 .add(new Product(
                         "Easy Clean Plus Hand-held ",
@@ -250,9 +273,9 @@ public class FakeWebServer {
                         "v_cleaner_5"));
 
 */
-        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
-        productMap.put("Animals Medicine", productlist);
-        productlist = new ArrayList<Product>();
+        //CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
+        //productMap.put("Animals Medicine", productlist);
+        //productlist = new ArrayList<Product>();
         productMap.put("Animals Accesories", productlist);
 
 
@@ -540,8 +563,20 @@ public class FakeWebServer {
     public void getAllProducts(int productCategory) {
 
         if (productCategory == 0) {
+			mDatabase = FirebaseDatabase.getInstance().getReference().child("Animals");
+			mDatabase.addListenerForSingleValueEvent(
+            new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    getAllElectronics((Map<String,Object>) dataSnapshot.getValue());
+                }
 
-            getAllElectronics();
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    //handle databaseError
+                }
+            });
+            //getAllElectronics();
         } else {
 
             getAllFurnitures();

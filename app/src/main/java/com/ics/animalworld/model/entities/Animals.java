@@ -11,7 +11,7 @@ import java.util.Map;
 public class Animals {
     public int ID;
     public String Category;
-    public String SubCategory;
+  //  public String SubCategory;
     public int Age;
     public String Breed;
     public String Gender;
@@ -24,9 +24,9 @@ public class Animals {
     public String City;
     public String District;
     public String State;
-    public Bitmap Pic;
-    public Date CreatedOn;
-    public Date UpdatedOn;
+  //  public Bitmap Pic;
+  //  public Date CreatedOn;
+  //  public Date UpdatedOn;
 
     public Animals() {
         // Default constructor required for calls to DataSnapshot.getValue(ListItem.class)
@@ -36,7 +36,7 @@ public class Animals {
         HashMap<String, Object> result = new HashMap<>();
         result.put("ID", animal.ID);
         result.put("Category", animal.Category);
-        result.put("SubCategory", animal.SubCategory);
+      //  result.put("SubCategory", animal.SubCategory);
         result.put("Age", animal.Age);
         result.put("Breed", animal.Breed);
         result.put("Gender", animal.Gender);
@@ -49,9 +49,9 @@ public class Animals {
         result.put("City", animal.City);
         result.put("District", animal.District);
         result.put("State", animal.State);
-        result.put("Pic", animal.Pic);
+      /*  result.put("Pic", animal.Pic);
         result.put("CreatedOn", animal.CreatedOn);
-        result.put("UpdatedOn", animal.UpdatedOn);
+        result.put("UpdatedOn", animal.UpdatedOn);*/
 
         return result;
     }

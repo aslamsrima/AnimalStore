@@ -75,7 +75,7 @@ public class ProductLoaderTask extends AsyncTask<String, Void, Void> {
             e.printStackTrace();
         }
 
-        FakeWebServer.getFakeWebServer().getAllElectronics();
+        FakeWebServer.getFakeWebServer().getAllProducts(1);
 
         return null;
     }
