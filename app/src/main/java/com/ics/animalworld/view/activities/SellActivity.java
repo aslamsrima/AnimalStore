@@ -25,6 +25,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -48,13 +49,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class SellActivity extends AppCompatActivity{
     private RadioButton male,female;
     private TextView milktxt;
-    private EditText breed, milkRec,Price,Age;
-    private Spinner category, type;
+    private EditText breed, milkRec, Price, Age, description, city, district, supplierContact,price;
+    private CheckBox negotiable;
+    private Spinner category, type,subCategory;
     private Button AddPost;
     View appRoot;
     ImageView productImage;
@@ -62,7 +65,8 @@ public class SellActivity extends AppCompatActivity{
     DatabaseReference mAnimalRef;
     private ArrayList<Animals> mAnimal;
     Toolbar toolbar;
-    ArrayAdapter<String> dataAdapter,petAdapter;
+    List<String> subCategoryList;
+    ArrayAdapter<String> dataAdapter,petAdapter,subCategoryAdapter;
     private static final int CAMERA_REQUEST = 1888;
     public static final int GRANTED = 0;
     public static final int DENIED = 1;
@@ -75,7 +79,10 @@ public class SellActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frag_sell);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         category=(Spinner)findViewById(R.id.category);
+        subCategory = (Spinner)findViewById(R.id.subCategory);
         type=(Spinner)findViewById(R.id.type);
         milkRec=(EditText)findViewById(R.id.milkval);
         milktxt=(TextView)findViewById(R.id.milktext);
@@ -87,10 +94,24 @@ public class SellActivity extends AppCompatActivity{
         productImage = (ImageView) findViewById(R.id.viewImage) ;
         AddPost=(Button) findViewById(R.id.btnAddPost);
 
+        description=(EditText)findViewById(R.id.reg_description);
+        Price=(EditText)findViewById(R.id.price);
+        Age=(EditText)findViewById(R.id.reg_age);
+        breed=(EditText)findViewById(R.id.reg_breed);
+        city=(EditText)findViewById(R.id.reg_city);
+        district=(EditText)findViewById(R.id.reg_district);
+
+        supplierContact=(EditText)findViewById(R.id.reg_supplier_contact);
+        price=(EditText)findViewById(R.id.price);
+        negotiable=(CheckBox)findViewById(R.id.chk_is_negotiable);
+
+
+
+
         AddPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createNewListItem();
+                createNewListItem(view);
             }
         });
         ActivityCompat.requestPermissions(SellActivity.this,
@@ -109,6 +130,13 @@ public class SellActivity extends AppCompatActivity{
 
         });
 
+        subCategoryList = new ArrayList<String>();
+        subCategoryList.add("Select Animal");
+        subCategoryList.add("Buffloes");
+        subCategoryList.add("Cows");
+        subCategoryList.add("Goats");
+        subCategoryList.add("Sheeps");
+        subCategoryList.add("Horse");
 
 
         List<String> animalList = new ArrayList<String>();
@@ -133,6 +161,11 @@ public class SellActivity extends AppCompatActivity{
         petAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
+        subCategoryAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, subCategoryList);
+        subCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
 
         category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -142,11 +175,13 @@ public class SellActivity extends AppCompatActivity{
                 if(position==0){
                     type.setVisibility(View.GONE);
                     milkRec.setVisibility(View.GONE);
+                    subCategory.setVisibility(View.GONE);
                     milktxt.setVisibility(View.GONE);
                 }
                 if(position==1){
                     type.setAdapter(dataAdapter);
                     type.setVisibility(View.VISIBLE);
+                    subCategory.setVisibility(View.VISIBLE);
                     milkRec.setVisibility(View.VISIBLE);
                     milktxt.setVisibility(View.VISIBLE);
                 }else if(position==2){
@@ -154,6 +189,7 @@ public class SellActivity extends AppCompatActivity{
                     type.setVisibility(View.VISIBLE);
                     milkRec.setVisibility(View.GONE);
                     milktxt.setVisibility(View.GONE);
+                    subCategory.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -291,8 +327,8 @@ public class SellActivity extends AppCompatActivity{
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-            // other 'case' lines to check for other
-            // permissions this app might request
+                // other 'case' lines to check for other
+                // permissions this app might request
         }
     }
 
@@ -306,7 +342,7 @@ public class SellActivity extends AppCompatActivity{
         }
         return GRANTED;
     }
-    public void createNewListItem() {
+    public void createNewListItem(View v) {
         // Create new List Item  at /listItem
 
         final String key = FirebaseDatabase.getInstance().getReference().child("listItem").push().getKey();
@@ -315,6 +351,22 @@ public class SellActivity extends AppCompatActivity{
 
         //String listItemText = userInput.getText().toString();
         Animals animal = new Animals();
+        animal.Age = Integer.parseInt(Age.getText().toString());
+        animal.Breed = breed.getText().toString();
+        animal.Category = category.getSelectedItem().toString();
+        animal.City = city.getText().toString();
+        //animal.CreatedOn = new Date();
+        animal.Description = description.getText().toString();
+        animal.District = district.getText().toString();
+        animal.Gender = "Male";
+        animal.ID = 1;
+        animal.IsPrizeNegoyiable=true;
+        animal.MlkRec = Integer.parseInt(milkRec.getText().toString());
+        animal.Prize = Integer.parseInt(price.getText().toString());
+        animal.State = "Maharashtra";
+        animal.Status = "Review";
+        animal.SupplierContact = supplierContact.getText().toString();
+
 
         Map<String, Object> listItemValues = animal.toMap(animal);
         Map<String, Object> childUpdates = new HashMap<>();
