@@ -8,11 +8,15 @@
 
 package com.ics.animalworld.domain.mock;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Product;
@@ -71,13 +75,26 @@ public class FakeWebServer {
         ConcurrentHashMap<String, ArrayList<Animals>> productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
 
         ArrayList<Animals> productlist = new ArrayList<Animals>();
-        //Map<String,String> newMap =new HashMap<String,String>();
         Animals myAnimal=new Animals();
-		for (Map.Entry<String,Object> entry : animal.entrySet()){
-            if(entry.getValue() instanceof Object){
-              //  newMap.put(entry.getKey(), (String) entry.getValue());
-            }
+        Gson gson = new Gson();
+
+        //final ObjectMapper mapper = new ObjectMapper();
+        //Map<String,String> newMap =new HashMap<String,String>();
+        for (String s : animal.keySet()) {
+            JsonElement jsonElement = gson.toJsonTree(animal.get(s));
+             myAnimal = gson.fromJson(jsonElement, Animals.class);
+            productlist.add(myAnimal);
         }
+
+		//myAnimal.
+       /* for (Map.Entry<String,Object> entry : animal.entrySet()){
+          //  newMap.putAll(entry.getValue());
+            Log.d("",""+entry.getValue());
+            Object AnimalObj= entry.getValue();
+            Log.d("",""+AnimalObj);
+          //  myAnimal.ID=Integer.parseInt(AnimalObj.get("ID"));
+            productlist.add(AnimalObj);
+		}*/
 
                 //productlist.add((Animals) entry.getValue());
         //Get phone field and append to list
@@ -276,7 +293,7 @@ public class FakeWebServer {
         //CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
         //productMap.put("Animals Medicine", productlist);
         //productlist = new ArrayList<Product>();
-        productMap.put("Animals Accesories", productlist);
+       // productMap.put("Animals Accesories", productlist);
 
 
 
