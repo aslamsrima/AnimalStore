@@ -1,10 +1,3 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
 package com.ics.animalworld.view.fragment;
 
 import android.graphics.Color;
@@ -474,7 +467,7 @@ public class ProductDetailsFragment extends Fragment {
 
             itemName.setText(CenterRepository.getCenterRepository()
                     .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                    .getItemName());
+                    .Category);
 
 //            quanitity.setText(CenterRepository.getCenterRepository()
 //                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
@@ -482,20 +475,20 @@ public class ProductDetailsFragment extends Fragment {
 
             itemdescription.setText(CenterRepository.getCenterRepository()
                     .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                    .getItemDetail());
+                    .Description);
 
             String sellCostString = Money.rupees(
-                    BigDecimal.valueOf(Long.valueOf(CenterRepository
+                    BigDecimal.valueOf(CenterRepository
                             .getCenterRepository().getMapOfProductsInCategory()
                             .get(subcategoryKey).get(productListNumber)
-                            .getSellMRP()))).toString()
+                            .Prize)).toString()
                     + "  ";
 
             String buyMRP = Money.rupees(
-                    BigDecimal.valueOf(Long.valueOf(CenterRepository
+                    BigDecimal.valueOf(CenterRepository
                             .getCenterRepository().getMapOfProductsInCategory()
                             .get(subcategoryKey).get(productListNumber)
-                            .getMRP()))).toString();
+                            .Prize)).toString();
 
             String costString = sellCostString + buyMRP;
 
@@ -512,16 +505,14 @@ public class ProductDetailsFragment extends Fragment {
             drawable = mDrawableBuilder.build(
                     String.valueOf(CenterRepository.getCenterRepository()
                             .getMapOfProductsInCategory().get(subcategoryKey)
-                            .get(productListNumber).getItemName().charAt(0)),
+                            .get(productListNumber).Category.charAt(0)),
                     mColorGenerator.getColor(CenterRepository
                             .getCenterRepository().getMapOfProductsInCategory()
                             .get(subcategoryKey).get(productListNumber)
-                            .getItemName()));
+                            .Category));
 
             Picasso.with(getActivity())
-                    .load(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
-                            .get(subcategoryKey).get(productListNumber)
-                            .getImageURL()).placeholder(drawable)
+                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg").placeholder(drawable)  //CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getImageURL(
                     .error(drawable).fit().centerCrop()
                     .networkPolicy(NetworkPolicy.OFFLINE)
                     .into(itemImage, new Callback() {
@@ -535,11 +526,8 @@ public class ProductDetailsFragment extends Fragment {
                             // Try again online if cache failed
 
                             Picasso.with(getActivity())
-                                    .load(CenterRepository.getCenterRepository()
-                                            .getMapOfProductsInCategory()
-                                            .get(subcategoryKey)
-                                            .get(productListNumber)
-                                            .getImageURL())
+                                    .load(//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getImageURL()
+                                            "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg\",")
                                     .placeholder(drawable).error(drawable)
                                     .fit().centerCrop().into(itemImage);
                         }
@@ -547,8 +535,8 @@ public class ProductDetailsFragment extends Fragment {
 
             LabelView label = new LabelView(getActivity());
 
-            label.setText(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
-                    .get(subcategoryKey).get(productListNumber).getDiscount());
+            label.setText("0");//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getDiscount()
+
             label.setBackgroundColor(0xffE91E63);
 
             label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);
@@ -558,24 +546,23 @@ public class ProductDetailsFragment extends Fragment {
             //Fetch and display products from Shopping list
 
             itemName.setText(CenterRepository.getCenterRepository()
-                    .getListOfProductsInShoppingList().get(productListNumber).getItemName());
+                    .getListOfProductsInShoppingList().get(productListNumber).Category);
 
-            quanitity.setText(CenterRepository.getCenterRepository()
-                    .getListOfProductsInShoppingList().get(productListNumber).getQuantity());
+            quanitity.setText("1");//CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getQuantity());
 
             itemdescription.setText(CenterRepository.getCenterRepository()
-                    .getListOfProductsInShoppingList().get(productListNumber).getItemDetail());
+                    .getListOfProductsInShoppingList().get(productListNumber).Description);
 
             String sellCostString = Money.rupees(
-                    BigDecimal.valueOf(Long.valueOf(CenterRepository
+                    BigDecimal.valueOf(CenterRepository
                             .getCenterRepository().getListOfProductsInShoppingList()
-                            .get(productListNumber).getSellMRP()))).toString()
+                            .get(productListNumber).Prize)).toString()
                     + "  ";
 
             String buyMRP = Money.rupees(
-                    BigDecimal.valueOf(Long.valueOf(CenterRepository
+                    BigDecimal.valueOf(CenterRepository
                             .getCenterRepository().getListOfProductsInShoppingList()
-                            .get(productListNumber).getMRP()))).toString();
+                            .get(productListNumber).Prize)).toString();
 
             String costString = sellCostString + buyMRP;
 
@@ -592,15 +579,14 @@ public class ProductDetailsFragment extends Fragment {
             drawable = mDrawableBuilder.build(
                     String.valueOf(CenterRepository.getCenterRepository()
                             .getListOfProductsInShoppingList().get(productListNumber)
-                            .getItemName().charAt(0)),
+                            .Category.charAt(0)),
                     mColorGenerator.getColor(CenterRepository
                             .getCenterRepository().getListOfProductsInShoppingList()
-                            .get(productListNumber).getItemName()));
+                            .get(productListNumber).Category));
 
             Picasso.with(getActivity())
-                    .load(CenterRepository.getCenterRepository()
-                            .getListOfProductsInShoppingList().get(productListNumber)
-                            .getImageURL()).placeholder(drawable)
+                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg" //CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getImageURL()
+                    ).placeholder(drawable)
                     .error(drawable).fit().centerCrop()
                     .networkPolicy(NetworkPolicy.OFFLINE)
                     .into(itemImage, new Callback() {
@@ -614,10 +600,8 @@ public class ProductDetailsFragment extends Fragment {
                             // Try again online if cache failed
 
                             Picasso.with(getActivity())
-                                    .load(CenterRepository.getCenterRepository()
-                                            .getListOfProductsInShoppingList()
-                                            .get(productListNumber)
-                                            .getImageURL())
+                                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg" //CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getImageURL()
+                                    )
                                     .placeholder(drawable).error(drawable)
                                     .fit().centerCrop().into(itemImage);
                         }
@@ -625,8 +609,7 @@ public class ProductDetailsFragment extends Fragment {
 
             LabelView label = new LabelView(getActivity());
 
-            label.setText(CenterRepository.getCenterRepository()
-                    .getListOfProductsInShoppingList().get(productListNumber).getDiscount());
+            label.setText("0");//CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getDiscount());
             label.setBackgroundColor(0xffE91E63);
 
             label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);

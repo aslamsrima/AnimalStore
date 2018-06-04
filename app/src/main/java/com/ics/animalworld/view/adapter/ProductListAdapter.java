@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
-
 package com.ics.animalworld.view.adapter;
 
 import android.content.Context;
@@ -24,6 +16,7 @@ import android.widget.TextView.BufferType;
 import com.bumptech.glide.Glide;
 import com.ics.animalworld.R;
 import com.ics.animalworld.model.CenterRepository;
+import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Money;
 import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.util.ColorGenerator;
@@ -52,7 +45,7 @@ public class ProductListAdapter extends
 
     private String ImageUrl;
 
-    private List<Product> productList = new ArrayList<Product>();
+    private List<Animals> productList = new ArrayList<Animals>();
     private OnItemClickListener clickListener;
 
     private Context context;
@@ -87,19 +80,19 @@ public class ProductListAdapter extends
                                  final int position) {
 
         holder.itemName.setText(productList.get(position)
-                .getItemName());
+                .Category);
 
         holder.itemDesc.setText(productList.get(position)
-                .getItemShortDesc());
+                .Description);
 
         String sellCostString = Money.rupees(
-                BigDecimal.valueOf(Long.valueOf(productList.get(position)
-                        .getSellMRP()))).toString()
+                BigDecimal.valueOf(productList.get(position)
+                        .Prize)).toString()
                 + "  ";
 
         String buyMRP = Money.rupees(
-                BigDecimal.valueOf(Long.valueOf(productList.get(position)
-                        .getMRP()))).toString();
+                BigDecimal.valueOf(productList.get(position)
+                        .Prize)).toString();
 
         String costString = sellCostString + buyMRP;
 
@@ -114,10 +107,10 @@ public class ProductListAdapter extends
                 .endConfig().roundRect(10);
 
         drawable = mDrawableBuilder.build(String.valueOf(productList
-                .get(position).getItemName().charAt(0)), mColorGenerator
-                .getColor(productList.get(position).getItemName()));
+                .get(position).Category.charAt(0)), mColorGenerator
+                .getColor(productList.get(position).Breed));
 
-        ImageUrl = productList.get(position).getImageURL();
+        ImageUrl ="https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg";// productList.get(position).getImageURL();
 
 
         Glide.with(context).load(ImageUrl).placeholder(drawable)

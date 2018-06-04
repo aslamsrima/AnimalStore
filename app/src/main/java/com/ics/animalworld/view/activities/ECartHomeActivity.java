@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
-
 package com.ics.animalworld.view.activities;
 
 import android.app.Dialog;
@@ -31,6 +23,7 @@ import com.ics.animalworld.domain.helper.Connectivity;
 import com.ics.animalworld.domain.mining.AprioriFrequentItemsetGenerator;
 import com.ics.animalworld.domain.mining.FrequentItemsetData;
 import com.ics.animalworld.model.CenterRepository;
+import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Money;
 import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.util.PreferenceHelper;
@@ -70,7 +63,7 @@ public class ECartHomeActivity extends AppCompatActivity {
 
         CenterRepository.getCenterRepository().setListOfProductsInShoppingList(
                 new TinyDB(getApplicationContext()).getListObject(
-                        PreferenceHelper.MY_CART_LIST_LOCAL, Product.class));
+                        PreferenceHelper.MY_CART_LIST_LOCAL, Animals.class));
 
         itemCount = CenterRepository.getCenterRepository().getListOfProductsInShoppingList()
                 .size();
@@ -109,11 +102,11 @@ public class ECartHomeActivity extends AppCompatActivity {
 
 
         if (itemCount != 0) {
-            for (Product product : CenterRepository.getCenterRepository()
+            for (Animals product : CenterRepository.getCenterRepository()
                     .getListOfProductsInShoppingList()) {
 
                 updateCheckOutAmount(
-                        BigDecimal.valueOf(Long.valueOf(product.getSellMRP())),
+                        BigDecimal.valueOf(product.Prize),
                         true);
             }
         }
@@ -178,9 +171,9 @@ public class ECartHomeActivity extends AppCompatActivity {
                                         ECartHomeActivity.this,
                                         AnimationType.SLIDE_LEFT);
                                 //Utils.switchContent(R.id.frag_container,
-                                  //      Utils.SHOPPING_LIST_TAG,
-                                    //    ECartHomeActivity.this,
-                                    //    AnimationType.SLIDE_LEFT);
+                                //      Utils.SHOPPING_LIST_TAG,
+                                //    ECartHomeActivity.this,
+                                //    AnimationType.SLIDE_LEFT);
                                 return true;
 
                             case R.id.my_sell:
@@ -345,12 +338,12 @@ public class ECartHomeActivity extends AppCompatActivity {
         return checkoutAmount;
     }
 
-	/*
+    /*
      * Makes fake Volley request by adding request in fake Volley Queue and
-	 * return mock JSON String plese visit
-	 * com.ics.animalworld.domain.mock.FakeHttpStack and
-	 * FakeRequestQueue queu
-	 */
+     * return mock JSON String plese visit
+     * com.ics.animalworld.domain.mock.FakeHttpStack and
+     * FakeRequestQueue queu
+     */
 //	private void makeFakeVolleyJsonArrayRequest() {
 //
 //		JsonArrayRequest req = new JsonArrayRequest(
@@ -416,10 +409,10 @@ public class ECartHomeActivity extends AppCompatActivity {
 
                         ArrayList<String> productId = new ArrayList<String>();
 
-                        for (Product productFromShoppingList : CenterRepository.getCenterRepository().getListOfProductsInShoppingList()) {
+                        for (Animals productFromShoppingList : CenterRepository.getCenterRepository().getListOfProductsInShoppingList()) {
 
                             //add product ids to array
-                            productId.add(productFromShoppingList.getProductId());
+                            productId.add(Integer.toString(productFromShoppingList.ID));
                         }
 
                         //pass product id array to Apriori ALGO

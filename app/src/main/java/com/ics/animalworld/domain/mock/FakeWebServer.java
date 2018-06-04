@@ -82,11 +82,11 @@ public class FakeWebServer {
         //Map<String,String> newMap =new HashMap<String,String>();
         for (String s : animal.keySet()) {
             JsonElement jsonElement = gson.toJsonTree(animal.get(s));
-             myAnimal = gson.fromJson(jsonElement, Animals.class);
+            myAnimal = gson.fromJson(jsonElement, Animals.class);
             productlist.add(myAnimal);
         }
 
-		//myAnimal.
+        //myAnimal.
        /* for (Map.Entry<String,Object> entry : animal.entrySet()){
           //  newMap.putAll(entry.getValue());
             Log.d("",""+entry.getValue());
@@ -96,13 +96,13 @@ public class FakeWebServer {
             productlist.add(AnimalObj);
 		}*/
 
-                //productlist.add((Animals) entry.getValue());
+        //productlist.add((Animals) entry.getValue());
         //Get phone field and append to list
 
 
 
-        
-		 
+
+
         // Ovens
         /*productlist
                 .add(new Product(
@@ -166,7 +166,7 @@ public class FakeWebServer {
 */
         productMap.put("Animals", productlist);
 
-       // ArrayList<Product> tvList = new ArrayList<Product>();
+        // ArrayList<Product> tvList = new ArrayList<Product>();
 
         // TV
        /* tvList.add(new Product(
@@ -224,7 +224,7 @@ public class FakeWebServer {
                 "http://img6a.flixcart.com/image/television/s/r/t/lg-32lf550a-400x400-imae8nyvxyjds3qu.jpeg",
                 "tv_5"));
 */
-      //  productMap.put("Animals Foods", tvList);
+        //  productMap.put("Animals Foods", tvList);
 
       /*  productlist = new ArrayList<Product>();
 
@@ -293,14 +293,14 @@ public class FakeWebServer {
         //CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
         //productMap.put("Animals Medicine", productlist);
         //productlist = new ArrayList<Product>();
-       // productMap.put("Animals Accesories", productlist);
+        // productMap.put("Animals Accesories", productlist);
 
 
 
     }
 
     public void getAllFurnitures() {
-
+/*
         ConcurrentHashMap<String, ArrayList<Product>> productMap = new ConcurrentHashMap<String, ArrayList<Product>>();
 
         ArrayList<Product> productlist = new ArrayList<Product>();
@@ -316,7 +316,7 @@ public class FakeWebServer {
                         "3500",
                         "1",
                         "https://images-na.ssl-images-amazon.com/images/I/51eYpWIIWjL.jpg",
-                        "pet_1"));
+                        "pet_1"));*/
 
      /*   productlist
                 .add(new Product(
@@ -378,6 +378,7 @@ public class FakeWebServer {
                         "http://img5a.flixcart.com/image/coffee-table/k/y/h/1-particle-board-wood-an-wood-coffee-400x400-imae7uvzqsf4ynan.jpeg",
                         "table_6"));
 */
+/*
         productMap.put("Pets", productlist);
 
         productlist = new ArrayList<Product>();
@@ -394,6 +395,7 @@ public class FakeWebServer {
                         "0",
                         "https://images-na.ssl-images-amazon.com/images/I/41lE5rA8NAL._SY450_.jpg",
                         "pet_food__1"));
+*/
 
      /*     productlist
                 .add(new Product(
@@ -491,6 +493,7 @@ public class FakeWebServer {
                         "http://img5a.flixcart.com/image/bean-bag/3/h/w/rydclassicgreenl-rockyard-large-400x400-imae6zfaz6qzj3jd.jpeg",
                         "chair_9"));
 */
+/*
         productMap.put("Pets Food", productlist);
 
         productlist = new ArrayList<Product>();
@@ -509,6 +512,7 @@ public class FakeWebServer {
                         "https://www.vetproductsdirect.co.in/media/catalog/product/cache/373d83a1644451bb1cbf61008798968a/s/i/simparica-80mg-flea-tick-chewable-tablet-dogs-44-88-lbs-20-40-kg.jpg",
                         "pets_medicine_1"));
 
+*/
     /*     productlist
                 .add(new Product(
                         "l Collapsible Wardrobe",
@@ -569,30 +573,32 @@ public class FakeWebServer {
                         "http://img6a.flixcart.com/image/wardrobe-closet/f/b/p/srw-167-jute-pindia-purple-400x400-imaeb9g4d8uvatck.jpeg",
                         "almirah_6"));
 */
-       /* productMap.put("Pets Accesories", productlist);*/
+        /* productMap.put("Pets Accesories", productlist);*/
 
+/*
         productMap.put("Pets Medicine", productlist);
 
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
+*/
 
     }
 
     public void getAllProducts(int productCategory) {
 
         if (productCategory == 0) {
-			mDatabase = FirebaseDatabase.getInstance().getReference().child("Animals");
-			mDatabase.addListenerForSingleValueEvent(
-            new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    getAllElectronics((Map<String,Object>) dataSnapshot.getValue());
-                }
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("Animals");
+            mDatabase.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            getAllElectronics((Map<String,Object>) dataSnapshot.getValue());
+                        }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    //handle databaseError
-                }
-            });
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //handle databaseError
+                        }
+                    });
             //getAllElectronics();
         } else {
 

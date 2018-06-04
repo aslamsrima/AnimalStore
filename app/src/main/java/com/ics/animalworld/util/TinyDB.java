@@ -1,16 +1,3 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
-
-/*
- *  The "‚‗‚" character is not a comma, it is the SINGLE LOW-9 QUOTATION MARK unicode 201A
- *  and unicode 2017 that are used for separating the items in a list.
- */
-
 package com.ics.animalworld.util;
 
 import android.content.Context;
@@ -24,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Product;
 
 import java.io.File;
@@ -345,14 +333,14 @@ public class TinyDB {
 
     // Put methods
 
-    public ArrayList<Product> getListObject(String key, Class<?> mClass) {
+    public ArrayList<Animals> getListObject(String key, Class<?> mClass) {
         Gson gson = new Gson();
 
         ArrayList<String> objStrings = getListString(key);
-        ArrayList<Product> objects = new ArrayList<Product>();
+        ArrayList<Animals> objects = new ArrayList<Animals>();
 
         for (String jObjString : objStrings) {
-            Product value = (Product) gson.fromJson(jObjString, mClass);
+            Animals value = (Animals) gson.fromJson(jObjString, mClass);
             objects.add(value);
         }
         return objects;
@@ -503,7 +491,7 @@ public class TinyDB {
         putString(key, gson.toJson(obj));
     }
 
-    public void putListObject(String key, List<Product> list) {
+    public void putListObject(String key, List<Animals> list) {
         checkForNullKey(key);
         Gson gson = new Gson();
         ArrayList<String> objStrings = new ArrayList<String>();

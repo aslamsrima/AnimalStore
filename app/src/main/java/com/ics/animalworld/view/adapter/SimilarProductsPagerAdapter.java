@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
-
 package com.ics.animalworld.view.adapter;
 
 import android.content.Context;
@@ -116,14 +108,13 @@ public class SimilarProductsPagerAdapter extends PagerAdapter {
         drawable = mDrawableBuilder.build(
                 String.valueOf(CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(productCategory).get(position)
-                        .getItemName().charAt(0)),
+                        .Category.charAt(0)),
 
                 mColorGenerator.getColor(CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(productCategory).get(position)
-                        .getItemName()));
+                        .Category));
 
-        final String ImageUrl = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
-                .get(productCategory).get(position).getImageURL();
+        final String ImageUrl = "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg";//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(productCategory).get(position).getImageURL();
 
         Picasso.with(mContext).load(ImageUrl).placeholder(drawable)
                 .error(drawable).fit().centerCrop()
@@ -146,22 +137,22 @@ public class SimilarProductsPagerAdapter extends PagerAdapter {
 
         ((TextView) itemView.findViewById(R.id.item_name))
                 .setText(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
-                        .get(productCategory).get(position).getItemName());
+                        .get(productCategory).get(position).Category);
 
         ((TextView) itemView.findViewById(R.id.item_short_desc))
                 .setText(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
-                        .get(productCategory).get(position).getItemDetail());
+                        .get(productCategory).get(position).Description);
 
         ((TextView) itemView.findViewById(R.id.category_discount))
                 .setText(Money.rupees(
-                        BigDecimal.valueOf(Long.valueOf(CenterRepository
+                        BigDecimal.valueOf(CenterRepository
                                 .getCenterRepository().getMapOfProductsInCategory()
                                 .get(productCategory).get(position)
-                                .getSellMRP()))).toString());
+                                .Prize)).toString());
 
         LabelView label = new LabelView(mContext);
-        label.setText(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
-                .get(productCategory).get(position).getDiscount());
+        label.setText("0"//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(productCategory).get(position).getDiscount()
+        );
         label.setBackgroundColor(0xffE91E63);
         label.setTargetView(itemView.findViewById(R.id.imageView), 10,
                 LabelView.Gravity.RIGHT_TOP);

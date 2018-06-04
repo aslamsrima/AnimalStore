@@ -1,13 +1,6 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
-
 package com.ics.animalworld.model;
 
+import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.model.entities.ProductCategoryModel;
 
@@ -24,8 +17,8 @@ public class CenterRepository {
     private static CenterRepository centerRepository;
 
     private ArrayList<ProductCategoryModel> listOfCategory = new ArrayList<ProductCategoryModel>();
-    private ConcurrentHashMap<String, ArrayList<Product>> mapOfProductsInCategory = new ConcurrentHashMap<String, ArrayList<Product>>();
-    private List<Product> listOfProductsInShoppingList = Collections.synchronizedList(new ArrayList<Product>());
+    private ConcurrentHashMap<String, ArrayList<Animals>> mapOfProductsInCategory = new ConcurrentHashMap<String, ArrayList<Animals>>();
+    private List<Animals> listOfProductsInShoppingList = Collections.synchronizedList(new ArrayList<Animals>());
     private List<Set<String>> listOfItemSetsForDataMining = new ArrayList<>();
 
     public static CenterRepository getCenterRepository() {
@@ -37,20 +30,20 @@ public class CenterRepository {
     }
 
 
-    public List<Product> getListOfProductsInShoppingList() {
+    public List<Animals> getListOfProductsInShoppingList() {
         return listOfProductsInShoppingList;
     }
 
-    public void setListOfProductsInShoppingList(ArrayList<Product> getShoppingList) {
+    public void setListOfProductsInShoppingList(ArrayList<Animals> getShoppingList) {
         this.listOfProductsInShoppingList = getShoppingList;
     }
 
-    public Map<String, ArrayList<Product>> getMapOfProductsInCategory() {
+    public Map<String, ArrayList<Animals>> getMapOfProductsInCategory() {
 
         return mapOfProductsInCategory;
     }
 
-    public void setMapOfProductsInCategory(ConcurrentHashMap<String, ArrayList<Product>> mapOfProductsInCategory) {
+    public void setMapOfProductsInCategory(ConcurrentHashMap<String, ArrayList<Animals>> mapOfProductsInCategory) {
         this.mapOfProductsInCategory = mapOfProductsInCategory;
     }
 

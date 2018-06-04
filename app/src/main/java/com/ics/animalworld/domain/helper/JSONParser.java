@@ -11,6 +11,7 @@ package com.ics.animalworld.domain.helper;
 import android.util.Log;
 
 import com.ics.animalworld.model.CenterRepository;
+import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.model.entities.ProductCategoryModel;
 
@@ -137,7 +138,7 @@ public class JSONParser {
                         for (int categoryCount = 0; categoryCount < CenterRepository
                                 .getCenterRepository().getListOfCategory().size(); categoryCount++) {
 
-                            ArrayList<Product> tempProductList = new ArrayList<Product>();
+                            ArrayList<Animals> tempProductList = new ArrayList<Animals>();
 
                             // get json array for stored category
 
@@ -169,35 +170,26 @@ public class JSONParser {
 
                                     if (productListObjecty.length() != 0) {
 
-                                        tempProductList.add(new Product(
-                                                productListObjecty
-
-                                                        .getString("productName"),
-                                                productListObjecty
-
-                                                        .getString("description"),
-                                                productListObjecty
-
-                                                        .getString("longDescription"),
-                                                productListObjecty
-
-                                                        .getString("mrp"),
-                                                productListObjecty
-
-                                                        .getString("discount"),
-                                                productListObjecty
-
-                                                        .getString("salePrice"),
-                                            /*
-                                             * productListObjecty
-											 *
-											 * .getString("avbleQuantity"),
-											 */
+                                        tempProductList.add(new Animals(
+                                                //productListObjecty.get("ID")
+                                                /*    productListObjecty.getInt("ID"),
+                                                productListObjecty.getString("Category"),
+                                                productListObjecty.getInt("Age"),
+                                                productListObjecty.getString("Breed"),
+                                                productListObjecty.getString("Gender"),
+                                                productListObjecty.getString("Prize"),
+                                            *//*
+                                         * productListObjecty
+                                         *
+                                         * .getString("avbleQuantity"),
+                                         *//*
                                                 "0", productListObjecty
 
                                                 .getString("imageUrl"),
                                                 productListObjecty
-                                                        .getString("productId")));
+                                                        .getString("productId")
+                                        */
+                                        ));
 
                                         Log.d("Parse:GetAllProduct",
                                                 "tempProductList" + tempProductList);
@@ -237,7 +229,7 @@ public class JSONParser {
                         // .getCenterRepository().getListOfCategory().size();
                         // categoryCount++) {
                         //
-                        ArrayList<Product> tempProductList = new ArrayList<Product>();
+                        ArrayList<Animals> tempProductList = new ArrayList<Animals>();
 
                         // get json array for stored category
 
@@ -271,7 +263,8 @@ public class JSONParser {
 
                                 CenterRepository
                                         .getCenterRepository()
-                                        .getListOfProductsInShoppingList().add(new Product(productListObjecty
+                                        .getListOfProductsInShoppingList().add(new Animals(
+                                               /* productListObjecty
 
                                         .getString("productName"), productListObjecty
 
@@ -284,15 +277,15 @@ public class JSONParser {
                                         .getString("discount"), productListObjecty
 
                                         .getString("salePrice"),
-                            /*
-                             * productListObjecty
-							 *
-							 * .getString("avbleQuantity"),
-							 */
+                            *//*
+                                 * productListObjecty
+                                 *
+                                 * .getString("avbleQuantity"),
+                                 *//*
                                         "0", productListObjecty
 
                                         .getString("imageUrl"), productListObjecty
-                                        .getString("productId")));
+                                        .getString("productId")*/));
 
                                 Log.d("GetAllProduct",
                                         "tempProductList" + tempProductList);

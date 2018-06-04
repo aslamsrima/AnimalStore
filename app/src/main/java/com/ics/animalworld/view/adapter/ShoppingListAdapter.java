@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
-
 package com.ics.animalworld.view.adapter;
 
 import android.content.Context;
@@ -27,6 +19,7 @@ import android.widget.TextView.BufferType;
 import com.bumptech.glide.Glide;
 import com.ics.animalworld.R;
 import com.ics.animalworld.model.CenterRepository;
+import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Money;
 import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.util.ColorGenerator;
@@ -61,7 +54,7 @@ public class ShoppingListAdapter extends
     private IBuilder mDrawableBuilder;
     private TextDrawable drawable;
     private String ImageUrl;
-    private List<Product> productList = new ArrayList<Product>();
+    private List<Animals> productList = new ArrayList<Animals>();
     private Context context;
 
     public ShoppingListAdapter(Context context,
@@ -83,18 +76,18 @@ public class ShoppingListAdapter extends
 
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, final int position) {
-        holder.itemName.setText(productList.get(position).getItemName());
+        holder.itemName.setText(productList.get(position).Category);//getItemName());
 
-        holder.itemDesc.setText(productList.get(position).getItemShortDesc());
+        holder.itemDesc.setText(productList.get(position).Description);
 
         String sellCostString = Money.rupees(
-                BigDecimal.valueOf(Long.valueOf(productList.get(position)
-                        .getSellMRP()))).toString()
+                BigDecimal.valueOf(productList.get(position)
+                        .Prize)).toString()
                 + "  ";
 
         String buyMRP = Money.rupees(
-                BigDecimal.valueOf(Long.valueOf(productList.get(position)
-                        .getMRP()))).toString();
+                BigDecimal.valueOf(productList.get(position)
+                        .Prize)).toString();
 
         String costString = sellCostString + buyMRP;
 
@@ -109,13 +102,12 @@ public class ShoppingListAdapter extends
                 .endConfig().roundRect(10);
 
         drawable = mDrawableBuilder.build(String.valueOf(productList
-                .get(position).getItemName().charAt(0)), mColorGenerator
-                .getColor(productList.get(position).getItemName()));
+                .get(position).Category.charAt(0)), mColorGenerator
+                .getColor(productList.get(position).Category));
 
-        ImageUrl = productList.get(position).getImageURL();
+        ImageUrl = "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg";//productList.get(position).getImageURL();
 
-        holder.quanitity.setText(CenterRepository.getCenterRepository()
-                .getListOfProductsInShoppingList().get(position).getQuantity());
+        holder.quanitity.setText("1");//CenterRepository.getCenterRepository(.getListOfProductsInShoppingList().get(position).getQuantity());
 
         Glide.with(context).load(ImageUrl).placeholder(drawable)
                 .error(drawable).animate(R.anim.base_slide_right_in)
@@ -224,9 +216,9 @@ public class ShoppingListAdapter extends
         ((ECartHomeActivity) context).updateItemCount(false);
 
         ((ECartHomeActivity) context).updateCheckOutAmount(
-                BigDecimal.valueOf(Long.valueOf(CenterRepository
+                BigDecimal.valueOf(CenterRepository
                         .getCenterRepository().getListOfProductsInShoppingList().get(position)
-                        .getSellMRP())), false);
+                        .Prize), false);
 
         CenterRepository.getCenterRepository().getListOfProductsInShoppingList().remove(position);
 
