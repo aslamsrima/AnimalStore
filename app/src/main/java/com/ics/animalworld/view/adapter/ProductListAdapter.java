@@ -1,10 +1,14 @@
 package com.ics.animalworld.view.adapter;
 
 import android.content.Context;
+import android.content.SyncRequest;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.ics.animalworld.R;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Animals;
@@ -38,9 +43,9 @@ public class ProductListAdapter extends
         ItemTouchHelperAdapter {
 
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
-
+    Bitmap b;
     private IBuilder mDrawableBuilder;
-
+    ImageView imagView;
     private TextDrawable drawable;
 
     private String ImageUrl;
@@ -71,6 +76,8 @@ public class ProductListAdapter extends
     public VersionViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(
                 R.layout.item_product_list, viewGroup, false);
+
+
         VersionViewHolder viewHolder = new VersionViewHolder(view);
         return viewHolder;
     }
@@ -110,12 +117,15 @@ public class ProductListAdapter extends
                 .get(position).Category.charAt(0)), mColorGenerator
                 .getColor(productList.get(position).Breed));
 
-        ImageUrl ="https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg";// productList.get(position).getImageURL();
 
+         b = StringToBitMap(productList.get(1).Pic.toString());
+        //ImageUrl ="https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg";// productList.get(position).getImageURL();
 
-        Glide.with(context).load(ImageUrl).placeholder(drawable)
-                .error(drawable).animate(R.anim.base_slide_right_in)
-                .centerCrop().into(holder.imagView);
+        imagView.setImageBitmap(b);
+
+//        Glide.with(context).load(b).placeholder(drawable)
+//                .error(drawable).animate(R.anim.base_slide_right_in)
+//                .centerCrop().into(holder.imagView);
 
 
 //        holder.addItem.findViewById(R.id.add_item).setOnClickListener(
@@ -259,6 +269,16 @@ public class ProductListAdapter extends
 
     }
 
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
 
     private ECartHomeActivity getContext() {
         // TODO Auto-generated method stub
@@ -303,7 +323,7 @@ public class ProductListAdapter extends
             View.OnClickListener {
         TextView itemName, itemDesc, itemCost, availability, quanitity,
                 addItem, removeItem;
-        ImageView imagView;
+
 
         public VersionViewHolder(View itemView) {
             super(itemView);
