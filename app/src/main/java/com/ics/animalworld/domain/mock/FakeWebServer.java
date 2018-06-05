@@ -8,8 +8,6 @@
 
 package com.ics.animalworld.domain.mock;
 
-import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,11 +17,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Animals;
-import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.model.entities.ProductCategoryModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -31,6 +27,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * This class serve as fake server and provides dummy product and category with real Image Urls taken from flipkart
  */
 public class FakeWebServer {
+
+    public interface FakeWebServiceResponseListener {
+        void onServiceResponse(boolean success);
+    }
 
     private static FakeWebServer fakeServer;
     private DatabaseReference mDatabase;
@@ -290,7 +290,8 @@ public class FakeWebServer {
                         "v_cleaner_5"));
 
 */
-        //CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
+      // This repo is supplying data to UI
+        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
         //productMap.put("Animals Medicine", productlist);
         //productlist = new ArrayList<Product>();
         // productMap.put("Animals Accesories", productlist);
@@ -583,7 +584,7 @@ public class FakeWebServer {
 
     }
 
-    public void getAllProducts(int productCategory) {
+    public void getAllProducts(int productCategory, final FakeWebServiceResponseListener listener) {
 
         if (productCategory == 0) {
             mDatabase = FirebaseDatabase.getInstance().getReference().child("Animals");
@@ -592,11 +593,15 @@ public class FakeWebServer {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             getAllElectronics((Map<String,Object>) dataSnapshot.getValue());
+                            if (listener != null)
+                                listener.onServiceResponse(true);
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                             //handle databaseError
+                            if (listener != null)
+                                listener.onServiceResponse(false);
                         }
                     });
             //getAllElectronics();

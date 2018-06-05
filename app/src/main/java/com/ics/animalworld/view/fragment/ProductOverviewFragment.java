@@ -59,10 +59,6 @@ public class ProductOverviewFragment extends Fragment {
 
         //getActivity().setTitle("Animal World");
 
-        // Simulate Web service calls
-        FakeWebServer.getFakeWebServer().getAllProducts(
-                AppConstants.CURRENT_CATEGORY);
-
         // TODO We Can use Async task But pallete creation is problemitic job
         // will
         // get back to it later
@@ -137,6 +133,17 @@ public class ProductOverviewFragment extends Fragment {
                 return true;
             }
         });
+
+        // Simulate Web service calls
+        FakeWebServer.getFakeWebServer().getAllProducts(
+                AppConstants.CURRENT_CATEGORY, new FakeWebServer.FakeWebServiceResponseListener() {
+                    @Override
+                    public void onServiceResponse(boolean success) {
+                        if (success) {
+                            setupViewPager(viewPager);
+                        }
+                    }
+                });
 
         return view;
     }
