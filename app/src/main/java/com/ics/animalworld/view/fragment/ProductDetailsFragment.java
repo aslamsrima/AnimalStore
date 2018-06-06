@@ -44,10 +44,7 @@ public class ProductDetailsFragment extends Fragment {
 
     private int productListNumber;
     private ImageView itemImage;
-    private TextView itemSellPrice;
-    private TextView itemName;
-    private TextView quanitity;
-    private TextView itemdescription;
+    private TextView itemSellPrice, itemName, quanitity, itemdescription, itembreed, itemage, itemgender, itemaddress;
     private IBuilder mDrawableBuilder;
     private TextDrawable drawable;
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
@@ -109,9 +106,19 @@ public class ProductDetailsFragment extends Fragment {
         itemSellPrice = ((TextView) rootView
                 .findViewById(R.id.category_discount));
 
-        //quanitity = ((TextView) rootView.findViewById(R.id.iteam_amount));
-
         itemName = ((TextView) rootView.findViewById(R.id.product_name));
+
+        itembreed = ((TextView) rootView
+                .findViewById(R.id.product_breed));
+
+        itemage = ((TextView) rootView
+                .findViewById(R.id.product_Age));
+
+        itemgender = ((TextView) rootView
+                .findViewById(R.id.product_Gender));
+
+        itemaddress = ((TextView) rootView
+                .findViewById(R.id.product_Addreess));
 
         itemdescription = ((TextView) rootView
                 .findViewById(R.id.product_description));
@@ -467,9 +474,23 @@ public class ProductDetailsFragment extends Fragment {
                     .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                     .Category);
 
-//            quanitity.setText(CenterRepository.getCenterRepository()
-//                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-//                    .getQuantity());
+            itembreed.setText("Breed: "+CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                    .Breed);
+
+            itemage.setText("Age: "+CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                    .Age);
+
+            itemgender.setText("Gender: "+CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                    .Gender);
+
+            itemaddress.setText("Address: "+CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                    .City +", "+CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                    .District);
 
             itemdescription.setText(CenterRepository.getCenterRepository()
                     .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
