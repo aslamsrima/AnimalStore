@@ -12,7 +12,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.ics.animalworld.model.entities.Animals;
-import com.ics.animalworld.model.entities.Product;
 
 import java.io.File;
 import java.io.FileOutputStream;

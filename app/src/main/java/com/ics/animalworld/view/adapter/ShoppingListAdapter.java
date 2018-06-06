@@ -10,7 +10,6 @@ import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +20,6 @@ import com.ics.animalworld.R;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Money;
-import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.util.ColorGenerator;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
@@ -124,90 +122,7 @@ public class ShoppingListAdapter extends
             }
         });
 
-//        holder.addItem.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//
-//                CenterRepository
-//                        .getCenterRepository()
-//                        .getListOfProductsInShoppingList()
-//                        .get(position)
-//                        .setQuantity(
-//                                String.valueOf(
-//
-//                                        Integer.valueOf(CenterRepository
-//                                                .getCenterRepository().getListOfProductsInShoppingList()
-//                                                .get(position).getQuantity()) + 1));
-//
-//                holder.quanitity.setText(CenterRepository.getCenterRepository()
-//                        .getListOfProductsInShoppingList().get(position).getQuantity());
-//
-//                Utils.vibrate(context);
-//
-//                ((ECartHomeActivity) context).updateCheckOutAmount(
-//                        BigDecimal.valueOf(Long.valueOf(CenterRepository
-//                                .getCenterRepository().getListOfProductsInShoppingList()
-//                                .get(position).getSellMRP())), true);
-//
-//            }
-//        });
 
-//        holder.removeItem.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (Integer.valueOf(CenterRepository.getCenterRepository()
-//                        .getListOfProductsInShoppingList().get(position).getQuantity()) > 2) {
-//
-//                    CenterRepository
-//                            .getCenterRepository()
-//                            .getListOfProductsInShoppingList()
-//                            .get(position)
-//                            .setQuantity(
-//                                    String.valueOf(
-//
-//                                            Integer.valueOf(CenterRepository
-//                                                    .getCenterRepository()
-//                                                    .getListOfProductsInShoppingList().get(position)
-//                                                    .getQuantity()) - 1));
-//
-//                    holder.quanitity.setText(CenterRepository
-//                            .getCenterRepository().getListOfProductsInShoppingList()
-//                            .get(position).getQuantity());
-//
-//                    ((ECartHomeActivity) context).updateCheckOutAmount(
-//                            BigDecimal.valueOf(Long.valueOf(CenterRepository
-//                                    .getCenterRepository().getListOfProductsInShoppingList()
-//                                    .get(position).getSellMRP())), false);
-//
-//                    Utils.vibrate(context);
-//                } else if (Integer.valueOf(CenterRepository.getCenterRepository()
-//                        .getListOfProductsInShoppingList().get(position).getQuantity()) == 1) {
-//                    ((ECartHomeActivity) context).updateItemCount(false);
-//
-//                    ((ECartHomeActivity) context).updateCheckOutAmount(
-//                            BigDecimal.valueOf(Long.valueOf(CenterRepository
-//                                    .getCenterRepository().getListOfProductsInShoppingList()
-//                                    .get(position).getSellMRP())), false);
-//
-//                    CenterRepository.getCenterRepository().getListOfProductsInShoppingList()
-//                            .remove(position);
-//
-//                    if (Integer.valueOf(((ECartHomeActivity) context)
-//                            .getItemCount()) == 0) {
-//
-//                        MyCartFragment.updateMyCartFragment(false);
-//
-//                    }
-//
-//                    Utils.vibrate(context);
-//
-//                }
-//
-//            }
-//        });
     }
 
     @Override
@@ -284,15 +199,11 @@ public class ShoppingListAdapter extends
             availability = (TextView) itemView
                     .findViewById(R.id.iteam_avilable);
 
-//            quanitity = (TextView) itemView.findViewById(R.id.iteam_amount);
 
             itemName.setSelected(true);
 
             imagView = ((ImageView) itemView.findViewById(R.id.product_thumb));
 
-//            addItem = ((TextView) itemView.findViewById(R.id.add_item));
-//
-//            removeItem = ((TextView) itemView.findViewById(R.id.remove_item));
 
             itemView.setOnClickListener(this);
         }

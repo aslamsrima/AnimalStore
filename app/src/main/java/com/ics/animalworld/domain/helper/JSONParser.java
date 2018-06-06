@@ -1,10 +1,4 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
+
 
 package com.ics.animalworld.domain.helper;
 
@@ -12,7 +6,6 @@ import android.util.Log;
 
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Animals;
-import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.model.entities.ProductCategoryModel;
 
 import org.json.JSONArray;
@@ -53,32 +46,6 @@ public class JSONParser {
         return jsonObject;
     }
 
-    // public static String toJSON(Object object) throws JSONException,
-    // IllegalAccessException {
-    // String str = "";
-    // Class c = object.getClass();
-    // JSONObject jsonObject = new JSONObject();
-    // for (Field field : c.getDeclaredFields()) {
-    // field.setAccessible(true);
-    // String name = field.getName();
-    // String value = String.valueOf(field.get(object));
-    // jsonObject.put(name, value);
-    // }
-    // System.out.println(jsonObject.toString());
-    //
-    // return jsonObject.toString();
-    // }
-    //
-    // public static String toJSON(List list) throws JSONException,
-    // IllegalAccessException {
-    // JSONArray jsonArray = new JSONArray();
-    // for (Object i : list) {
-    // String jstr = toJSON(i);
-    // JSONObject jsonObject = new JSONObject(jstr);
-    // jsonArray.put(jsonObject);
-    // }
-    // return jsonArray.toString();
-    // }
 
     public static JSONArray toJSONFromList(List list) throws JSONException,
             IllegalAccessException {
@@ -158,8 +125,6 @@ public class JSONParser {
                                         .get(categoryCount)
                                         .getProductCategoryName());
 
-                                // ArrayList<Product> tempProductList = new
-                                // ArrayList<Product>();
 
                                 for (int i = 0; i < productListWithCategory
                                         .length(); i++) {
@@ -171,24 +136,7 @@ public class JSONParser {
                                     if (productListObjecty.length() != 0) {
 
                                         tempProductList.add(new Animals(
-                                                //productListObjecty.get("ID")
-                                                /*    productListObjecty.getInt("ID"),
-                                                productListObjecty.getString("Category"),
-                                                productListObjecty.getInt("Age"),
-                                                productListObjecty.getString("Breed"),
-                                                productListObjecty.getString("Gender"),
-                                                productListObjecty.getString("Prize"),
-                                            *//*
-                                         * productListObjecty
-                                         *
-                                         * .getString("avbleQuantity"),
-                                         *//*
-                                                "0", productListObjecty
 
-                                                .getString("imageUrl"),
-                                                productListObjecty
-                                                        .getString("productId")
-                                        */
                                         ));
 
                                         Log.d("Parse:GetAllProduct",
@@ -215,43 +163,14 @@ public class JSONParser {
                             Log.e("Parse: ", "GetAllProductFromCategoryTask "
                                     + jsonResponse);
 
-                        // JSONObject productMapObject = new
-                        // JSONObject(jsonResponse);
-
                         CenterRepository.getCenterRepository().getListOfProductsInShoppingList()
                                 .clear();
 
                         JSONArray mycartArray = new JSONArray(jsonResponse);
 
-                        //
-                        // for (int categoryCount = 0; categoryCount <
-                        // CenterRepository
-                        // .getCenterRepository().getListOfCategory().size();
-                        // categoryCount++) {
-                        //
+
                         ArrayList<Animals> tempProductList = new ArrayList<Animals>();
 
-                        // get json array for stored category
-
-                        // if (productMapObject.optJSONArray(CenterRepository
-                        // .getCenterRepository().getListOfCategory()
-                        // .get(categoryCount).getProductCategoryName()) != null) {
-                        //
-
-                        // JSONArray productListWithCategory = productMapObject
-                        // .getJSONArray(CenterRepository
-                        // .getCenterRepository()
-                        // .getListOfCategory()
-                        // .get(categoryCount)
-                        // .getProductCategoryName());
-                        //
-                        // System.out.println(CenterRepository
-                        // .getCenterRepository().getListOfCategory()
-                        // .get(categoryCount)
-                        // .getProductCategoryName());
-
-                        // ArrayList<Product> tempProductList = new
-                        // ArrayList<Product>();
 
                         for (int i = 0; i < mycartArray.length(); i++) {
 
@@ -264,28 +183,7 @@ public class JSONParser {
                                 CenterRepository
                                         .getCenterRepository()
                                         .getListOfProductsInShoppingList().add(new Animals(
-                                               /* productListObjecty
-
-                                        .getString("productName"), productListObjecty
-
-                                        .getString("description"), productListObjecty
-
-                                        .getString("longDescription"), productListObjecty
-
-                                        .getString("mrp"), productListObjecty
-
-                                        .getString("discount"), productListObjecty
-
-                                        .getString("salePrice"),
-                            *//*
-                                 * productListObjecty
-                                 *
-                                 * .getString("avbleQuantity"),
-                                 *//*
-                                        "0", productListObjecty
-
-                                        .getString("imageUrl"), productListObjecty
-                                        .getString("productId")*/));
+                                ));
 
                                 Log.d("GetAllProduct",
                                         "tempProductList" + tempProductList);
@@ -293,13 +191,7 @@ public class JSONParser {
                             }
 
                         }
-                        // }
-//					CenterRepository
-//							.getCenterRepository()
-//							.getShppingItemList()
-//							.put( tempProductList);
 
-                        // }
 
                         break;
 

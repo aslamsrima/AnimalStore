@@ -1,10 +1,4 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
+
 
 package com.ics.animalworld.view.fragment;
 
@@ -51,6 +45,7 @@ public class ProductOverviewFragment extends Fragment {
     private Spinner SortBy;
     ArrayAdapter<String> dataAdapter;
     List<String> animalList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,7 +64,7 @@ public class ProductOverviewFragment extends Fragment {
         // time consuming Leain it now
 
         viewPager = (ViewPager) view.findViewById(R.id.htab_viewpager);
-        SortBy=(Spinner)view.findViewById(R.id.Sort);
+        SortBy = (Spinner) view.findViewById(R.id.Sort);
         collapsingToolbarLayout = (CollapsingToolbarLayout) view
                 .findViewById(R.id.htab_collapse_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
@@ -108,8 +103,7 @@ public class ProductOverviewFragment extends Fragment {
         animalList.add("Horse");
 
 
-
-        dataAdapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_spinner_item,animalList);
+        dataAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, animalList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         setUpUi();
@@ -204,7 +198,7 @@ public class ProductOverviewFragment extends Fragment {
                                         });
                                 break;
                             case 1:
-                                dataAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,animalList);
+                                dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, animalList);
                                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 SortBy.setAdapter(dataAdapter);
                                 header.setImageResource(R.drawable.header_2);

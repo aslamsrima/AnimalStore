@@ -1,10 +1,7 @@
 package com.ics.animalworld.model.entities;
 
-import android.graphics.Bitmap;
-
 import com.google.firebase.database.Exclude;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,12 +22,13 @@ public class Animals {
     public String District;
     public String State;
     public String Pic;
-     public String CreatedOn;
-  //  public Date UpdatedOn;
+    public String CreatedOn;
+    //  public Date UpdatedOn;
 
     public Animals() {
         // Default constructor required for calls to DataSnapshot.getValue(ListItem.class)
     }
+
     @Exclude
     public Map<String, Object> toMap(Animals animal) {
         HashMap<String, Object> result = new HashMap<>();
@@ -51,7 +49,7 @@ public class Animals {
         result.put("State", animal.State);
         result.put("Pic", animal.Pic);
         result.put("CreatedOn", animal.CreatedOn);
-       /* result.put("UpdatedOn", animal.UpdatedOn);*/
+        /* result.put("UpdatedOn", animal.UpdatedOn);*/
 
         return result;
     }

@@ -1,7 +1,6 @@
 package com.ics.animalworld.model;
 
 import com.ics.animalworld.model.entities.Animals;
-import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.model.entities.ProductCategoryModel;
 
 import java.util.ArrayList;

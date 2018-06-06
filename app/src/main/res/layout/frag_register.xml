@@ -36,8 +36,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            >
+            android:paddingBottom="15dp">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -68,49 +67,49 @@
                     android:hint="Password"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
-           <!-- <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <!-- <android.support.design.widget.TextInputLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:singleLine="true"
+                 <EditText
+                     android:layout_width="fill_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="10dp"
+                     android:singleLine="true"
 
-                    android:drawableTint="#FF4081"
-                    android:hint="Address"
-                    android:inputType="text" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                     android:drawableTint="#FF4081"
+                     android:hint="Address"
+                     android:inputType="text" />
+             </android.support.design.widget.TextInputLayout>
+             <android.support.design.widget.TextInputLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:singleLine="true"
+                 <EditText
+                     android:layout_width="fill_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="10dp"
+                     android:singleLine="true"
 
-                    android:drawableTint="#FF4081"
-                    android:hint="City"
-                    android:inputType="text" />
-            </android.support.design.widget.TextInputLayout>
+                     android:drawableTint="#FF4081"
+                     android:hint="City"
+                     android:inputType="text" />
+             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+             <android.support.design.widget.TextInputLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:singleLine="true"
+                 <EditText
+                     android:layout_width="fill_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="10dp"
+                     android:singleLine="true"
 
-                    android:drawableTint="#FF4081"
-                    android:hint="State"
-                    android:inputType="text" />
-            </android.support.design.widget.TextInputLayout>-->
+                     android:drawableTint="#FF4081"
+                     android:hint="State"
+                     android:inputType="text" />
+             </android.support.design.widget.TextInputLayout>-->
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

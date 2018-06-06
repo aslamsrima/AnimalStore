@@ -25,7 +25,6 @@ import com.ics.animalworld.domain.mining.FrequentItemsetData;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Money;
-import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.util.PreferenceHelper;
 import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;

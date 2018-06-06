@@ -35,9 +35,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * @author Hitesh Sahu (hiteshsahu.com)
- */
+
 public class ProductListAdapter extends
         RecyclerView.Adapter<ProductListAdapter.VersionViewHolder> implements
         ItemTouchHelperAdapter {
@@ -119,153 +117,9 @@ public class ProductListAdapter extends
 
 
          b = StringToBitMap(productList.get(1).Pic.toString());
-        //ImageUrl ="https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg";// productList.get(position).getImageURL();
 
         imagView.setImageBitmap(b);
 
-//        Glide.with(context).load(b).placeholder(drawable)
-//                .error(drawable).animate(R.anim.base_slide_right_in)
-//                .centerCrop().into(holder.imagView);
-
-
-//        holder.addItem.findViewById(R.id.add_item).setOnClickListener(
-//                new OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(View v) {
-//
-//
-//                        //current object
-//                        Product tempObj = productList.get(position);
-//
-//
-//                        //if current object is lready in shopping list
-//                        if (CenterRepository.getCenterRepository()
-//                                .getListOfProductsInShoppingList().contains(tempObj)) {
-//
-//
-//                            //get position of current item in shopping list
-//                            int indexOfTempInShopingList = CenterRepository
-//                                    .getCenterRepository().getListOfProductsInShoppingList()
-//                                    .indexOf(tempObj);
-//
-//                            // increase quantity of current item in shopping list
-//                            if (Integer.parseInt(tempObj.getQuantity()) == 0) {
-//
-//                                ((ECartHomeActivity) getContext())
-//                                        .updateItemCount(true);
-//
-//                            }
-//
-//
-//                            // update quanity in shopping list
-//                            CenterRepository
-//                                    .getCenterRepository()
-//                                    .getListOfProductsInShoppingList()
-//                                    .get(indexOfTempInShopingList)
-//                                    .setQuantity(
-//                                            String.valueOf(Integer
-//                                                    .valueOf(tempObj
-//                                                            .getQuantity()) + 1));
-//
-//
-//                            //update checkout amount
-//                            ((ECartHomeActivity) getContext()).updateCheckOutAmount(
-//                                    BigDecimal
-//                                            .valueOf(Long
-//                                                    .valueOf(productList
-//                                                            .get(position)
-//                                                            .getSellMRP())),
-//                                    true);
-//
-//                            // update current item quanitity
-//                            holder.quanitity.setText(tempObj.getQuantity());
-//
-//                        } else {
-//
-//                            ((ECartHomeActivity) getContext()).updateItemCount(true);
-//
-//                            tempObj.setQuantity(String.valueOf(1));
-//
-//                            holder.quanitity.setText(tempObj.getQuantity());
-//
-//                            CenterRepository.getCenterRepository()
-//                                    .getListOfProductsInShoppingList().add(tempObj);
-//
-//                            ((ECartHomeActivity) getContext()).updateCheckOutAmount(
-//                                    BigDecimal
-//                                            .valueOf(Long
-//                                                    .valueOf(productList
-//                                                            .get(position)
-//                                                            .getSellMRP())),
-//                                    true);
-//
-//                        }
-//
-//                        Utils.vibrate(getContext());
-//
-//                    }
-//                });
-
-//        holder.removeItem.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//
-//                Product tempObj = (productList).get(position);
-//
-//                if (CenterRepository.getCenterRepository().getListOfProductsInShoppingList()
-//                        .contains(tempObj)) {
-//
-//                    int indexOfTempInShopingList = CenterRepository
-//                            .getCenterRepository().getListOfProductsInShoppingList()
-//                            .indexOf(tempObj);
-//
-//                    if (Integer.valueOf(tempObj.getQuantity()) != 0) {
-//
-//                        CenterRepository
-//                                .getCenterRepository()
-//                                .getListOfProductsInShoppingList()
-//                                .get(indexOfTempInShopingList)
-//                                .setQuantity(
-//                                        String.valueOf(Integer.valueOf(tempObj
-//                                                .getQuantity()) - 1));
-//
-//                        ((ECartHomeActivity) getContext()).updateCheckOutAmount(
-//                                BigDecimal.valueOf(Long.valueOf(productList
-//                                        .get(position).getSellMRP())),
-//                                false);
-//
-//                        holder.quanitity.setText(CenterRepository
-//                                .getCenterRepository().getListOfProductsInShoppingList()
-//                                .get(indexOfTempInShopingList).getQuantity());
-//
-//                        Utils.vibrate(getContext());
-//
-//                        if (Integer.valueOf(CenterRepository
-//                                .getCenterRepository().getListOfProductsInShoppingList()
-//                                .get(indexOfTempInShopingList).getQuantity()) == 0) {
-//
-//                            CenterRepository.getCenterRepository()
-//                                    .getListOfProductsInShoppingList()
-//                                    .remove(indexOfTempInShopingList);
-//
-//                            notifyDataSetChanged();
-//
-//                            ((ECartHomeActivity) getContext())
-//                                    .updateItemCount(false);
-//
-//                        }
-//
-//                    }
-//
-//                } else {
-//
-//                }
-//
-//            }
-//
-//        });
 
     }
 
@@ -337,15 +191,12 @@ public class ProductListAdapter extends
             availability = (TextView) itemView
                     .findViewById(R.id.iteam_avilable);
 
-            //quanitity = (TextView) itemView.findViewById(R.id.iteam_amount);
+
 
             itemName.setSelected(true);
 
             imagView = ((ImageView) itemView.findViewById(R.id.product_thumb));
 
-//            addItem = ((TextView) itemView.findViewById(R.id.add_item));
-//
-//            removeItem = ((TextView) itemView.findViewById(R.id.remove_item));
 
             itemView.setOnClickListener(this);
 

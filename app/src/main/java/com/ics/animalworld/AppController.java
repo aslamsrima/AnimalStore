@@ -1,16 +1,9 @@
-/*
- * Copyright (c) 2017.  All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Aslam Shrimali , 2017.
- */
+
 
 package com.ics.animalworld;
 
 import android.app.Application;
 
-import com.ics.animalworld.R;
 import com.ics.animalworld.util.PreferenceHelper;
 
 import org.acra.ACRA;

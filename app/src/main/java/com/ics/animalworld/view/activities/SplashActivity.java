@@ -1,15 +1,8 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
+
 
 package com.ics.animalworld.view.activities;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
@@ -41,13 +34,7 @@ public class SplashActivity extends FragmentActivity {
         companyName = (TextView) findViewById(R.id.textView3);
         // Font path
         String fontPath = "font/CircleD_Font_by_CrazyForMusic.ttf";
-        // Loading Font Face
-       // Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
 
-        // Applying font
-        //appTitle.setTypeface(tf);
-        //appSlogan.setTypeface(tf);
-        //companyName.setTypeface(tf);
 
         if (savedInstanceState == null) {
             flyIn();
@@ -67,8 +54,8 @@ public class SplashActivity extends FragmentActivity {
         logo.startAnimation(animation);
 
         animation = AnimationUtils.loadAnimation(this,
-               R.anim.app_name_animation);
-       appTitle.startAnimation(animation);
+                R.anim.app_name_animation);
+        appTitle.startAnimation(animation);
 
         //animation = AnimationUtils.loadAnimation(this, R.anim.pro_animation);
         //appSlogan.startAnimation(animation);
@@ -81,7 +68,7 @@ public class SplashActivity extends FragmentActivity {
         logo.startAnimation(animation);
 
         animation = AnimationUtils.loadAnimation(this,
-              R.anim.app_name_animation_back);
+                R.anim.app_name_animation_back);
         appTitle.startAnimation(animation);
 
         animation = AnimationUtils.loadAnimation(this,

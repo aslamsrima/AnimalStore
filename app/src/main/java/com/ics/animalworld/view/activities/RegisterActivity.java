@@ -23,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frag_register);
@@ -54,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-               // progressBar.setVisibility(View.VISIBLE);
+                // progressBar.setVisibility(View.VISIBLE);
                 //create user
                 auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
@@ -79,4 +80,4 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
     }
-    }
+}

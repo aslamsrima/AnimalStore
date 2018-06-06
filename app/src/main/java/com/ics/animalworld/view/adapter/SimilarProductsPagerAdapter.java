@@ -23,9 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 
-/**
- * @author Hitesh Sahu (hiteshsahu.com)
- */
+
 public class SimilarProductsPagerAdapter extends PagerAdapter {
 
     /**

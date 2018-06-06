@@ -1,25 +1,16 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
+
 
 package com.ics.animalworld.view.fragment;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,8 +32,6 @@ import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
 
 import java.util.Locale;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
     int mutedColor = R.attr.colorPrimary;
@@ -174,14 +163,14 @@ public class HomeFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
 
-                if(position==0){
+                if (position == 0) {
                     lang = "en";
                     changeLocale(lang);
                 }
-                if(position==1){
+                if (position == 1) {
                     lang = "hi";
                     changeLocale(lang);
-                }else if(position==2){
+                } else if (position == 2) {
                     lang = "mr";
                     changeLocale(lang);
                 }
@@ -237,7 +226,7 @@ public class HomeFragment extends Fragment {
         if (lang.equalsIgnoreCase(""))
             return;
         myLocale = new Locale(lang);//Set Selected Locale
-      //  saveLocale(lang);//Save the selected locale
+        //  saveLocale(lang);//Save the selected locale
         Locale.setDefault(myLocale);//set new locale as default
         Configuration config = new Configuration();//get Configuration
         config.locale = myLocale;//set config locale as selected locale

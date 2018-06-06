@@ -1,10 +1,4 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
+
 
 package com.ics.animalworld.domain.helper;
 
@@ -128,9 +122,9 @@ public class Connectivity {
                 case TelephonyManager.NETWORK_TYPE_UMTS:
                     return true; // ~ 400-7000 kbps
                 /*
-				 * Above API level 7, make sure to set android:targetSdkVersion
-				 * to appropriate level to use these
-				 */
+                 * Above API level 7, make sure to set android:targetSdkVersion
+                 * to appropriate level to use these
+                 */
                 case TelephonyManager.NETWORK_TYPE_EHRPD: // API level 11
                     return true; // ~ 1-2 Mbps
                 case TelephonyManager.NETWORK_TYPE_EVDO_B: // API level 9
@@ -247,12 +241,12 @@ public class Connectivity {
         } catch (Exception ex) {
         } // for now eat exceptions
         return "";
-		/*
-		 * try { // this is so Linux hack return
-		 * loadFileAsString("/sys/class/net/" +interfaceName +
-		 * "/address").toUpperCase().trim(); } catch (IOException ex) { return
-		 * null; }
-		 */
+        /*
+         * try { // this is so Linux hack return
+         * loadFileAsString("/sys/class/net/" +interfaceName +
+         * "/address").toUpperCase().trim(); } catch (IOException ex) { return
+         * null; }
+         */
     }
 
     /**

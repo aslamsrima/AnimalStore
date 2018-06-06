@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
-  ~ Unauthorized copying of this file, via any medium is strictly prohibited
-  ~ If you use or distribute this project then you MUST ADD A COPY OF LICENCE
-  ~ along with the project.
-  ~  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
-  -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -42,15 +34,14 @@
                 android:layout_marginTop="20dp"
                 android:text="Language"
                 android:textColor="@color/color_black"
-                android:textSize="20sp"
-                 />
+                android:textSize="20sp" />
+
             <Spinner
                 android:id="@+id/language"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
-                android:entries="@array/Language"
-                />
+                android:entries="@array/Language" />
 
 
         </LinearLayout>
@@ -69,16 +60,14 @@
                 android:layout_marginTop="10dp"
                 android:text="LogIn Method"
                 android:textColor="@color/color_black"
-                android:textSize="20sp"
-                 />
+                android:textSize="20sp" />
 
             <Spinner
                 android:id="@+id/LogInMeth"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
-                android:entries="@array/SignInMethods"
-                />
+                android:entries="@array/SignInMethods" />
         </LinearLayout>
 
 

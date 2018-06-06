@@ -23,9 +23,7 @@ import com.ics.animalworld.view.adapter.CategoryListAdapter;
 import com.ics.animalworld.view.adapter.CategoryListAdapter.OnItemClickListener;
 import com.ics.animalworld.view.fragment.ProductOverviewFragment;
 
-/**
- * The Class ImageLoaderTask.
- */
+
 public class ProductCategoryLoaderTask extends AsyncTask<String, Void, Void> {
 
     private static final int NUMBER_OF_COLUMNS = 2;
