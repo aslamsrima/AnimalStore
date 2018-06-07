@@ -17,7 +17,10 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.ics.animalworld.R;
 import com.ics.animalworld.domain.helper.Connectivity;
 import com.ics.animalworld.domain.mining.AprioriFrequentItemsetGenerator;
@@ -52,7 +55,7 @@ public class ECartHomeActivity extends AppCompatActivity {
     private TextView checkOutAmount, itemCountTextView;
     private TextView offerBanner;
     private AVLoadingIndicatorView progressBar;
-
+    private FirebaseAuth mAuth;
     private NavigationView mNavigationView;
 
     @Override
@@ -146,6 +149,7 @@ public class ECartHomeActivity extends AppCompatActivity {
         mNavigationView
                 .setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
+
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
 
                         menuItem.setChecked(true);
@@ -223,7 +227,16 @@ public class ECartHomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null){
+            menu.add(0,0,0,"Log Out");
+        }else{
+            menu.add(0,0,0,"Log In");
+        }
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 
@@ -237,8 +250,21 @@ public class ECartHomeActivity extends AppCompatActivity {
                         ECartHomeActivity.this,
                         AnimationType.SLIDE_LEFT);
                 return true;
-            case R.id.action_login:
-                startActivity(new Intent(ECartHomeActivity.this, LogInActivity.class));
+            case 0:
+                if(item.getTitle() =="Log In"){
+                    startActivity(new Intent(ECartHomeActivity.this, LogInActivity.class));
+                }else{
+                    FirebaseAuth.getInstance().signOut();
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    if(currentUser==null){
+                        Toast.makeText(ECartHomeActivity.this, " Logged Out Successfully.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    startActivity(new Intent(ECartHomeActivity.this, ECartHomeActivity.class));
+
+
+                }
+
                 return true;
             case R.id.action_about:
                 Utils.switchContent(R.id.frag_container,

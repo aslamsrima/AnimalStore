@@ -1,5 +1,6 @@
 package com.ics.animalworld.view.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,10 +13,13 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.ics.animalworld.R;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Money;
@@ -23,6 +27,7 @@ import com.ics.animalworld.util.ColorGenerator;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
+import com.ics.animalworld.view.activities.LogInActivity;
 import com.ics.animalworld.view.adapter.SimilarProductsPagerAdapter;
 import com.ics.animalworld.view.customview.ClickableViewPager;
 import com.ics.animalworld.view.customview.ClickableViewPager.OnItemClickListener;
@@ -46,6 +51,7 @@ public class ProductDetailsFragment extends Fragment {
     private ImageView itemImage;
     private TextView itemSellPrice, itemName, quanitity, itemdescription, itembreed, itemage, itemgender, itemaddress;
     private IBuilder mDrawableBuilder;
+    private Button BtnContact;
     private TextDrawable drawable;
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
     private String subcategoryKey;
@@ -53,6 +59,8 @@ public class ProductDetailsFragment extends Fragment {
     private ClickableViewPager similarProductsPager;
     private ClickableViewPager topSellingPager;
     private Toolbar mToolbar;
+    private FirebaseAuth mAuth;
+
 
     /**
      * Instantiates a new product details fragment.
@@ -70,7 +78,7 @@ public class ProductDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.frag_product_detail,
                 container, false);
-
+        mAuth = FirebaseAuth.getInstance();
         mToolbar = (Toolbar) rootView.findViewById(R.id.htab_toolbar);
         if (mToolbar != null) {
             ((ECartHomeActivity) getActivity()).setSupportActionBar(mToolbar);
@@ -125,6 +133,21 @@ public class ProductDetailsFragment extends Fragment {
 
         itemImage = (ImageView) rootView.findViewById(R.id.product_image);
 
+        BtnContact = (Button) rootView.findViewById(R.id.btnContact);
+
+        BtnContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if(currentUser!=null){
+
+                }else{
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(), LogInActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
         fillProductData();
 
 //        rootView.findViewById(R.id.add_item).setOnClickListener(

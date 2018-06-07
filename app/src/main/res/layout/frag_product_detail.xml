@@ -36,62 +36,78 @@
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_marginTop="8dp"
 
             card_view:cardCornerRadius="4dp">
 
-            <TextView
-                android:id="@+id/product_name"
+            <LinearLayout
+                android:id="@+id/nameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/product_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="35dp"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:gravity="center_horizontal"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:textColor="@color/holo_gray_dark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="35dp"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:freezesText="true"
-                android:gravity="center_horizontal"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:textColor="@color/holo_gray_dark"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/category_discount"
-                android:layout_marginLeft="5dp"
-                android:layout_marginBottom="15dp"
-                android:layout_width="match_parent"
+                >
+
+                <TextView
+                    android:id="@+id/category_discount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5dp"
+                    android:layout_marginBottom="15dp"
+
+                    android:layout_marginLeft="5dp"
+                    android:background="@color/white"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:gravity="center_horizontal"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:textColor="@color/holo_gray_dark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-
-                android:layout_margin="5dp"
-                android:background="@color/white"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:freezesText="true"
-                android:gravity="center_horizontal"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:textColor="@color/holo_gray_dark"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
+                android:layout_width="match_parent"
+                >
             <TextView
                 android:id="@+id/product_breed"
-                android:layout_marginLeft="5dp"
-
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+
+                android:layout_height="match_parent"
                 android:layout_below="@+id/product_name"
                 android:layout_gravity="left"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="25dp"
                 android:ellipsize="marquee"
                 android:focusable="true"
@@ -99,15 +115,19 @@
                 android:freezesText="true"
                 android:textColor="@android:color/background_dark"
                 android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/product_Age"
-                android:layout_marginLeft="5dp"
-
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+
+                android:layout_height="match_parent"
                 android:layout_below="@+id/product_name"
                 android:layout_gravity="left"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="25dp"
                 android:ellipsize="marquee"
                 android:focusable="true"
@@ -115,15 +135,16 @@
                 android:freezesText="true"
                 android:textColor="@android:color/background_dark"
                 android:textSize="16sp" />
+            </LinearLayout>
             <TextView
                 android:id="@+id/product_Gender"
-                android:layout_marginLeft="5dp"
-
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/product_name"
                 android:layout_gravity="left"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="25dp"
                 android:ellipsize="marquee"
                 android:focusable="true"
@@ -131,15 +152,16 @@
                 android:freezesText="true"
                 android:textColor="@android:color/background_dark"
                 android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/product_Addreess"
-                android:layout_marginLeft="5dp"
-
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/product_name"
                 android:layout_gravity="left"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="25dp"
                 android:ellipsize="marquee"
                 android:focusable="true"
@@ -147,15 +169,16 @@
                 android:freezesText="true"
                 android:textColor="@android:color/background_dark"
                 android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/product_description"
-                android:layout_marginLeft="5dp"
-
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/product_name"
                 android:layout_gravity="left"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="25dp"
                 android:ellipsize="marquee"
                 android:focusable="true"
@@ -174,6 +197,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btnContact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Contact Owner"

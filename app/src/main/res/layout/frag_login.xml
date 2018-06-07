@@ -45,8 +45,8 @@
                 <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-
-                    android:drawableTint="#FF4081"
+                    android:id="@+id/username"
+                    android:drawableTint="@color/primary"
                     android:singleLine="true"
                     android:hint="User Name"
                     android:inputType="textEmailAddress" />
@@ -61,10 +61,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:singleLine="true"
-
-                    android:drawableTint="#FF4081"
+                    android:id="@+id/password"
+                    android:drawableTint="@color/primary"
                     android:hint="Password"
-                    android:inputType="numberPassword" />
+                    android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
 
             <TextView
@@ -76,6 +76,7 @@
 
 
             <Button
+                android:id="@+id/btnlogin"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="22dp"
