@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static java.security.AccessController.getContext;
+
 public class ProductOverviewFragment extends Fragment {
 
     // SimpleRecyclerAdapter adapter;
@@ -129,6 +131,9 @@ public class ProductOverviewFragment extends Fragment {
         });
 
         // Simulate Web service calls
+        /*if (null != ((ECartHomeActivity) getContext()).getProgressBar())
+            ((ECartHomeActivity) getContext()).getProgressBar().setVisibility(
+                    View.VISIBLE);*/
         FakeWebServer.getFakeWebServer().getAllProducts(
                 AppConstants.CURRENT_CATEGORY, new FakeWebServer.FakeWebServiceResponseListener() {
                     @Override
@@ -139,6 +144,9 @@ public class ProductOverviewFragment extends Fragment {
                     }
                 });
 
+        /*if (null != ((ECartHomeActivity) getContext()).getProgressBar())
+            ((ECartHomeActivity) getContext()).getProgressBar().setVisibility(
+                    View.GONE)*/;
         return view;
     }
 
