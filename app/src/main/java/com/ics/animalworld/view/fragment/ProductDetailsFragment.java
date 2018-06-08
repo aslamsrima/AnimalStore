@@ -142,7 +142,8 @@ public class ProductDetailsFragment extends Fragment {
             public void onClick(View view) {
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 if(currentUser!=null){
-
+                    BtnContact.setVisibility(View.GONE);
+                    itemsupplier.setVisibility(View.VISIBLE);
                 }else{
                     Intent intent = new Intent();
                     intent.setClass(getActivity(), LogInActivity.class);
@@ -241,7 +242,7 @@ public class ProductDetailsFragment extends Fragment {
 
             itemName.setText(CenterRepository.getCenterRepository()
                     .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                    .Category);
+                    .SubCategory);
 
             itembreed.setText("Breed: "+CenterRepository.getCenterRepository()
                     .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
