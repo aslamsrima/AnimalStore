@@ -19,11 +19,12 @@ import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
 import com.ics.animalworld.view.adapter.ProductListAdapter;
 import com.ics.animalworld.view.adapter.ProductListAdapter.OnItemClickListener;
+import com.wang.avi.AVLoadingIndicatorView;
 
 public class ProductListFragment extends Fragment {
     private String subcategoryKey;
     private boolean isShoppingList;
-
+    private AVLoadingIndicatorView progressBar;
     public ProductListFragment() {
         isShoppingList = true;
     }
@@ -40,6 +41,8 @@ public class ProductListFragment extends Fragment {
         View view = inflater.inflate(R.layout.frag_product_list_fragment, container,
                 false);
 
+        progressBar=(AVLoadingIndicatorView) view.findViewById(R.id.loading_bar);
+        progressBar.setVisibility(view.VISIBLE);
         if (isShoppingList) {
             view.findViewById(R.id.slide_down).setVisibility(View.VISIBLE);
             view.findViewById(R.id.slide_down).setOnTouchListener(
@@ -77,7 +80,7 @@ public class ProductListFragment extends Fragment {
 
         ProductListAdapter adapter = new ProductListAdapter(subcategoryKey,
                 getActivity(), isShoppingList);
-
+        progressBar.setVisibility(view.GONE);
         recyclerView.setAdapter(adapter);
 
         adapter.SetOnItemClickListener(new OnItemClickListener() {

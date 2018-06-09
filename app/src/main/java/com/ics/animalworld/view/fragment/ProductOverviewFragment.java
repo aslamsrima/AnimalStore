@@ -33,8 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static java.security.AccessController.getContext;
-
 public class ProductOverviewFragment extends Fragment {
 
     // SimpleRecyclerAdapter adapter;
@@ -139,7 +137,11 @@ public class ProductOverviewFragment extends Fragment {
                     @Override
                     public void onServiceResponse(boolean success) {
                         if (success) {
-                            setupViewPager(viewPager);
+                            try {
+                                setupViewPager(viewPager);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 });

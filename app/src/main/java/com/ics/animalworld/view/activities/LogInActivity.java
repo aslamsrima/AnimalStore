@@ -17,6 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.ics.animalworld.R;
+import com.ics.animalworld.util.Common;
 
 public class LogInActivity extends AppCompatActivity {
     private TextView register;
@@ -54,8 +55,16 @@ public class LogInActivity extends AppCompatActivity {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Toast.makeText(LogInActivity.this, ""+user.getEmail()+" Logged In Successfully.",
                                             Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(LogInActivity.this, ECartHomeActivity.class));
-                                    finish();
+                                    if (getIntent().hasExtra("reqCode") &&
+                                            getIntent().getIntExtra("reqCode", 0) == Common.LOGIN_REQ) {
+
+                                        Intent returnIntent = new Intent();
+                                        setResult(RESULT_OK, returnIntent);
+                                        finish();
+                                    } else {
+                                        startActivity(new Intent(LogInActivity.this, ECartHomeActivity.class));
+                                        finish();
+                                    }
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w("", "signInWithEmail:failure", task.getException());

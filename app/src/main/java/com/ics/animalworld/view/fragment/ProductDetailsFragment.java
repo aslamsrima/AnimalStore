@@ -1,5 +1,6 @@
 package com.ics.animalworld.view.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.ics.animalworld.R;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Money;
 import com.ics.animalworld.util.ColorGenerator;
+import com.ics.animalworld.util.Common;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
@@ -147,7 +149,8 @@ public class ProductDetailsFragment extends Fragment {
                 }else{
                     Intent intent = new Intent();
                     intent.setClass(getActivity(), LogInActivity.class);
-                    startActivity(intent);
+                    intent.putExtra("reqCode", Common.LOGIN_REQ);
+                    startActivityForResult(intent, Common.LOGIN_REQ);
                 }
             }
         });
@@ -409,5 +412,16 @@ public class ProductDetailsFragment extends Fragment {
         }
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Common.LOGIN_REQ && resultCode == Activity.RESULT_OK) {
+            // update visibility of label
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser!=null){
+                BtnContact.setVisibility(View.GONE);
+                itemsupplier.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 }

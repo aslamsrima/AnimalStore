@@ -82,6 +82,7 @@
                     android:layout_height="match_parent"
                     android:layout_below="@+id/slide_down" />
 
+                <include layout="@layout/prg_view" />
                 <FrameLayout
                     android:id="@+id/default_nodata"
                     android:layout_width="match_parent"
@@ -158,5 +159,6 @@
                 </FrameLayout>
             </FrameLayout>
         </android.support.v4.widget.SwipeRefreshLayout>
+
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

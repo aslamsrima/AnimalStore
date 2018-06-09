@@ -16,15 +16,7 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/control_overview"></FrameLayout>
 
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/loading_bar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:visibility="visible"
-            app:indicator="LineScaleParty"
-            app:indicator_color="#F53700" />
+        <include layout="@layout/prg_view" />
 
         <include layout="@layout/view_bottom_anchor" />
     </RelativeLayout>
