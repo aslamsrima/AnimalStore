@@ -142,11 +142,11 @@ public class SellActivity extends AppCompatActivity {
 
         List<String> subCategoryListPet = new ArrayList<String>();
         subCategoryListPet.add("Select Pet");
-        subCategoryListPet.add("Buffloes");
-        subCategoryListPet.add("Cows");
-        subCategoryListPet.add("Goats");
-        subCategoryListPet.add("Sheeps");
-        subCategoryListPet.add("Horse");
+        subCategoryListPet.add("Dogs");
+        subCategoryListPet.add("Cats");
+        subCategoryListPet.add("Birds");
+        subCategoryListPet.add("Fish");
+
 
 
         List<String> animalList = new ArrayList<String>();
@@ -371,7 +371,12 @@ public class SellActivity extends AppCompatActivity {
         animal.Gender = radioButton.getText().toString();
         animal.ID = 1;
         animal.IsPrizeNegoyiable = true;
-        animal.MlkRec = Integer.parseInt(milkRec.getText().toString());
+        if(milkRec.getVisibility() == View.GONE ){
+            animal.MlkRec = 0;
+        }else{
+            animal.MlkRec = Integer.parseInt(milkRec.getText().toString());
+        }
+
         animal.Prize = Integer.parseInt(price.getText().toString());
         animal.CreatedOn = new Date().toString();
         animal.Status = "Review";
@@ -381,7 +386,12 @@ public class SellActivity extends AppCompatActivity {
 
         Map<String, Object> listItemValues = animal.toMap(animal);
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Animals/" + key, listItemValues);
+        if(animal.Category.equals("Pet")){
+            childUpdates.put("/Pets/" + key, listItemValues);
+        }else{
+            childUpdates.put("/Animals/" + key, listItemValues);
+        }
+
         FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
         // set dialog message
 

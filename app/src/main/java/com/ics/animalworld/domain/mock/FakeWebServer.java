@@ -82,7 +82,22 @@ public class FakeWebServer {
 
     }
 
-    public void getAllPets() {
+    public void getAllPets(Map<String, Object> Pets) {
+        ConcurrentHashMap<String, ArrayList<Animals>> productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
+
+        ArrayList<Animals> productlist = new ArrayList<Animals>();
+        Animals myAnimal = new Animals();
+        Gson gson = new Gson();
+
+        for (String s : Pets.keySet()) {
+            JsonElement jsonElement = gson.toJsonTree(Pets.get(s));
+            myAnimal = gson.fromJson(jsonElement, Animals.class);
+            productlist.add(myAnimal);
+        }
+
+        productMap.put("Pets", productlist);
+
+        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
 
 
     }
@@ -109,8 +124,26 @@ public class FakeWebServer {
                     });
 
         } else {
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("Pets");
+            mDatabase.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            getAllPets((Map<String, Object>) dataSnapshot.getValue());
+                            if (listener != null)
+                                listener.onServiceResponse(true);
+                        }
 
-            getAllPets();
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //handle databaseError
+                            if (listener != null)
+                                listener.onServiceResponse(false);
+                        }
+                    });
+
+
+
 
         }
 
