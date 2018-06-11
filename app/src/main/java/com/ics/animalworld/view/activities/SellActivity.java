@@ -4,10 +4,14 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.IntDef;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -60,6 +64,7 @@ public class SellActivity extends AppCompatActivity {
     private ArrayList<Animals> mAnimal;
     Toolbar toolbar;
     Bitmap bitmap;
+    Bitmap FINAL_IMAGE;
 
     // List<String> subCategoryList;
     ArrayAdapter<String> dataAdapter, petAdapter, subCategoryAdapter;
@@ -119,6 +124,9 @@ public class SellActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(SellActivity.this,
                 new String[]{Manifest.permission.CAMERA},
                 1);
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
 
         productImage.setOnClickListener(new View.OnClickListener() {
 
@@ -263,9 +271,19 @@ public class SellActivity extends AppCompatActivity {
 
                 {
 
-                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    if (getPermissionStatus(SellActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == SellActivity.GRANTED) {
+                        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-                    startActivityForResult(intent, 2);
+                        startActivityForResult(intent, 1);
+
+                    } else {
+                        Toast.makeText(SellActivity.this, "Please Provide SD card Read Permission", Toast.LENGTH_LONG).show();
+                        ActivityCompat.requestPermissions(SellActivity.this,
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                1);
+                    }
+
+
 
 
                 } else if (options[item].equals("Cancel")) {
@@ -300,7 +318,29 @@ public class SellActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bitmap mphoto = (Bitmap) data.getExtras().get("data");
+            bitmap = mphoto;
             productImage.setImageBitmap(mphoto);
+        }
+      else  if (requestCode == 1 && resultCode == RESULT_OK) {
+
+            Uri selectedImage = data.getData();
+            String[] filePath = { MediaStore.MediaColumns.DATA };
+            Cursor c = getContentResolver().query(selectedImage,filePath, null, null, null);
+            c.moveToFirst();
+            int columnIndex = c.getColumnIndex(filePath[0]);
+            String picturePath = c.getString(columnIndex);
+            c.close();
+            Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
+           // Log.w("path of image from gallery......******************.........", picturePath+"");
+            Matrix matrix = new Matrix();
+
+            FINAL_IMAGE=thumbnail;
+            //                matrix.postRotate(90);
+            thumbnail=Bitmap.createBitmap(thumbnail, 0, 0, thumbnail.getWidth(), thumbnail.getHeight(), matrix, true);
+            bitmap = thumbnail;
+            productImage.setImageBitmap(thumbnail);
+            productImage.setAdjustViewBounds(true);
+            productImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
     }
 
@@ -309,6 +349,40 @@ public class SellActivity extends AppCompatActivity {
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+//                    Toast.makeText(SellActivity.this, "Permission denied for camera", Toast.LENGTH_SHORT).show();
+//                    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                }
+                return;
+            }
+            case 3: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+//                    Toast.makeText(SellActivity.this, "Permission denied for camera", Toast.LENGTH_SHORT).show();
+//                    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                }
+                return;
+            }
+            case 2: {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
@@ -358,7 +432,7 @@ public class SellActivity extends AppCompatActivity {
 //        byte[] byteFormat = stream.toByteArray();
 //        String encodedImage = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
 
-        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.cart);
+       // Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.cart);
         java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this);
         Animals animal = new Animals();
         animal.Age = Integer.parseInt(Age.getText().toString());
@@ -380,7 +454,7 @@ public class SellActivity extends AppCompatActivity {
         animal.Prize = Integer.parseInt(price.getText().toString());
         animal.CreatedOn = new Date().toString();
         animal.Status = "Review";
-        animal.Pic = BitMapToString(largeIcon);
+        animal.Pic = BitMapToString(bitmap);
         animal.SupplierContact = supplierContact.getText().toString();
 
 

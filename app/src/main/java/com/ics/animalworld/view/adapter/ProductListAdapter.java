@@ -116,7 +116,7 @@ public class ProductListAdapter extends
                 .getColor(productList.get(position).Breed));
 
 
-         b = StringToBitMap(productList.get(1).Pic.toString());
+         b = StringToBitMap(productList.get(position).Pic.toString());
 
         imagView.setImageBitmap(b);
 
