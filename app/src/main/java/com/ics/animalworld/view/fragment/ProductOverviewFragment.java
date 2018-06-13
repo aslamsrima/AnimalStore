@@ -139,6 +139,7 @@ public class ProductOverviewFragment extends Fragment {
                         if (success) {
                             try {
                                 setupViewPager(viewPager);
+
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

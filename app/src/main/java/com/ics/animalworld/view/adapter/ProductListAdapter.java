@@ -111,9 +111,9 @@ public class ProductListAdapter extends
         mDrawableBuilder = TextDrawable.builder().beginConfig().withBorder(4)
                 .endConfig().roundRect(10);
 
-        drawable = mDrawableBuilder.build(String.valueOf(productList
-                .get(position).Category.charAt(0)), mColorGenerator
-                .getColor(productList.get(position).Breed));
+//        drawable = mDrawableBuilder.build(String.valueOf(productList
+//                .get(position).Category.charAt(0)), mColorGenerator
+//                .getColor(productList.get(position).Breed));
 
 
          b = StringToBitMap(productList.get(position).Pic.toString());

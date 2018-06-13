@@ -1,8 +1,11 @@
 package com.ics.animalworld.view.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +42,7 @@ public class SimilarProductsPagerAdapter extends PagerAdapter {
     private String productCategory;
 
     private ImageView imageView;
-
+    Bitmap b;
     private IBuilder mDrawableBuilder;
     private TextDrawable drawable;
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
@@ -112,26 +115,31 @@ public class SimilarProductsPagerAdapter extends PagerAdapter {
                         .getMapOfProductsInCategory().get(productCategory).get(position)
                         .Category));
 
-        final String ImageUrl = "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg";//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(productCategory).get(position).getImageURL();
+        b = StringToBitMap(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                .get(productCategory).get(position).Pic.toString());
 
-        Picasso.with(mContext).load(ImageUrl).placeholder(drawable)
-                .error(drawable).fit().centerCrop()
-                .networkPolicy(NetworkPolicy.OFFLINE)
-                .into(imageView, new Callback() {
-                    @Override
-                    public void onSuccess() {
+        imageView.setImageBitmap(b);
 
-                    }
-
-                    @Override
-                    public void onError() {
-                        // Try again online if cache failed
-
-                        Picasso.with(mContext).load(ImageUrl)
-                                .placeholder(drawable).error(drawable).fit()
-                                .centerCrop().into(imageView);
-                    }
-                });
+//        final String ImageUrl = "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg";//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(productCategory).get(position).getImageURL();
+//
+//        Picasso.with(mContext).load(ImageUrl).placeholder(drawable)
+//                .error(drawable).fit().centerCrop()
+//                .networkPolicy(NetworkPolicy.OFFLINE)
+//                .into(imageView, new Callback() {
+//                    @Override
+//                    public void onSuccess() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError() {
+//                        // Try again online if cache failed
+//
+//                        Picasso.with(mContext).load(ImageUrl)
+//                                .placeholder(drawable).error(drawable).fit()
+//                                .centerCrop().into(imageView);
+//                    }
+//                });
 
         ((TextView) itemView.findViewById(R.id.item_name))
                 .setText(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
@@ -251,5 +259,16 @@ public class SimilarProductsPagerAdapter extends PagerAdapter {
     public void startUpdate(View arg0) {
         // TODO Auto-generated method stub
 
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 }

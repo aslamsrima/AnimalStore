@@ -2,6 +2,8 @@ package com.ics.animalworld.view.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +65,7 @@ public class ProductDetailsFragment extends Fragment {
     private ClickableViewPager topSellingPager;
     private Toolbar mToolbar;
     private FirebaseAuth mAuth;
-
+    Bitmap b;
 
     /**
      * Instantiates a new product details fragment.
@@ -265,7 +268,7 @@ public class ProductDetailsFragment extends Fragment {
                     .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                     .District);
 
-            itemdescription.setText(CenterRepository.getCenterRepository()
+            itemdescription.setText("Description: "+ CenterRepository.getCenterRepository()
                     .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                     .Description);
             itemsupplier.setText(CenterRepository.getCenterRepository()
@@ -306,27 +309,32 @@ public class ProductDetailsFragment extends Fragment {
                             .get(subcategoryKey).get(productListNumber)
                             .Category));
 
-            Picasso.with(getActivity())
-                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg").placeholder(drawable)  //CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getImageURL(
-                    .error(drawable).fit().centerCrop()
-                    .networkPolicy(NetworkPolicy.OFFLINE)
-                    .into(itemImage, new Callback() {
-                        @Override
-                        public void onSuccess() {
+//            Picasso.with(getActivity())
+//                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg").placeholder(drawable)  //CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getImageURL(
+//                    .error(drawable).fit().centerCrop()
+//                    .networkPolicy(NetworkPolicy.OFFLINE)
+//                    .into(itemImage, new Callback() {
+//                        @Override
+//                        public void onSuccess() {
+//
+//                        }
+//
+//                        @Override
+//                        public void onError() {
+//                            // Try again online if cache failed
+//
+//                            Picasso.with(getActivity())
+//                                    .load(//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getImageURL()
+//                                            "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg\",")
+//                                    .placeholder(drawable).error(drawable)
+//                                    .fit().centerCrop().into(itemImage);
+//                        }
+//                    });
 
-                        }
+            b = StringToBitMap(CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
 
-                        @Override
-                        public void onError() {
-                            // Try again online if cache failed
-
-                            Picasso.with(getActivity())
-                                    .load(//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getImageURL()
-                                            "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg\",")
-                                    .placeholder(drawable).error(drawable)
-                                    .fit().centerCrop().into(itemImage);
-                        }
-                    });
+            itemImage.setImageBitmap(b);
 
             LabelView label = new LabelView(getActivity());
 
@@ -379,28 +387,33 @@ public class ProductDetailsFragment extends Fragment {
                             .getCenterRepository().getListOfProductsInShoppingList()
                             .get(productListNumber).Category));
 
-            Picasso.with(getActivity())
-                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg" //CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getImageURL()
-                    ).placeholder(drawable)
-                    .error(drawable).fit().centerCrop()
-                    .networkPolicy(NetworkPolicy.OFFLINE)
-                    .into(itemImage, new Callback() {
-                        @Override
-                        public void onSuccess() {
+//            Picasso.with(getActivity())
+//                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg" //CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getImageURL()
+//                    ).placeholder(drawable)
+//                    .error(drawable).fit().centerCrop()
+//                    .networkPolicy(NetworkPolicy.OFFLINE)
+//                    .into(itemImage, new Callback() {
+//                        @Override
+//                        public void onSuccess() {
+//
+//                        }
+//
+//                        @Override
+//                        public void onError() {
+//                            // Try again online if cache failed
+//
+//                            Picasso.with(getActivity())
+//                                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg" //CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getImageURL()
+//                                    )
+//                                    .placeholder(drawable).error(drawable)
+//                                    .fit().centerCrop().into(itemImage);
+//                        }
+//                    });
 
-                        }
+            b = StringToBitMap(CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
 
-                        @Override
-                        public void onError() {
-                            // Try again online if cache failed
-
-                            Picasso.with(getActivity())
-                                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg" //CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getImageURL()
-                                    )
-                                    .placeholder(drawable).error(drawable)
-                                    .fit().centerCrop().into(itemImage);
-                        }
-                    });
+            itemImage.setImageBitmap(b);
 
             LabelView label = new LabelView(getActivity());
 
@@ -422,6 +435,17 @@ public class ProductDetailsFragment extends Fragment {
                 BtnContact.setVisibility(View.GONE);
                 itemsupplier.setVisibility(View.VISIBLE);
             }
+        }
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
         }
     }
 }

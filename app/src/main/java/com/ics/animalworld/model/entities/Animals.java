@@ -9,6 +9,7 @@ public class Animals {
     public int ID;
     public String Category;
     public String SubCategory;
+
     public int Age;
     public String Breed;
     public String Gender;
@@ -23,6 +24,10 @@ public class Animals {
     public String State;
     public String Pic;
     public String CreatedOn;
+    public String ProductName;
+    public String CompanyName;
+    public String weight;
+
     //  public Date UpdatedOn;
 
     public Animals() {
@@ -49,6 +54,11 @@ public class Animals {
         result.put("State", animal.State);
         result.put("Pic", animal.Pic);
         result.put("CreatedOn", animal.CreatedOn);
+        result.put("ProductName", animal.ProductName);
+        result.put("CompanyName", animal.CompanyName);
+        result.put("weight", animal.weight);
+
+
         /* result.put("UpdatedOn", animal.UpdatedOn);*/
 
         return result;

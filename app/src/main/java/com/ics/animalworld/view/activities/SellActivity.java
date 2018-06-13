@@ -50,8 +50,8 @@ import java.util.Map;
 
 public class SellActivity extends AppCompatActivity {
     private RadioButton male, female;
-    private TextView milktxt, subCateg;
-    private EditText breed, milkRec, Price, Age, description, city, district, supplierContact, price;
+    private TextView milktxt, subCateg,typeTxt,ageTxt,breedTxt,genderTxt,productNameTxt,companyNameTxt,WeightTxt;
+    private EditText breed, milkRec, Price, Age, description, city, district, supplierContact, price,product_name,company_name,weight;
     private CheckBox negotiable;
     private Spinner category, type, subCategory;
     private Button AddPost;
@@ -67,7 +67,7 @@ public class SellActivity extends AppCompatActivity {
     Bitmap FINAL_IMAGE;
 
     // List<String> subCategoryList;
-    ArrayAdapter<String> dataAdapter, petAdapter, subCategoryAdapter;
+    ArrayAdapter<String> dataAdapter, petAdapter, subCategoryAdapter,petTypeAdapter;
     private static final int CAMERA_REQUEST = 1888;
     public static final int GRANTED = 0;
     public static final int DENIED = 1;
@@ -86,30 +86,36 @@ public class SellActivity extends AppCompatActivity {
 
         category = (Spinner) findViewById(R.id.category);
         subCategory = (Spinner) findViewById(R.id.subCategory);
-        //type=(Spinner)findViewById(R.id.type);
+        type=(Spinner)findViewById(R.id.type);
+        typeTxt = (TextView) findViewById(R.id.typetext);
         milkRec = (EditText) findViewById(R.id.milkval);
         milktxt = (TextView) findViewById(R.id.milktext);
+        milkRec.setVisibility(View.GONE);
+        milktxt.setVisibility(View.GONE);
         appRoot = (View) findViewById(R.id.app_root);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         subCateg = (TextView) findViewById(R.id.subCategorytext);
-        milkRec.setVisibility(View.GONE);
-        milktxt.setVisibility(View.GONE);
-        radioGroup = (RadioGroup) findViewById(R.id.radio_group);
-        //  type.setVisibility(View.GONE);
+        radioGroup = (RadioGroup) findViewById(R.id.gender_group);
         productImage = (ImageView) findViewById(R.id.viewImage);
-        AddPost = (Button) findViewById(R.id.btnAddPost);
-
+        productNameTxt = (TextView) findViewById(R.id.reg_product_nameTxt);
+        product_name =(EditText) findViewById(R.id.reg_product_name);
+        companyNameTxt = (TextView) findViewById(R.id.reg_company_nameTxt);
+        company_name =(EditText) findViewById(R.id.reg_company_name);
+        WeightTxt = (TextView) findViewById(R.id.weightTxt);
+        weight =(EditText) findViewById(R.id.reg_weight);
         description = (EditText) findViewById(R.id.reg_description);
         Price = (EditText) findViewById(R.id.price);
+        ageTxt = (TextView) findViewById(R.id.ageTxt);
         Age = (EditText) findViewById(R.id.reg_age);
+        breedTxt =(TextView) findViewById(R.id.breedTxt);
         breed = (EditText) findViewById(R.id.reg_breed);
         city = (EditText) findViewById(R.id.reg_city);
         district = (EditText) findViewById(R.id.reg_district);
-
+        genderTxt = (TextView) findViewById(R.id.GenderTxt);
         supplierContact = (EditText) findViewById(R.id.reg_supplier_contact);
         price = (EditText) findViewById(R.id.price);
         negotiable = (CheckBox) findViewById(R.id.chk_is_negotiable);
-
+        AddPost = (Button) findViewById(R.id.btnAddPost);
 
         AddPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,27 +151,30 @@ public class SellActivity extends AppCompatActivity {
         subCategoryListAnimal.add("Buffloes");
         subCategoryListAnimal.add("Cows");
         subCategoryListAnimal.add("Goats");
-        subCategoryListAnimal.add("Sheeps");
         subCategoryListAnimal.add("Horse");
+        subCategoryListAnimal.add("Rabbit");
+        subCategoryListAnimal.add("Sheeps");
+
+
 
         List<String> subCategoryListPet = new ArrayList<String>();
         subCategoryListPet.add("Select Pet");
-        subCategoryListPet.add("Dogs");
-        subCategoryListPet.add("Cats");
-        subCategoryListPet.add("Birds");
+        subCategoryListPet.add("Cat");
+        subCategoryListPet.add("Dog");
+        subCategoryListPet.add("Bird");
         subCategoryListPet.add("Fish");
 
 
 
         List<String> animalList = new ArrayList<String>();
         animalList.add("Animal");
-        animalList.add("Animal Accesories");
+//        animalList.add("Animal Accesories");
         animalList.add("Animal Food");
         animalList.add("Animal Medicine");
 
         List<String> petList = new ArrayList<String>();
         petList.add("Pet");
-        petList.add("Pet Accesories");
+//        petList.add("Pet Accesories");
         petList.add("Pet Food");
         petList.add("Pet Medicine");
         /* Assign the name array to that adapter and
@@ -173,6 +182,10 @@ public class SellActivity extends AppCompatActivity {
         dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, animalList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        petTypeAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, petList);
+        petTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         petAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, subCategoryListPet);
@@ -194,20 +207,116 @@ public class SellActivity extends AppCompatActivity {
                     milkRec.setVisibility(View.GONE);
                     subCategory.setVisibility(View.GONE);
                     milktxt.setVisibility(View.GONE);
+                    type.setVisibility(View.GONE);
+                    typeTxt.setVisibility(View.GONE);
+                    productNameTxt.setVisibility(View.GONE);
+                    product_name.setVisibility(View.GONE);
+                    companyNameTxt.setVisibility(View.GONE);
+                    company_name.setVisibility(View.GONE);
+                    WeightTxt.setVisibility(View.GONE);
+                    weight.setVisibility(View.GONE);
                 }
                 if (position == 1) {
-                    //type.setAdapter(dataAdapter);
-                    subCateg.setVisibility(View.VISIBLE);
-                    subCategory.setAdapter(subCategoryAdapter);
-                    subCategory.setVisibility(View.VISIBLE);
-                    milkRec.setVisibility(View.VISIBLE);
-                    milktxt.setVisibility(View.VISIBLE);
+                    type.setAdapter(dataAdapter);
+                    type.setVisibility(View.VISIBLE);
+                    typeTxt.setVisibility(View.VISIBLE);
+                    productNameTxt.setVisibility(View.GONE);
+                    product_name.setVisibility(View.GONE);
+                    companyNameTxt.setVisibility(View.GONE);
+                    company_name.setVisibility(View.GONE);
+                    WeightTxt.setVisibility(View.GONE);
+                    weight.setVisibility(View.GONE);
+
+
                 } else if (position == 2) {
+                    type.setAdapter(petTypeAdapter);
+                    type.setVisibility(View.VISIBLE);
+                    typeTxt.setVisibility(View.VISIBLE);
                     subCategory.setAdapter(petAdapter);
                     subCateg.setVisibility(View.VISIBLE);
                     milkRec.setVisibility(View.GONE);
                     milktxt.setVisibility(View.GONE);
                     subCategory.setVisibility(View.VISIBLE);
+                    productNameTxt.setVisibility(View.GONE);
+                    product_name.setVisibility(View.GONE);
+                    companyNameTxt.setVisibility(View.GONE);
+                    company_name.setVisibility(View.GONE);
+                    WeightTxt.setVisibility(View.GONE);
+                    weight.setVisibility(View.GONE);
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+        type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                if (position == 0) {
+                    subCateg.setVisibility(View.VISIBLE);
+                    subCategory.setAdapter(subCategoryAdapter);
+                    subCategory.setVisibility(View.VISIBLE);
+                    milkRec.setVisibility(View.VISIBLE);
+                    milktxt.setVisibility(View.VISIBLE);
+                    productNameTxt.setVisibility(View.GONE);
+                    product_name.setVisibility(View.GONE);
+                    companyNameTxt.setVisibility(View.GONE);
+                    company_name.setVisibility(View.GONE);
+                    WeightTxt.setVisibility(View.GONE);
+                    weight.setVisibility(View.GONE);
+                    genderTxt.setVisibility(View.GONE);
+                    radioGroup.setVisibility(View.VISIBLE);
+                    ageTxt.setVisibility(View.VISIBLE);
+                    Age.setVisibility(View.VISIBLE);
+                    breedTxt.setVisibility(View.VISIBLE);
+                    breed.setVisibility(View.VISIBLE);
+
+
+                }
+                if (position == 1) {
+                    subCateg.setVisibility(View.VISIBLE);
+                    milkRec.setVisibility(View.GONE);
+                    subCategory.setVisibility(View.VISIBLE);
+                    milktxt.setVisibility(View.GONE);
+                    productNameTxt.setVisibility(View.VISIBLE);
+                    product_name.setVisibility(View.VISIBLE);
+                    companyNameTxt.setVisibility(View.VISIBLE);
+                    company_name.setVisibility(View.VISIBLE);
+                    WeightTxt.setVisibility(View.VISIBLE);
+                    weight.setVisibility(View.VISIBLE);
+                    genderTxt.setVisibility(View.GONE);
+                    radioGroup.setVisibility(View.GONE);
+                    ageTxt.setVisibility(View.GONE);
+                    Age.setVisibility(View.GONE);
+                    breedTxt.setVisibility(View.GONE);
+                    breed.setVisibility(View.GONE);
+
+
+                } else if (position == 2) {
+                    subCateg.setVisibility(View.VISIBLE);
+                    milkRec.setVisibility(View.GONE);
+                    subCategory.setVisibility(View.VISIBLE);
+                    milktxt.setVisibility(View.GONE);
+                    productNameTxt.setVisibility(View.VISIBLE);
+                    product_name.setVisibility(View.VISIBLE);
+                    companyNameTxt.setVisibility(View.VISIBLE);
+                    company_name.setVisibility(View.VISIBLE);
+                    WeightTxt.setVisibility(View.VISIBLE);
+                    weight.setVisibility(View.VISIBLE);
+                    weight.setVisibility(View.VISIBLE);
+                    genderTxt.setVisibility(View.GONE);
+                    radioGroup.setVisibility(View.GONE);
+                    ageTxt.setVisibility(View.GONE);
+                    Age.setVisibility(View.GONE);
+                    breedTxt.setVisibility(View.GONE);
+                    breed.setVisibility(View.GONE);
                 }
             }
 
@@ -245,18 +354,6 @@ public class SellActivity extends AppCompatActivity {
                 {
 
 
-//                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//
-//                    File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
-//
-//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-//
-//                    startActivityForResult(intent, 1);
-//                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                    Uri file = Uri.fromFile(getOutputMediaFile());
-//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
-//
-//                    startActivityForResult(intent, 100);
                     if (getPermissionStatus(SellActivity.this, Manifest.permission.CAMERA) == SellActivity.GRANTED) {
                         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                         startActivityForResult(cameraIntent, CAMERA_REQUEST);
@@ -422,33 +519,49 @@ public class SellActivity extends AppCompatActivity {
         // Create new List Item  at /listItem
 
         final String key = FirebaseDatabase.getInstance().getReference().child("Animals").push().getKey();
-        //LayoutInflater li = LayoutInflater.from(this);
-        //View getListItemView = li.inflate(R.layout.dialog_get_list_item, null);
 
-        //String listItemText = userInput.getText().toString();
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//        byte[] byteFormat = stream.toByteArray();
-//        String encodedImage = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
-
-       // Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.cart);
         java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this);
         Animals animal = new Animals();
-        animal.Age = Integer.parseInt(Age.getText().toString());
-        animal.Breed = breed.getText().toString();
+        if(Age.getVisibility() == View.GONE ) {
+            animal.Age = 0;
+        }else{
+            animal.Age = Integer.parseInt(Age.getText().toString());
+        }
+        if(breed.getVisibility() == View.GONE ) {
+            animal.Breed = null;
+        }else{
+            animal.Breed = breed.getText().toString();
+        }
         animal.Category = category.getSelectedItem().toString();
         animal.City = city.getText().toString();
         animal.SubCategory = subCategory.getSelectedItem().toString();
         animal.Description = description.getText().toString();
         animal.District = district.getText().toString();
-        animal.Gender = radioButton.getText().toString();
-        animal.ID = 1;
+        if(radioGroup.getVisibility()== View.GONE){
+            animal.Gender = null;
+        }else{
+            animal.Gender = radioButton.getText().toString();
+        }
         animal.IsPrizeNegoyiable = true;
         if(milkRec.getVisibility() == View.GONE ){
             animal.MlkRec = 0;
         }else{
             animal.MlkRec = Integer.parseInt(milkRec.getText().toString());
+        }
+        if(product_name.getVisibility() == View.GONE){
+           animal.ProductName=null;
+        }else{
+            animal.ProductName=product_name.getText().toString();
+        }
+        if(company_name.getVisibility() == View.GONE){
+            animal.CompanyName=null;
+        }else{
+            animal.CompanyName=company_name.getText().toString();
+        }
+        if(weight.getVisibility() == View.GONE){
+            animal.weight=null;
+        }else{
+            animal.weight=weight.getText().toString();
         }
 
         animal.Prize = Integer.parseInt(price.getText().toString());
@@ -461,9 +574,30 @@ public class SellActivity extends AppCompatActivity {
         Map<String, Object> listItemValues = animal.toMap(animal);
         Map<String, Object> childUpdates = new HashMap<>();
         if(animal.Category.equals("Pet")){
-            childUpdates.put("/Pets/" + key, listItemValues);
-        }else{
-            childUpdates.put("/Animals/" + key, listItemValues);
+            if(type.getVisibility() == View.VISIBLE){
+
+                if(type.getSelectedItem().toString().equals("Pet Food")){
+                    childUpdates.put("/Pet_Foods/" + key, listItemValues);
+                }else if(type.getSelectedItem().toString().equals("Pet Medicine")){
+                    childUpdates.put("/Pet_Medicine/" + key, listItemValues);
+                }
+            }else{
+                childUpdates.put("/Pets/" + key, listItemValues);
+            }
+
+        }else if(animal.Category.equals("Animal")){
+            if(type.getVisibility() == View.VISIBLE){
+
+                if(type.getSelectedItem().toString().equals("Animal Food")){
+                    childUpdates.put("/Animal_Foods/" + key, listItemValues);
+                }else if(type.getSelectedItem().toString().equals("Animal Medicine")){
+                    childUpdates.put("/Animal_Medicine/" + key, listItemValues);
+                }
+            }else{
+                childUpdates.put("/Animals/" + key, listItemValues);
+            }
+
+
         }
 
         FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);

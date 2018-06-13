@@ -26,7 +26,8 @@ public class FakeWebServer {
 
     private static FakeWebServer fakeServer;
     private DatabaseReference mDatabase;
-
+    private ArrayList<Animals> animalFoods;
+    ConcurrentHashMap<String, ArrayList<Animals>> productMap;
     public static FakeWebServer getFakeWebServer() {
 
         if (null == fakeServer) {
@@ -49,22 +50,22 @@ public class FakeWebServer {
                 .add(new ProductCategoryModel(
                         "Animals",
                         "Animals Items",
-                        "10%",
+                        "New",
                         "https://cdn.pixabay.com/photo/2017/08/04/09/39/indian-cow-2579534_960_720.jpg"));
 
         listOfCategory
                 .add(new ProductCategoryModel(
                         "Pets",
                         "Pets Items",
-                        "15%",
+                        "New",
                         "https://images8.alphacoders.com/496/496528.jpg"));
 
         CenterRepository.getCenterRepository().setListOfCategory(listOfCategory);
     }
 
-    public void getAllAnimals(Map<String, Object> animal) {
+    public void getAllAnimals(Map<String, Object> animal,final FakeWebServiceResponseListener listener) {
 
-        ConcurrentHashMap<String, ArrayList<Animals>> productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
+        productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
 
         ArrayList<Animals> productlist = new ArrayList<Animals>();
         Animals myAnimal = new Animals();
@@ -79,6 +80,25 @@ public class FakeWebServer {
         productMap.put("Animals", productlist);
 
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
+
+        getAnimalFoods(new FakeWebServiceResponseListener(){
+            @Override
+            public void onServiceResponse(boolean success) {
+                if (success) {
+                    try {
+                        productMap.put("Animals Foods", animalFoods);
+                        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
+                        if (listener != null)
+                            listener.onServiceResponse(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+
+
 
     }
 
@@ -105,14 +125,26 @@ public class FakeWebServer {
     public void getAllProducts(int productCategory, final FakeWebServiceResponseListener listener) {
 
         if (productCategory == 0) {
+
             mDatabase = FirebaseDatabase.getInstance().getReference().child("Animals");
             mDatabase.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            getAllAnimals((Map<String, Object>) dataSnapshot.getValue());
-                            if (listener != null)
-                                listener.onServiceResponse(true);
+                            getAllAnimals((Map<String, Object>) dataSnapshot.getValue(),new FakeWebServiceResponseListener(){
+                                @Override
+                                public void onServiceResponse(boolean success) {
+                                    if (success) {
+                                        try {
+                                            if (listener != null)
+                                                listener.onServiceResponse(true);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            });
+
                         }
 
                         @Override
@@ -148,5 +180,36 @@ public class FakeWebServer {
         }
 
     }
+    private void getAnimalFoods(final FakeWebServiceResponseListener listener){
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Animal_Foods");
+        mDatabase.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Map<String, Object> animalFood = (Map<String, Object>) dataSnapshot.getValue();
+                        animalFoods = new ArrayList<Animals>();
+                        Animals AnimalFood = new Animals();
+                        Gson gson = new Gson();
+
+                        for (String s : animalFood.keySet()) {
+                            JsonElement jsonElement = gson.toJsonTree(animalFood.get(s));
+                            AnimalFood = gson.fromJson(jsonElement, Animals.class);
+                            animalFoods.add(AnimalFood);
+                            if (listener != null)
+                                listener.onServiceResponse(true);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                        if (listener != null)
+                            listener.onServiceResponse(false);
+                    }
+                });
+        //return animalFoods;
+    };
+
 
 }
