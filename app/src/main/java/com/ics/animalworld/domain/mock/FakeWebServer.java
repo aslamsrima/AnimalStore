@@ -51,7 +51,7 @@ public class FakeWebServer {
                         "Animals",
                         "Animals Items",
                         "New",
-                        "https://cdn.pixabay.com/photo/2017/08/04/09/39/indian-cow-2579534_960_720.jpg"));
+                        "http://images6.fanpop.com/image/photos/37400000/Cow-animals-37411834-500-313.jpg"));
 
         listOfCategory
                 .add(new ProductCategoryModel(
