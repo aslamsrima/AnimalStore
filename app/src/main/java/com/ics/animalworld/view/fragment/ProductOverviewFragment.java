@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.ics.animalworld.R;
@@ -28,6 +29,7 @@ import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
 import com.ics.animalworld.view.adapter.ProductsInCategoryPagerAdapter;
+import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +45,10 @@ public class ProductOverviewFragment extends Fragment {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TabLayout tabLayout;
     private Spinner SortBy;
+    TextView SortTxt;
     ArrayAdapter<String> dataAdapter;
     List<String> animalList;
+    ProgressView circularProgressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,6 +69,9 @@ public class ProductOverviewFragment extends Fragment {
 
         viewPager = (ViewPager) view.findViewById(R.id.htab_viewpager);
         SortBy = (Spinner) view.findViewById(R.id.Sort);
+        SortBy.setVisibility(View.GONE);
+        SortTxt = (TextView) view.findViewById(R.id.SortTxt);
+        SortTxt.setVisibility(View.GONE);
         collapsingToolbarLayout = (CollapsingToolbarLayout) view
                 .findViewById(R.id.htab_collapse_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
@@ -75,6 +82,9 @@ public class ProductOverviewFragment extends Fragment {
         tabLayout = (TabLayout) view.findViewById(R.id.htab_tabs);
 
         mToolbar = (Toolbar) view.findViewById(R.id.htab_toolbar);
+//        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress);
+//        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress1);
+
         if (mToolbar != null) {
             ((ECartHomeActivity) getActivity()).setSupportActionBar(mToolbar);
         }
@@ -106,7 +116,7 @@ public class ProductOverviewFragment extends Fragment {
         dataAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, animalList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        setUpUi();
+
 
         view.setFocusableInTouchMode(true);
         view.requestFocus();
@@ -138,8 +148,11 @@ public class ProductOverviewFragment extends Fragment {
                     public void onServiceResponse(boolean success) {
                         if (success) {
                             try {
+                                setUpUi();
                                 setupViewPager(viewPager);
-
+                                circularProgressBar.setVisibility(View.GONE);
+                                SortTxt.setVisibility(View.VISIBLE);
+                                SortBy.setVisibility(View.VISIBLE);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -150,6 +163,7 @@ public class ProductOverviewFragment extends Fragment {
         /*if (null != ((ECartHomeActivity) getContext()).getProgressBar())
             ((ECartHomeActivity) getContext()).getProgressBar().setVisibility(
                     View.GONE)*/;
+        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress1);
         return view;
     }
 

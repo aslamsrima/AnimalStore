@@ -19,12 +19,11 @@ import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
 import com.ics.animalworld.view.adapter.ProductListAdapter;
 import com.ics.animalworld.view.adapter.ProductListAdapter.OnItemClickListener;
-import com.wang.avi.AVLoadingIndicatorView;
 
 public class ProductListFragment extends Fragment {
     private String subcategoryKey;
     private boolean isShoppingList;
-    private AVLoadingIndicatorView progressBar;
+
     public ProductListFragment() {
         isShoppingList = true;
     }
@@ -41,8 +40,7 @@ public class ProductListFragment extends Fragment {
         View view = inflater.inflate(R.layout.frag_product_list_fragment, container,
                 false);
 
-        progressBar=(AVLoadingIndicatorView) view.findViewById(R.id.loading_bar);
-        progressBar.setVisibility(view.VISIBLE);
+
         if (isShoppingList) {
             view.findViewById(R.id.slide_down).setVisibility(View.VISIBLE);
             view.findViewById(R.id.slide_down).setOnTouchListener(
@@ -73,6 +71,7 @@ public class ProductListFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view
                 .findViewById(R.id.product_list_recycler_view);
 
+        recyclerView.setVisibility(View.GONE);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
                 getActivity().getBaseContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -80,9 +79,9 @@ public class ProductListFragment extends Fragment {
 
         ProductListAdapter adapter = new ProductListAdapter(subcategoryKey,
                 getActivity(), isShoppingList);
-        progressBar.setVisibility(view.GONE);
         recyclerView.setAdapter(adapter);
 
+        recyclerView.setVisibility(View.VISIBLE);
         adapter.SetOnItemClickListener(new OnItemClickListener() {
 
             @Override

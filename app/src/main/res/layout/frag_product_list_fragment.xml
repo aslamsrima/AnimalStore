@@ -81,8 +81,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/slide_down" />
+                <!--<include layout="@layout/frag_loader" />-->
 
-                <include layout="@layout/prg_view" />
                 <FrameLayout
                     android:id="@+id/default_nodata"
                     android:layout_width="match_parent"

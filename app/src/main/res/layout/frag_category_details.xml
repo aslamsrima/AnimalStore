@@ -42,6 +42,7 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
                 <TextView
+                    android:id="@+id/SortTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sort By:"
@@ -53,7 +54,6 @@
                     android:id="@+id/Sort"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:layout_marginTop="5dip" />
 
             </android.support.v7.widget.Toolbar>
@@ -68,10 +68,22 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
+    <com.rey.material.widget.ProgressView
+        android:id="@+id/circular_progress1"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"
+        app:pv_autostart="true"
+        app:pv_circular="true"
+        app:pv_progressMode="indeterminate"
+        app:pv_progressStyle="@style/Material.Drawable.CircularProgress" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/htab_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 
 </android.support.design.widget.CoordinatorLayout>
