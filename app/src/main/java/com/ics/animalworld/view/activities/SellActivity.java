@@ -272,7 +272,7 @@ public class SellActivity extends AppCompatActivity {
                     company_name.setVisibility(View.GONE);
                     WeightTxt.setVisibility(View.GONE);
                     weight.setVisibility(View.GONE);
-                    genderTxt.setVisibility(View.GONE);
+                    genderTxt.setVisibility(View.VISIBLE);
                     radioGroup.setVisibility(View.VISIBLE);
                     ageTxt.setVisibility(View.VISIBLE);
                     Age.setVisibility(View.VISIBLE);
@@ -581,6 +581,8 @@ public class SellActivity extends AppCompatActivity {
                     childUpdates.put("/Pet_Foods/" + key, listItemValues);
                 }else if(type.getSelectedItem().toString().equals("Pet Medicine")){
                     childUpdates.put("/Pet_Medicine/" + key, listItemValues);
+                }else{
+                    childUpdates.put("/Pets/" + key, listItemValues);
                 }
             }else{
                 childUpdates.put("/Pets/" + key, listItemValues);
@@ -593,9 +595,11 @@ public class SellActivity extends AppCompatActivity {
                     childUpdates.put("/Animal_Foods/" + key, listItemValues);
                 }else if(type.getSelectedItem().toString().equals("Animal Medicine")){
                     childUpdates.put("/Animal_Medicine/" + key, listItemValues);
+                }else{
+                    childUpdates.put("/Animals/" + key, listItemValues);
                 }
             }else{
-                childUpdates.put("/Animals/" + key, listItemValues);
+
             }
 
 
@@ -603,7 +607,9 @@ public class SellActivity extends AppCompatActivity {
 
         FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
         // set dialog message
-
+        Toast.makeText(SellActivity.this, "Your request for posting add has been submitted successfully. We will review your application in next 48 hours.",
+                Toast.LENGTH_LONG).show();
+        startActivity(new Intent(SellActivity.this, ECartHomeActivity.class));
 
     }
 
