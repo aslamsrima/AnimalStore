@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment {
                 .findViewById(R.id.collapsing_toolbar);
 
         collapsingToolbar.setTitle("Categories");
-
+        collapsingToolbar.setCollapsedTitleTextColor(855052);
         ImageView header = (ImageView) view.findViewById(R.id.header);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),

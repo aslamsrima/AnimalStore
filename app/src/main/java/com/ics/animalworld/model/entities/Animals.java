@@ -9,7 +9,7 @@ public class Animals {
     public int ID;
     public String Category;
     public String SubCategory;
-
+    public String Type;
     public int Age;
     public String Breed;
     public String Gender;
@@ -40,6 +40,7 @@ public class Animals {
         result.put("ID", animal.ID);
         result.put("Category", animal.Category);
         result.put("SubCategory", animal.SubCategory);
+        result.put("Type",animal.Type);
         result.put("Age", animal.Age);
         result.put("Breed", animal.Breed);
         result.put("Gender", animal.Gender);

@@ -220,6 +220,7 @@ public class SellActivity extends AppCompatActivity {
                     type.setAdapter(dataAdapter);
                     type.setVisibility(View.VISIBLE);
                     typeTxt.setVisibility(View.VISIBLE);
+                    subCategory.setAdapter(subCategoryAdapter);
                     productNameTxt.setVisibility(View.GONE);
                     product_name.setVisibility(View.GONE);
                     companyNameTxt.setVisibility(View.GONE);
@@ -261,7 +262,7 @@ public class SellActivity extends AppCompatActivity {
                 // your code here
                 if (position == 0) {
                     subCateg.setVisibility(View.VISIBLE);
-                    subCategory.setAdapter(subCategoryAdapter);
+                    ///subCategory.setAdapter(subCategoryAdapter);
                     subCategory.setVisibility(View.VISIBLE);
                     milkRec.setVisibility(View.VISIBLE);
                     milktxt.setVisibility(View.VISIBLE);
@@ -569,7 +570,7 @@ public class SellActivity extends AppCompatActivity {
         animal.Status = "Review";
         animal.Pic = BitMapToString(bitmap);
         animal.SupplierContact = supplierContact.getText().toString();
-
+        animal.Type = type.getSelectedItem().toString();
 
         Map<String, Object> listItemValues = animal.toMap(animal);
         Map<String, Object> childUpdates = new HashMap<>();

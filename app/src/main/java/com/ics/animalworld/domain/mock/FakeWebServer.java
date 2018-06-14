@@ -59,6 +59,19 @@ public class FakeWebServer {
                         "Pets Items",
                         "New",
                         "https://images8.alphacoders.com/496/496528.jpg"));
+        listOfCategory
+                .add(new ProductCategoryModel(
+                        "Farming Tools",
+                        "Farming Items",
+                        "New",
+                        "http://www.beatmagazinesa.co.za/wp-content/uploads/2015/02/agriculture.jpg"));
+
+        listOfCategory
+                .add(new ProductCategoryModel(
+                        "Farming Products",
+                        "Farming Items",
+                        "New",
+                        ""));
 
         CenterRepository.getCenterRepository().setListOfCategory(listOfCategory);
     }
@@ -122,6 +135,49 @@ public class FakeWebServer {
 
     }
 
+    public void getAllFarmingTools(Map<String, Object> farmingTool) {
+/*
+        ConcurrentHashMap<String, ArrayList<Animals>> productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
+
+        ArrayList<Animals> productlist = new ArrayList<Animals>();
+        Animals myAnimal = new Animals();
+        Gson gson = new Gson();
+
+        for (String s : Pets.keySet()) {
+            JsonElement jsonElement = gson.toJsonTree(Pets.get(s));
+            myAnimal = gson.fromJson(jsonElement, Animals.class);
+            productlist.add(myAnimal);
+        }
+
+        productMap.put("Pets", productlist);
+
+        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
+*/
+
+
+    }
+
+    public void getAllFarmingProducts(Map<String, Object> farmingProduct) {
+/*
+        ConcurrentHashMap<String, ArrayList<Animals>> productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
+
+        ArrayList<Animals> productlist = new ArrayList<Animals>();
+        Animals myAnimal = new Animals();
+        Gson gson = new Gson();
+
+        for (String s : Pets.keySet()) {
+            JsonElement jsonElement = gson.toJsonTree(Pets.get(s));
+            myAnimal = gson.fromJson(jsonElement, Animals.class);
+            productlist.add(myAnimal);
+        }
+
+        productMap.put("Pets", productlist);
+
+        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
+*/
+
+
+    }
     public void getAllProducts(int productCategory, final FakeWebServiceResponseListener listener) {
 
         if (productCategory == 0) {
@@ -155,7 +211,7 @@ public class FakeWebServer {
                         }
                     });
 
-        } else {
+        } else if(productCategory == 1) {
             mDatabase = FirebaseDatabase.getInstance().getReference().child("Pets");
             mDatabase.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -175,8 +231,44 @@ public class FakeWebServer {
                     });
 
 
+        }else if(productCategory == 2){
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("FarmingTools");
+            mDatabase.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            getAllFarmingTools((Map<String, Object>) dataSnapshot.getValue());
+                            if (listener != null)
+                                listener.onServiceResponse(true);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //handle databaseError
+                            if (listener != null)
+                                listener.onServiceResponse(false);
+                        }
+                    });
 
 
+        }else if(productCategory ==3){
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("FarmingProducts");
+            mDatabase.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            getAllFarmingProducts((Map<String, Object>) dataSnapshot.getValue());
+                            if (listener != null)
+                                listener.onServiceResponse(true);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //handle databaseError
+                            if (listener != null)
+                                listener.onServiceResponse(false);
+                        }
+                    });
         }
 
     }
