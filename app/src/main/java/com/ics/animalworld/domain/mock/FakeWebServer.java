@@ -90,47 +90,60 @@ public class FakeWebServer {
             productlist.add(myAnimal);
         }
 
-        productMap.put("Animals", productlist);
+        ArrayList<Animals> animalslist = new ArrayList<Animals>();
+        ArrayList<Animals> animalsfood = new ArrayList<Animals>();
+        ArrayList<Animals> animalsmedicine = new ArrayList<Animals>();
+        ArrayList<Animals> petslist = new ArrayList<Animals>();
+        ArrayList<Animals> petsfood = new ArrayList<Animals>();
+        ArrayList<Animals> petsmedicine = new ArrayList<Animals>();
+
+        for (Animals item:productlist  ){
+            if(item.Category.equals("Animal")){
+                if(item.Type.equals("Animal"))
+                    animalslist.add(item);
+                else if(item.Type.equals("Animal Food"))
+                    animalsfood.add(item);
+                else if(item.Type.equals("Animal Medicine"))
+                    animalsmedicine.add(item);
+
+            }else if(item.Category.equals("Pet")){
+                if(item.Type.equals("Pet"))
+                    petslist.add(item);
+                else if(item.Type.equals("Pet Food"))
+                    petsfood.add(item);
+                else if(item.Type.equals("Pet Medicine"))
+                    petsmedicine.add(item);
+            }
+        }
+
+        productMap.put("Animals", animalslist);
+        productMap.put("Animal's Food", animalsfood);
+//        productMap.put("Animal's Medicine", animalsmedicine);
+//        productMap.put("Pet", petslist);
+//        productMap.put("Pet's Food", petsfood);
+//        productMap.put("Pet's Medicine", petsmedicine);
+
 
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
-
-        getAnimalFoods(new FakeWebServiceResponseListener(){
-            @Override
-            public void onServiceResponse(boolean success) {
-                if (success) {
-                    try {
-                        productMap.put("Animals Foods", animalFoods);
-                        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
-                        if (listener != null)
-                            listener.onServiceResponse(true);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-
-
 
     }
 
     public void getAllPets(Map<String, Object> Pets) {
         ConcurrentHashMap<String, ArrayList<Animals>> productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
 
-        ArrayList<Animals> productlist = new ArrayList<Animals>();
-        Animals myAnimal = new Animals();
-        Gson gson = new Gson();
-
-        for (String s : Pets.keySet()) {
-            JsonElement jsonElement = gson.toJsonTree(Pets.get(s));
-            myAnimal = gson.fromJson(jsonElement, Animals.class);
-            productlist.add(myAnimal);
-        }
-
-        productMap.put("Pets", productlist);
-
-        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
+//        ArrayList<Animals> productlist = new ArrayList<Animals>();
+//        Animals myAnimal = new Animals();
+//        Gson gson = new Gson();
+//
+//        for (String s : Pets.keySet()) {
+//            JsonElement jsonElement = gson.toJsonTree(Pets.get(s));
+//            myAnimal = gson.fromJson(jsonElement, Animals.class);
+//            productlist.add(myAnimal);
+//        }
+//
+//        productMap.put("Pets", productlist);
+//
+//        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
 
 
     }

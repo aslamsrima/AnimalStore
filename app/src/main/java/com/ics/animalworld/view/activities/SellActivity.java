@@ -574,36 +574,7 @@ public class SellActivity extends AppCompatActivity {
 
         Map<String, Object> listItemValues = animal.toMap(animal);
         Map<String, Object> childUpdates = new HashMap<>();
-        if(animal.Category.equals("Pet")){
-            if(type.getVisibility() == View.VISIBLE){
-
-                if(type.getSelectedItem().toString().equals("Pet Food")){
-                    childUpdates.put("/Pet_Foods/" + key, listItemValues);
-                }else if(type.getSelectedItem().toString().equals("Pet Medicine")){
-                    childUpdates.put("/Pet_Medicine/" + key, listItemValues);
-                }else{
-                    childUpdates.put("/Pets/" + key, listItemValues);
-                }
-            }else{
-                childUpdates.put("/Pets/" + key, listItemValues);
-            }
-
-        }else if(animal.Category.equals("Animal")){
-            if(type.getVisibility() == View.VISIBLE){
-
-                if(type.getSelectedItem().toString().equals("Animal Food")){
-                    childUpdates.put("/Animal_Foods/" + key, listItemValues);
-                }else if(type.getSelectedItem().toString().equals("Animal Medicine")){
-                    childUpdates.put("/Animal_Medicine/" + key, listItemValues);
-                }else{
-                    childUpdates.put("/Animals/" + key, listItemValues);
-                }
-            }else{
-
-            }
-
-
-        }
+        childUpdates.put("/Animals/" + key, listItemValues);
 
         FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
         // set dialog message
@@ -614,11 +585,15 @@ public class SellActivity extends AppCompatActivity {
     }
 
     public String BitMapToString(Bitmap bitmap) {
+        if(bitmap!= null){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] b = baos.toByteArray();
         String temp = Base64.encodeToString(b, Base64.DEFAULT);
         return temp;
+        }
+        else
+            return null;
     }
 
 
