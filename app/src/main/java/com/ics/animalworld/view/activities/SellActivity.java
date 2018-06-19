@@ -217,6 +217,8 @@ public class SellActivity extends AppCompatActivity {
                     weight.setVisibility(View.GONE);
                 }
                 if (position == 1) {
+                    milkRec.setVisibility(View.VISIBLE);
+                    milktxt.setVisibility(View.VISIBLE);
                     type.setAdapter(dataAdapter);
                     type.setVisibility(View.VISIBLE);
                     typeTxt.setVisibility(View.VISIBLE);
@@ -264,8 +266,7 @@ public class SellActivity extends AppCompatActivity {
                     subCateg.setVisibility(View.VISIBLE);
                     ///subCategory.setAdapter(subCategoryAdapter);
                     subCategory.setVisibility(View.VISIBLE);
-                    milkRec.setVisibility(View.VISIBLE);
-                    milktxt.setVisibility(View.VISIBLE);
+
                     productNameTxt.setVisibility(View.GONE);
                     product_name.setVisibility(View.GONE);
                     companyNameTxt.setVisibility(View.GONE);

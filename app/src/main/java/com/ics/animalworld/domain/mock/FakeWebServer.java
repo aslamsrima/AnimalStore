@@ -12,6 +12,7 @@ import com.google.gson.JsonElement;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.ProductCategoryModel;
+import com.ics.animalworld.util.TinyDB;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class FakeWebServer {
     private static FakeWebServer fakeServer;
     private DatabaseReference mDatabase;
     private ArrayList<Animals> animalFoods;
+    private int selectedCategory;
     ConcurrentHashMap<String, ArrayList<Animals>> productMap;
     public static FakeWebServer getFakeWebServer() {
 
@@ -76,7 +78,7 @@ public class FakeWebServer {
         CenterRepository.getCenterRepository().setListOfCategory(listOfCategory);
     }
 
-    public void getAllAnimals(Map<String, Object> animal,final FakeWebServiceResponseListener listener) {
+    public void getAllAnimals(Map<String, Object> animal,int productCategory) {
 
         productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
 
@@ -98,6 +100,7 @@ public class FakeWebServer {
         ArrayList<Animals> petsmedicine = new ArrayList<Animals>();
 
         for (Animals item:productlist  ){
+            if(productCategory==0){
             if(item.Category.equals("Animal")){
                 if(item.Type.equals("Animal"))
                     animalslist.add(item);
@@ -106,23 +109,27 @@ public class FakeWebServer {
                 else if(item.Type.equals("Animal Medicine"))
                     animalsmedicine.add(item);
 
-            }else if(item.Category.equals("Pet")){
-                if(item.Type.equals("Pet"))
-                    petslist.add(item);
-                else if(item.Type.equals("Pet Food"))
-                    petsfood.add(item);
-                else if(item.Type.equals("Pet Medicine"))
-                    petsmedicine.add(item);
+            }
+            }else if(productCategory==1) {
+                if (item.Category.equals("Pet")) {
+                    if (item.Type.equals("Pet"))
+                        petslist.add(item);
+                    else if (item.Type.equals("Pet Food"))
+                        petsfood.add(item);
+                    else if (item.Type.equals("Pet Medicine"))
+                        petsmedicine.add(item);
+                }
             }
         }
-
-        productMap.put("Animals", animalslist);
-        productMap.put("Animal's Food", animalsfood);
-//        productMap.put("Animal's Medicine", animalsmedicine);
-//        productMap.put("Pet", petslist);
-//        productMap.put("Pet's Food", petsfood);
-//        productMap.put("Pet's Medicine", petsmedicine);
-
+        if(productCategory==0) {
+            productMap.put("Animals", animalslist);
+            productMap.put("Animal's Food", animalsfood);
+            productMap.put("Animal's Medicine", animalsmedicine);
+        }else if(productCategory==1) {
+            productMap.put("Pet", petslist);
+            productMap.put("Pet's Food", petsfood);
+            productMap.put("Pet's Medicine", petsmedicine);
+        }
 
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
 
@@ -192,45 +199,13 @@ public class FakeWebServer {
 
     }
     public void getAllProducts(int productCategory, final FakeWebServiceResponseListener listener) {
-
-        if (productCategory == 0) {
-
+        selectedCategory=productCategory;
             mDatabase = FirebaseDatabase.getInstance().getReference().child("Animals");
             mDatabase.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            getAllAnimals((Map<String, Object>) dataSnapshot.getValue(),new FakeWebServiceResponseListener(){
-                                @Override
-                                public void onServiceResponse(boolean success) {
-                                    if (success) {
-                                        try {
-                                            if (listener != null)
-                                                listener.onServiceResponse(true);
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }
-                            });
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            //handle databaseError
-                            if (listener != null)
-                                listener.onServiceResponse(false);
-                        }
-                    });
-
-        } else if(productCategory == 1) {
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("Pets");
-            mDatabase.addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            getAllPets((Map<String, Object>) dataSnapshot.getValue());
+                            getAllAnimals((Map<String, Object>) dataSnapshot.getValue(),selectedCategory);
                             if (listener != null)
                                 listener.onServiceResponse(true);
                         }
@@ -244,77 +219,9 @@ public class FakeWebServer {
                     });
 
 
-        }else if(productCategory == 2){
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("FarmingTools");
-            mDatabase.addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            getAllFarmingTools((Map<String, Object>) dataSnapshot.getValue());
-                            if (listener != null)
-                                listener.onServiceResponse(true);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            //handle databaseError
-                            if (listener != null)
-                                listener.onServiceResponse(false);
-                        }
-                    });
-
-
-        }else if(productCategory ==3){
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("FarmingProducts");
-            mDatabase.addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            getAllFarmingProducts((Map<String, Object>) dataSnapshot.getValue());
-                            if (listener != null)
-                                listener.onServiceResponse(true);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            //handle databaseError
-                            if (listener != null)
-                                listener.onServiceResponse(false);
-                        }
-                    });
-        }
 
     }
-    private void getAnimalFoods(final FakeWebServiceResponseListener listener){
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Animal_Foods");
-        mDatabase.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Map<String, Object> animalFood = (Map<String, Object>) dataSnapshot.getValue();
-                        animalFoods = new ArrayList<Animals>();
-                        Animals AnimalFood = new Animals();
-                        Gson gson = new Gson();
 
-                        for (String s : animalFood.keySet()) {
-                            JsonElement jsonElement = gson.toJsonTree(animalFood.get(s));
-                            AnimalFood = gson.fromJson(jsonElement, Animals.class);
-                            animalFoods.add(AnimalFood);
-                            if (listener != null)
-                                listener.onServiceResponse(true);
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                        if (listener != null)
-                            listener.onServiceResponse(false);
-                    }
-                });
-        //return animalFoods;
-    };
 
 
 }

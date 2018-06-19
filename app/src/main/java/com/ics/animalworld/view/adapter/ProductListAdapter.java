@@ -25,6 +25,7 @@ import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Money;
 import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.util.ColorGenerator;
+import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
 import com.ics.animalworld.view.customview.TextDrawable;
@@ -34,6 +35,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class ProductListAdapter extends
@@ -48,7 +50,7 @@ public class ProductListAdapter extends
 
     private String ImageUrl;
 
-    private List<Animals> productList = new ArrayList<Animals>();
+    private ArrayList<Animals> productList = new ArrayList<Animals>();
     private OnItemClickListener clickListener;
 
     private Context context;
@@ -56,16 +58,16 @@ public class ProductListAdapter extends
     public ProductListAdapter(String subcategoryKey, Context context,
                               boolean isCartlist) {
 
-        if (isCartlist) {
-
-            productList = CenterRepository.getCenterRepository()
-                    .getListOfProductsInShoppingList();
-
-        } else {
-
-            productList = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
-                    .get(subcategoryKey);
-        }
+        TinyDB tinydb = new TinyDB(context.getApplicationContext());
+        productList = tinydb.getListObject(subcategoryKey,Animals.class);
+            if(productList.size()==0) {
+                productList = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                        .get(subcategoryKey);
+                tinydb.putListObject(subcategoryKey, productList);
+            }else{
+                ConcurrentHashMap<String, ArrayList<Animals>> productMap= new ConcurrentHashMap<String, ArrayList<Animals>>();;
+                productMap.put(subcategoryKey, productList);
+            }
 
         this.context = context;
     }

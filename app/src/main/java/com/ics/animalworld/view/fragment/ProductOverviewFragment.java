@@ -24,7 +24,9 @@ import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.ics.animalworld.R;
 import com.ics.animalworld.domain.mock.FakeWebServer;
 import com.ics.animalworld.model.CenterRepository;
+import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.util.AppConstants;
+import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
@@ -49,6 +51,7 @@ public class ProductOverviewFragment extends Fragment {
     ArrayAdapter<String> dataAdapter;
     List<String> animalList;
     ProgressView circularProgressBar;
+    ArrayList<Animals> productList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -142,28 +145,45 @@ public class ProductOverviewFragment extends Fragment {
         /*if (null != ((ECartHomeActivity) getContext()).getProgressBar())
             ((ECartHomeActivity) getContext()).getProgressBar().setVisibility(
                     View.VISIBLE);*/
-        FakeWebServer.getFakeWebServer().getAllProducts(
-                AppConstants.CURRENT_CATEGORY, new FakeWebServer.FakeWebServiceResponseListener() {
-                    @Override
-                    public void onServiceResponse(boolean success) {
-                        if (success) {
-                            try {
-                                setUpUi();
-                                setupViewPager(viewPager);
-                                circularProgressBar.setVisibility(View.GONE);
-                                SortTxt.setVisibility(View.VISIBLE);
-                                SortBy.setVisibility(View.VISIBLE);
-                            } catch (Exception e) {
-                                e.printStackTrace();
+        TinyDB tinydb = new TinyDB(this.getContext().getApplicationContext());
+        if(AppConstants.CURRENT_CATEGORY==0)
+            productList = tinydb.getListObject("Animal",Animals.class);
+        if(AppConstants.CURRENT_CATEGORY==1)
+            productList = tinydb.getListObject("Pet",Animals.class);
+        if(productList.size() == 0){
+            FakeWebServer.getFakeWebServer().getAllProducts(
+                    AppConstants.CURRENT_CATEGORY, new FakeWebServer.FakeWebServiceResponseListener() {
+                        @Override
+                        public void onServiceResponse(boolean success) {
+                            if (success) {
+                                try {
+                                    setUpUi();
+                                    setupViewPager(viewPager);
+                                    circularProgressBar.setVisibility(View.GONE);
+                                    SortTxt.setVisibility(View.VISIBLE);
+                                    SortBy.setVisibility(View.VISIBLE);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }else{
+            circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress1);
+            setUpUi();
+            setupViewPager(viewPager);
+            circularProgressBar.setVisibility(View.GONE);
+            SortTxt.setVisibility(View.VISIBLE);
+            SortBy.setVisibility(View.VISIBLE);
+        }
+
+
+
 
         /*if (null != ((ECartHomeActivity) getContext()).getProgressBar())
             ((ECartHomeActivity) getContext()).getProgressBar().setVisibility(
                     View.GONE)*/;
-        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress1);
+
         return view;
     }
 
