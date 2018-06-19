@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
+import com.ics.animalworld.view.adapter.ProductListAdapter;
 import com.ics.animalworld.view.adapter.ProductsInCategoryPagerAdapter;
 import com.rey.material.widget.ProgressView;
 
@@ -112,8 +114,9 @@ public class ProductOverviewFragment extends Fragment {
         animalList.add("Buffloes");
         animalList.add("Cows");
         animalList.add("Goats");
-        animalList.add("Sheeps");
         animalList.add("Horse");
+        animalList.add("Rabbit");
+        animalList.add("Sheeps");
 
 
         dataAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, animalList);
@@ -145,6 +148,7 @@ public class ProductOverviewFragment extends Fragment {
         /*if (null != ((ECartHomeActivity) getContext()).getProgressBar())
             ((ECartHomeActivity) getContext()).getProgressBar().setVisibility(
                     View.VISIBLE);*/
+        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress1);
         TinyDB tinydb = new TinyDB(this.getContext().getApplicationContext());
         if(AppConstants.CURRENT_CATEGORY==0)
             productList = tinydb.getListObject("Animal",Animals.class);
@@ -160,6 +164,7 @@ public class ProductOverviewFragment extends Fragment {
                                     setUpUi();
                                     setupViewPager(viewPager);
                                     circularProgressBar.setVisibility(View.GONE);
+                                    SortBy.setAdapter(dataAdapter);
                                     SortTxt.setVisibility(View.VISIBLE);
                                     SortBy.setVisibility(View.VISIBLE);
                                 } catch (Exception e) {
@@ -169,15 +174,27 @@ public class ProductOverviewFragment extends Fragment {
                         }
                     });
         }else{
-            circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress1);
+
             setUpUi();
             setupViewPager(viewPager);
             circularProgressBar.setVisibility(View.GONE);
+            SortBy.setAdapter(dataAdapter);
             SortTxt.setVisibility(View.VISIBLE);
             SortBy.setVisibility(View.VISIBLE);
         }
 
+        SortBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ProductListAdapter adapter = new ProductListAdapter(ProductListFragment.subcategoryKey,
+                        getActivity(),SortBy.getSelectedItem().toString() );
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         /*if (null != ((ECartHomeActivity) getContext()).getProgressBar())

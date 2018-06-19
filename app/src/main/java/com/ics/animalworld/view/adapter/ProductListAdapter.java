@@ -56,15 +56,35 @@ public class ProductListAdapter extends
     private Context context;
 
     public ProductListAdapter(String subcategoryKey, Context context,
-                              boolean isCartlist) {
+                              String sortBy) {
 
         TinyDB tinydb = new TinyDB(context.getApplicationContext());
         productList = tinydb.getListObject(subcategoryKey,Animals.class);
             if(productList.size()==0) {
                 productList = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
                         .get(subcategoryKey);
+                if(sortBy.equals("")){}else{
+                    ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
+                    for (Animals item:productList){
+                        if(item.SubCategory.equals(sortBy))
+                            Sortedlist.add(item);
+                    }
+                    productList.clear();
+                    if(Sortedlist.size() >0)
+                        productList=Sortedlist;
+                }
                 tinydb.putListObject(subcategoryKey, productList);
             }else{
+                if(sortBy.equals("")){}else{
+                    ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
+                    for (Animals item:productList){
+                        if(item.SubCategory.equals(sortBy))
+                            Sortedlist.add(item);
+                    }
+                    productList.clear();
+                    if(Sortedlist.size() >0)
+                        productList=Sortedlist;
+                }
                 ConcurrentHashMap<String, ArrayList<Animals>> productMap= new ConcurrentHashMap<String, ArrayList<Animals>>();;
                 productMap.put(subcategoryKey, productList);
             }

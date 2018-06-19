@@ -21,7 +21,7 @@ import com.ics.animalworld.view.adapter.ProductListAdapter;
 import com.ics.animalworld.view.adapter.ProductListAdapter.OnItemClickListener;
 
 public class ProductListFragment extends Fragment {
-    private String subcategoryKey;
+    public static String subcategoryKey;
     private boolean isShoppingList;
 
     public ProductListFragment() {
@@ -78,7 +78,7 @@ public class ProductListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         ProductListAdapter adapter = new ProductListAdapter(subcategoryKey,
-                getActivity(), isShoppingList);
+                getActivity(), "");
         recyclerView.setAdapter(adapter);
 
         recyclerView.setVisibility(View.VISIBLE);
