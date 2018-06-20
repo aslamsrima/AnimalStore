@@ -12,7 +12,6 @@ import com.google.gson.JsonElement;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.ProductCategoryModel;
-import com.ics.animalworld.util.TinyDB;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -29,7 +28,7 @@ public class FakeWebServer {
     private DatabaseReference mDatabase;
     private ArrayList<Animals> animalFoods;
     private int selectedCategory;
-    ConcurrentHashMap<String, ArrayList<Animals>> productMap;
+    public ConcurrentHashMap<String, ArrayList<Animals>> productMap;
     public static FakeWebServer getFakeWebServer() {
 
         if (null == fakeServer) {
@@ -133,6 +132,14 @@ public class FakeWebServer {
 
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
 
+    }
+
+    public void updateProductMapForCategory(String category, ArrayList<Animals> animals) {
+        if (productMap == null) {
+            productMap = new ConcurrentHashMap<>();
+        }
+        productMap.put(category, animals);
+        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
     }
 
     public void getAllPets(Map<String, Object> Pets) {

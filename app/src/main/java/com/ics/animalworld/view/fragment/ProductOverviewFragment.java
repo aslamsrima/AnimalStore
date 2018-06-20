@@ -32,9 +32,7 @@ import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
-import com.ics.animalworld.view.adapter.ProductListAdapter;
 import com.ics.animalworld.view.adapter.ProductsInCategoryPagerAdapter;
-import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +151,7 @@ public class ProductOverviewFragment extends Fragment {
 
         TinyDB tinydb = new TinyDB(this.getContext().getApplicationContext());
         if(AppConstants.CURRENT_CATEGORY==0)
-            productList = tinydb.getListObject("Animal",Animals.class);
+            productList = tinydb.getListObject("Animals",Animals.class);
         if(AppConstants.CURRENT_CATEGORY==1)
             productList = tinydb.getListObject("Pet",Animals.class);
         if(productList.size() == 0){
@@ -176,6 +174,9 @@ public class ProductOverviewFragment extends Fragment {
                         }
                     });
         }else{
+
+            // set data to product map first. View is getting data from there
+            FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
 
             setUpUi();
             setupViewPager(viewPager);
