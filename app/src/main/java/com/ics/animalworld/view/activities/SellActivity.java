@@ -50,8 +50,8 @@ import java.util.Map;
 
 public class SellActivity extends AppCompatActivity {
     private RadioButton male, female;
-    private TextView milktxt, subCateg,typeTxt,ageTxt,breedTxt,genderTxt,productNameTxt,companyNameTxt,WeightTxt;
-    private EditText breed, milkRec, Price, Age, description, city, district, supplierContact, price,product_name,company_name,weight;
+    private TextView milktxt, subCateg, typeTxt, ageTxt, breedTxt, genderTxt, productNameTxt, companyNameTxt, WeightTxt;
+    private EditText breed, milkRec, Price, Age, description, city, district, supplierContact, price, product_name, company_name, weight;
     private CheckBox negotiable;
     private Spinner category, type, subCategory;
     private Button AddPost;
@@ -67,7 +67,7 @@ public class SellActivity extends AppCompatActivity {
     Bitmap FINAL_IMAGE;
 
     // List<String> subCategoryList;
-    ArrayAdapter<String> dataAdapter, petAdapter, subCategoryAdapter,petTypeAdapter;
+    ArrayAdapter<String> dataAdapter, petAdapter, subCategoryAdapter, petTypeAdapter;
     private static final int CAMERA_REQUEST = 1888;
     public static final int GRANTED = 0;
     public static final int DENIED = 1;
@@ -86,7 +86,7 @@ public class SellActivity extends AppCompatActivity {
 
         category = (Spinner) findViewById(R.id.category);
         subCategory = (Spinner) findViewById(R.id.subCategory);
-        type=(Spinner)findViewById(R.id.type);
+        type = (Spinner) findViewById(R.id.type);
         typeTxt = (TextView) findViewById(R.id.typetext);
         milkRec = (EditText) findViewById(R.id.milkval);
         milktxt = (TextView) findViewById(R.id.milktext);
@@ -98,16 +98,16 @@ public class SellActivity extends AppCompatActivity {
         radioGroup = (RadioGroup) findViewById(R.id.gender_group);
         productImage = (ImageView) findViewById(R.id.viewImage);
         productNameTxt = (TextView) findViewById(R.id.reg_product_nameTxt);
-        product_name =(EditText) findViewById(R.id.reg_product_name);
+        product_name = (EditText) findViewById(R.id.reg_product_name);
         companyNameTxt = (TextView) findViewById(R.id.reg_company_nameTxt);
-        company_name =(EditText) findViewById(R.id.reg_company_name);
+        company_name = (EditText) findViewById(R.id.reg_company_name);
         WeightTxt = (TextView) findViewById(R.id.weightTxt);
-        weight =(EditText) findViewById(R.id.reg_weight);
+        weight = (EditText) findViewById(R.id.reg_weight);
         description = (EditText) findViewById(R.id.reg_description);
         Price = (EditText) findViewById(R.id.price);
         ageTxt = (TextView) findViewById(R.id.ageTxt);
         Age = (EditText) findViewById(R.id.reg_age);
-        breedTxt =(TextView) findViewById(R.id.breedTxt);
+        breedTxt = (TextView) findViewById(R.id.breedTxt);
         breed = (EditText) findViewById(R.id.reg_breed);
         city = (EditText) findViewById(R.id.reg_city);
         district = (EditText) findViewById(R.id.reg_district);
@@ -156,14 +156,12 @@ public class SellActivity extends AppCompatActivity {
         subCategoryListAnimal.add("Sheeps");
 
 
-
         List<String> subCategoryListPet = new ArrayList<String>();
         subCategoryListPet.add("Select Pet");
         subCategoryListPet.add("Cat");
         subCategoryListPet.add("Dog");
         subCategoryListPet.add("Bird");
         subCategoryListPet.add("Fish");
-
 
 
         List<String> animalList = new ArrayList<String>();
@@ -383,8 +381,6 @@ public class SellActivity extends AppCompatActivity {
                     }
 
 
-
-
                 } else if (options[item].equals("Cancel")) {
 
                     dialog.dismiss();
@@ -419,23 +415,22 @@ public class SellActivity extends AppCompatActivity {
             Bitmap mphoto = (Bitmap) data.getExtras().get("data");
             bitmap = mphoto;
             productImage.setImageBitmap(mphoto);
-        }
-      else  if (requestCode == 1 && resultCode == RESULT_OK) {
+        } else if (requestCode == 1 && resultCode == RESULT_OK) {
 
             Uri selectedImage = data.getData();
-            String[] filePath = { MediaStore.MediaColumns.DATA };
-            Cursor c = getContentResolver().query(selectedImage,filePath, null, null, null);
+            String[] filePath = {MediaStore.MediaColumns.DATA};
+            Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
             c.moveToFirst();
             int columnIndex = c.getColumnIndex(filePath[0]);
             String picturePath = c.getString(columnIndex);
             c.close();
             Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-           // Log.w("path of image from gallery......******************.........", picturePath+"");
+            // Log.w("path of image from gallery......******************.........", picturePath+"");
             Matrix matrix = new Matrix();
 
-            FINAL_IMAGE=thumbnail;
+            FINAL_IMAGE = thumbnail;
             //                matrix.postRotate(90);
-            thumbnail=Bitmap.createBitmap(thumbnail, 0, 0, thumbnail.getWidth(), thumbnail.getHeight(), matrix, true);
+            thumbnail = Bitmap.createBitmap(thumbnail, 0, 0, thumbnail.getWidth(), thumbnail.getHeight(), matrix, true);
             bitmap = thumbnail;
             productImage.setImageBitmap(thumbnail);
             productImage.setAdjustViewBounds(true);
@@ -524,14 +519,14 @@ public class SellActivity extends AppCompatActivity {
 
         java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this);
         Animals animal = new Animals();
-        if(Age.getVisibility() == View.GONE ) {
+        if (Age.getVisibility() == View.GONE) {
             animal.Age = 0;
-        }else{
+        } else {
             animal.Age = Integer.parseInt(Age.getText().toString());
         }
-        if(breed.getVisibility() == View.GONE ) {
+        if (breed.getVisibility() == View.GONE) {
             animal.Breed = null;
-        }else{
+        } else {
             animal.Breed = breed.getText().toString();
         }
         animal.Category = category.getSelectedItem().toString();
@@ -539,31 +534,31 @@ public class SellActivity extends AppCompatActivity {
         animal.SubCategory = subCategory.getSelectedItem().toString();
         animal.Description = description.getText().toString();
         animal.District = district.getText().toString();
-        if(radioGroup.getVisibility()== View.GONE){
+        if (radioGroup.getVisibility() == View.GONE) {
             animal.Gender = null;
-        }else{
+        } else {
             animal.Gender = radioButton.getText().toString();
         }
         animal.IsPrizeNegoyiable = true;
-        if(milkRec.getVisibility() == View.GONE ){
+        if (milkRec.getVisibility() == View.GONE) {
             animal.MlkRec = 0;
-        }else{
+        } else {
             animal.MlkRec = Integer.parseInt(milkRec.getText().toString());
         }
-        if(product_name.getVisibility() == View.GONE){
-           animal.ProductName=null;
-        }else{
-            animal.ProductName=product_name.getText().toString();
+        if (product_name.getVisibility() == View.GONE) {
+            animal.ProductName = null;
+        } else {
+            animal.ProductName = product_name.getText().toString();
         }
-        if(company_name.getVisibility() == View.GONE){
-            animal.CompanyName=null;
-        }else{
-            animal.CompanyName=company_name.getText().toString();
+        if (company_name.getVisibility() == View.GONE) {
+            animal.CompanyName = null;
+        } else {
+            animal.CompanyName = company_name.getText().toString();
         }
-        if(weight.getVisibility() == View.GONE){
-            animal.weight=null;
-        }else{
-            animal.weight=weight.getText().toString();
+        if (weight.getVisibility() == View.GONE) {
+            animal.weight = null;
+        } else {
+            animal.weight = weight.getText().toString();
         }
 
         animal.Prize = Integer.parseInt(price.getText().toString());
@@ -586,14 +581,13 @@ public class SellActivity extends AppCompatActivity {
     }
 
     public String BitMapToString(Bitmap bitmap) {
-        if(bitmap!= null){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] b = baos.toByteArray();
-        String temp = Base64.encodeToString(b, Base64.DEFAULT);
-        return temp;
-        }
-        else
+        if (bitmap != null) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] b = baos.toByteArray();
+            String temp = Base64.encodeToString(b, Base64.DEFAULT);
+            return temp;
+        } else
             return null;
     }
 

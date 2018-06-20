@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
@@ -32,11 +33,14 @@ import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
+import com.ics.animalworld.view.adapter.ProductListAdapter;
 import com.ics.animalworld.view.adapter.ProductsInCategoryPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ProductOverviewFragment extends Fragment {
 
@@ -48,10 +52,11 @@ public class ProductOverviewFragment extends Fragment {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TabLayout tabLayout;
     private Spinner SortBy;
+    public static String sortString = "";
     TextView SortTxt;
     ArrayAdapter<String> dataAdapter;
     List<String> animalList;
-    ProgressBar circularProgressBar;
+    public ProgressBar circularProgressBar;
     ArrayList<Animals> productList;
 
     @Override
@@ -147,7 +152,7 @@ public class ProductOverviewFragment extends Fragment {
         /*if (null != ((ECartHomeActivity) getContext()).getProgressBar())
             ((ECartHomeActivity) getContext()).getProgressBar().setVisibility(
                     View.VISIBLE);*/
-        circularProgressBar = (ProgressBar) view.findViewById(R.id.circular_progress1);
+
 
         TinyDB tinydb = new TinyDB(this.getContext().getApplicationContext());
         if(AppConstants.CURRENT_CATEGORY==0)
@@ -155,6 +160,7 @@ public class ProductOverviewFragment extends Fragment {
         if(AppConstants.CURRENT_CATEGORY==1)
             productList = tinydb.getListObject("Pet",Animals.class);
         if(productList.size() == 0){
+            circularProgressBar = (ProgressBar) view.findViewById(R.id.circular_progress1);
             FakeWebServer.getFakeWebServer().getAllProducts(
                     AppConstants.CURRENT_CATEGORY, new FakeWebServer.FakeWebServiceResponseListener() {
                         @Override
@@ -176,7 +182,27 @@ public class ProductOverviewFragment extends Fragment {
         }else{
 
             // set data to product map first. View is getting data from there
-            FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
+            circularProgressBar = (ProgressBar) view.findViewById(R.id.circular_progress1);
+            if(AppConstants.CURRENT_CATEGORY==0){
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
+                productList.clear();
+                productList = tinydb.getListObject("Animal's Food",Animals.class);
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Food", productList);
+                productList.clear();
+                productList = tinydb.getListObject("Animal's Medicine",Animals.class);
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Medicine", productList);
+            }else if(AppConstants.CURRENT_CATEGORY==1){
+
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet", productList);
+                productList.clear();
+                productList = tinydb.getListObject("Pet's Food",Animals.class);
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet's Food", productList);
+                productList.clear();
+                productList = tinydb.getListObject("Pet's Medicine",Animals.class);
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet's Medicine", productList);
+
+            }
+            // FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
 
             setUpUi();
             setupViewPager(viewPager);
@@ -191,6 +217,9 @@ public class ProductOverviewFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 //                ProductListAdapter adapter = new ProductListAdapter(ProductListFragment.subcategoryKey,
 //                        getActivity(),SortBy.getSelectedItem().toString() );
+                sortString = SortBy.getSelectedItem().toString();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.detach(ProductOverviewFragment.this).attach(ProductOverviewFragment.this).commit();
             }
 
             @Override

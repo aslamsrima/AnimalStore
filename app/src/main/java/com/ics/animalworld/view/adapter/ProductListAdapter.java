@@ -1,7 +1,6 @@
 package com.ics.animalworld.view.adapter;
 
 import android.content.Context;
-import android.content.SyncRequest;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -11,22 +10,18 @@ import android.text.style.StrikethroughSpan;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.ics.animalworld.R;
+import com.ics.animalworld.domain.mock.FakeWebServer;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Money;
-import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.util.ColorGenerator;
 import com.ics.animalworld.util.TinyDB;
-import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
 import com.ics.animalworld.view.customview.TextDrawable;
 import com.ics.animalworld.view.customview.TextDrawable.IBuilder;
@@ -34,7 +29,6 @@ import com.ics.animalworld.view.customview.TextDrawable.IBuilder;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -59,35 +53,41 @@ public class ProductListAdapter extends
                               String sortBy) {
 
         TinyDB tinydb = new TinyDB(context.getApplicationContext());
-        productList = tinydb.getListObject(subcategoryKey,Animals.class);
-            if(productList.size()==0) {
-                productList = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
-                        .get(subcategoryKey);
-                if(sortBy.equals("")){}else{
-                    ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
-                    for (Animals item:productList){
-                        if(item.SubCategory.equals(sortBy))
-                            Sortedlist.add(item);
-                    }
-                    productList.clear();
-                    if(Sortedlist.size() >0)
-                        productList=Sortedlist;
+        productList = tinydb.getListObject(subcategoryKey, Animals.class);
+        if (productList.size() == 0) {
+            productList = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                    .get(subcategoryKey);
+            if (sortBy.equals("")) {
+            } else {
+                ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
+                for (Animals item : productList) {
+                    if (item.SubCategory.equals(sortBy))
+                        Sortedlist.add(item);
                 }
-                tinydb.putListObject(subcategoryKey, productList);
-            }else{
-                if(sortBy.equals("")){}else{
-                    ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
-                    for (Animals item:productList){
-                        if(item.SubCategory.equals(sortBy))
-                            Sortedlist.add(item);
-                    }
-                    productList.clear();
-                    if(Sortedlist.size() >0)
-                        productList=Sortedlist;
-                }
-                ConcurrentHashMap<String, ArrayList<Animals>> productMap= new ConcurrentHashMap<String, ArrayList<Animals>>();;
-                productMap.put(subcategoryKey, productList);
+                productList.clear();
+                if (Sortedlist.size() > 0)
+                    productList = Sortedlist;
             }
+            tinydb.putListObject(subcategoryKey, productList);
+        } else {
+//            if (sortBy.equals("")) {
+//            } else {
+//                ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
+//                for (Animals item : productList) {
+//                    if (item.SubCategory.equals(sortBy))
+//                        Sortedlist.add(item);
+//                }
+//                productList.clear();
+//                if (Sortedlist.size() > 0)
+//                    productList = Sortedlist;
+//            }
+//            ConcurrentHashMap<String, ArrayList<Animals>> productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
+//            productMap.put(subcategoryKey, productList);
+           FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);
+
+
+
+        }
 
         this.context = context;
     }
@@ -105,10 +105,14 @@ public class ProductListAdapter extends
     @Override
     public void onBindViewHolder(final VersionViewHolder holder,
                                  final int position) {
-
-        holder.itemName.setText(productList.get(position)
-                .Category);
-
+        if (productList.get(position).Type.equals("Animal") || productList.get(position).Type.equals("Pet")) {
+            holder.itemName.setText(productList.get(position)
+                    .Breed + "," + productList.get(position)
+                    .SubCategory);
+        } else {
+            holder.itemName.setText(productList.get(position)
+                    .ProductName);
+        }
         holder.itemDesc.setText(productList.get(position)
                 .Description);
 
@@ -138,19 +142,19 @@ public class ProductListAdapter extends
 //                .getColor(productList.get(position).Breed));
 
 
-         b = StringToBitMap(productList.get(position).Pic.toString());
+        b = StringToBitMap(productList.get(position).Pic.toString());
 
         imagView.setImageBitmap(b);
 
 
     }
 
-    public Bitmap StringToBitMap(String encodedString){
+    public Bitmap StringToBitMap(String encodedString) {
         try {
-            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
-            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
             return bitmap;
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.getMessage();
             return null;
         }
@@ -212,7 +216,6 @@ public class ProductListAdapter extends
 
             availability = (TextView) itemView
                     .findViewById(R.id.iteam_avilable);
-
 
 
             itemName.setSelected(true);
