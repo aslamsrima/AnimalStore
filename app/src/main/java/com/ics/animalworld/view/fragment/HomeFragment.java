@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.ics.animalworld.R;
 import com.ics.animalworld.domain.api.ProductCategoryLoaderTask;
+import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
@@ -200,7 +201,8 @@ public class HomeFragment extends Fragment {
                         if (mHandler != null) {
                             mHandler.removeCallbacks(mRunnable);
                         }
-
+                        TinyDB tinyDB = new TinyDB(getActivity().getApplicationContext());
+                        tinyDB.clear();
                         getActivity().finish();
 
                         return true;
