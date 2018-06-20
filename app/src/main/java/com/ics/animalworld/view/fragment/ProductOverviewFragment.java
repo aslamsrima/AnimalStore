@@ -150,6 +150,7 @@ public class ProductOverviewFragment extends Fragment {
             ((ECartHomeActivity) getContext()).getProgressBar().setVisibility(
                     View.VISIBLE);*/
         circularProgressBar = (ProgressBar) view.findViewById(R.id.circular_progress1);
+
         TinyDB tinydb = new TinyDB(this.getContext().getApplicationContext());
         if(AppConstants.CURRENT_CATEGORY==0)
             productList = tinydb.getListObject("Animal",Animals.class);
