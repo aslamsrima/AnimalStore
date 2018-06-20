@@ -33,14 +33,11 @@ import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
-import com.ics.animalworld.view.adapter.ProductListAdapter;
 import com.ics.animalworld.view.adapter.ProductsInCategoryPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ProductOverviewFragment extends Fragment {
 
@@ -53,7 +50,7 @@ public class ProductOverviewFragment extends Fragment {
     private TabLayout tabLayout;
     private Spinner SortBy;
     public static String sortString = "";
-    TextView SortTxt;
+    TextView SortTxt, LoadingTxt;
     ArrayAdapter<String> dataAdapter;
     List<String> animalList;
     public ProgressBar circularProgressBar;
@@ -87,7 +84,8 @@ public class ProductOverviewFragment extends Fragment {
 
         header = (KenBurnsView) view.findViewById(R.id.htab_header);
         header.setImageResource(R.drawable.header);
-
+        LoadingTxt = (TextView) view.findViewById(R.id.loadertxt);
+        LoadingTxt.setVisibility(View.GONE);
         tabLayout = (TabLayout) view.findViewById(R.id.htab_tabs);
 
         mToolbar = (Toolbar) view.findViewById(R.id.htab_toolbar);
@@ -127,7 +125,6 @@ public class ProductOverviewFragment extends Fragment {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-
         view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener(new View.OnKeyListener() {
@@ -155,11 +152,12 @@ public class ProductOverviewFragment extends Fragment {
 
 
         TinyDB tinydb = new TinyDB(this.getContext().getApplicationContext());
-        if(AppConstants.CURRENT_CATEGORY==0)
-            productList = tinydb.getListObject("Animals",Animals.class);
-        if(AppConstants.CURRENT_CATEGORY==1)
-            productList = tinydb.getListObject("Pet",Animals.class);
-        if(productList.size() == 0){
+        if (AppConstants.CURRENT_CATEGORY == 0)
+            productList = tinydb.getListObject("Animals", Animals.class);
+        if (AppConstants.CURRENT_CATEGORY == 1)
+            productList = tinydb.getListObject("Pet", Animals.class);
+        if (productList.size() == 0) {
+            LoadingTxt.setVisibility(View.VISIBLE);
             circularProgressBar = (ProgressBar) view.findViewById(R.id.circular_progress1);
             FakeWebServer.getFakeWebServer().getAllProducts(
                     AppConstants.CURRENT_CATEGORY, new FakeWebServer.FakeWebServiceResponseListener() {
@@ -170,6 +168,7 @@ public class ProductOverviewFragment extends Fragment {
                                     setUpUi();
                                     setupViewPager(viewPager);
                                     circularProgressBar.setVisibility(View.GONE);
+                                    LoadingTxt.setVisibility(View.GONE);
                                     SortBy.setAdapter(dataAdapter);
                                     SortTxt.setVisibility(View.VISIBLE);
                                     SortBy.setVisibility(View.VISIBLE);
@@ -179,29 +178,31 @@ public class ProductOverviewFragment extends Fragment {
                             }
                         }
                     });
-        }else{
+        } else {
 
             // set data to product map first. View is getting data from there
+            LoadingTxt.setVisibility(View.VISIBLE);
             circularProgressBar = (ProgressBar) view.findViewById(R.id.circular_progress1);
-            if(AppConstants.CURRENT_CATEGORY==0){
+            if (AppConstants.CURRENT_CATEGORY == 0) {
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
                 productList.clear();
-                productList = tinydb.getListObject("Animal's Food",Animals.class);
+                productList = tinydb.getListObject("Animal's Food", Animals.class);
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Food", productList);
                 productList.clear();
-                productList = tinydb.getListObject("Animal's Medicine",Animals.class);
+                productList = tinydb.getListObject("Animal's Medicine", Animals.class);
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Medicine", productList);
-            }else if(AppConstants.CURRENT_CATEGORY==1){
+            } else if (AppConstants.CURRENT_CATEGORY == 1) {
 
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet", productList);
                 productList.clear();
-                productList = tinydb.getListObject("Pet's Food",Animals.class);
+                productList = tinydb.getListObject("Pet's Food", Animals.class);
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet's Food", productList);
                 productList.clear();
-                productList = tinydb.getListObject("Pet's Medicine",Animals.class);
+                productList = tinydb.getListObject("Pet's Medicine", Animals.class);
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet's Medicine", productList);
 
             }
+            LoadingTxt.setVisibility(View.GONE);
             // FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
 
             setUpUi();
@@ -217,9 +218,13 @@ public class ProductOverviewFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 //                ProductListAdapter adapter = new ProductListAdapter(ProductListFragment.subcategoryKey,
 //                        getActivity(),SortBy.getSelectedItem().toString() );
-                sortString = SortBy.getSelectedItem().toString();
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.detach(ProductOverviewFragment.this).attach(ProductOverviewFragment.this).commit();
+                if (i > 0) {
+                    if (sortString.equals("")) {
+                        sortString = SortBy.getSelectedItem().toString();
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.detach(ProductOverviewFragment.this).attach(ProductOverviewFragment.this).commit();
+                    }
+                }
             }
 
             @Override
@@ -231,7 +236,8 @@ public class ProductOverviewFragment extends Fragment {
 
         /*if (null != ((ECartHomeActivity) getContext()).getProgressBar())
             ((ECartHomeActivity) getContext()).getProgressBar().setVisibility(
-                    View.GONE)*/;
+                    View.GONE)*/
+        ;
 
         return view;
     }

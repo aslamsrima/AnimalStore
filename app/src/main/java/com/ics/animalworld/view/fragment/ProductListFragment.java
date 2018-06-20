@@ -78,7 +78,7 @@ public class ProductListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         ProductListAdapter adapter = new ProductListAdapter(subcategoryKey,
-                getActivity(), "");
+                getActivity(), ProductOverviewFragment.sortString);
         recyclerView.setAdapter(adapter);
 
         recyclerView.setVisibility(View.VISIBLE);

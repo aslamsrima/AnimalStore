@@ -67,7 +67,9 @@ public class ProductListAdapter extends
                 productList.clear();
                 if (Sortedlist.size() > 0)
                     productList = Sortedlist;
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);
             }
+
             tinydb.putListObject(subcategoryKey, productList);
         } else {
 //            if (sortBy.equals("")) {
