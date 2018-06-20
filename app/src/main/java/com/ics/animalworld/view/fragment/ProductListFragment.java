@@ -21,7 +21,7 @@ import com.ics.animalworld.view.adapter.ProductListAdapter;
 import com.ics.animalworld.view.adapter.ProductListAdapter.OnItemClickListener;
 
 public class ProductListFragment extends Fragment {
-    public static String subcategoryKey;
+    public  String subcategoryKey;
     private boolean isShoppingList;
 
     public ProductListFragment() {

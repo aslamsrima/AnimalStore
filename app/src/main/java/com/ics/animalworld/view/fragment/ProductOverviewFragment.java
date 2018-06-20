@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -52,7 +53,7 @@ public class ProductOverviewFragment extends Fragment {
     TextView SortTxt;
     ArrayAdapter<String> dataAdapter;
     List<String> animalList;
-    ProgressView circularProgressBar;
+    ProgressBar circularProgressBar;
     ArrayList<Animals> productList;
 
     @Override
@@ -148,7 +149,7 @@ public class ProductOverviewFragment extends Fragment {
         /*if (null != ((ECartHomeActivity) getContext()).getProgressBar())
             ((ECartHomeActivity) getContext()).getProgressBar().setVisibility(
                     View.VISIBLE);*/
-        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress1);
+        circularProgressBar = (ProgressBar) view.findViewById(R.id.circular_progress1);
         TinyDB tinydb = new TinyDB(this.getContext().getApplicationContext());
         if(AppConstants.CURRENT_CATEGORY==0)
             productList = tinydb.getListObject("Animal",Animals.class);
@@ -186,8 +187,8 @@ public class ProductOverviewFragment extends Fragment {
         SortBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                ProductListAdapter adapter = new ProductListAdapter(ProductListFragment.subcategoryKey,
-                        getActivity(),SortBy.getSelectedItem().toString() );
+//                ProductListAdapter adapter = new ProductListAdapter(ProductListFragment.subcategoryKey,
+//                        getActivity(),SortBy.getSelectedItem().toString() );
             }
 
             @Override
