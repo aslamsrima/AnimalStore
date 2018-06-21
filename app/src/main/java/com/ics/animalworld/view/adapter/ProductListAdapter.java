@@ -61,7 +61,7 @@ public class ProductListAdapter extends
             } else {
                 ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
                 for (Animals item : productList) {
-                    if (item.SubCategory.equals(sortBy))
+                    if (item.SubCategory.toLowerCase().equals(sortBy.toLowerCase()))
                         Sortedlist.add(item);
                 }
                 productList.clear();
@@ -73,10 +73,11 @@ public class ProductListAdapter extends
             tinydb.putListObject(subcategoryKey, productList);
         } else {
             if (sortBy.equals("")) {
+               // FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);
             } else {
                 ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
                 for (Animals item : productList) {
-                    if (item.SubCategory.equals(sortBy))
+                    if (item.SubCategory.toLowerCase().equals(sortBy.toLowerCase()))
                         Sortedlist.add(item);
                 }
                 productList.clear();

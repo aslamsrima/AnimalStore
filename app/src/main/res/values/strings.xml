@@ -45,5 +45,9 @@
         <item>OTP</item>
         <item>Password</item>
     </string-array>
-    >
+    <string-array name="SubCategory">
+        <item>Food</item>
+        <item>Medicine</item>
+    </string-array>
+
 </resources>

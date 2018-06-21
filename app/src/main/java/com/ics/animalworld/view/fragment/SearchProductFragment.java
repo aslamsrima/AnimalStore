@@ -19,6 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,8 @@ public class SearchProductFragment extends Fragment {
     private ImageButton btnSpeak;
     private EditText serchInput;
     private RecyclerView serachListView;
-
+    private Spinner Category,SubCategory;
+    String subcat="";
     /** The search adapter. */
     // private SearchListArrayAdapter searchAdapter;
     /**
@@ -63,27 +65,45 @@ public class SearchProductFragment extends Fragment {
                 container, false);
 
         btnSpeak = (ImageButton) rootView.findViewById(R.id.btnSpeak);
-
+        btnSpeak.setClickable(false);
         heading = (TextView) rootView.findViewById(R.id.txtSpeech_heading);
 
         serchInput = (EditText) rootView.findViewById(R.id.edt_search_input);
 
         serchInput.setSelected(true);
-
+        Category = (Spinner) rootView.findViewById(R.id.category);
+        SubCategory = (Spinner) rootView.findViewById(R.id.subcategory);
          serachListView = (RecyclerView) rootView
                 .findViewById(R.id.search_list_view);
 
-//        serachListView.setOnItemClickListener(new OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//
-//                Toast.makeText(getActivity(), "Selected" + position, 500)
-//                        .show();
-//
-//            }
-//        });
+
+         Category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+             @Override
+             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                 if(i>0){
+                     btnSpeak.setClickable(true);
+
+                 }
+             }
+
+             @Override
+             public void onNothingSelected(AdapterView<?> adapterView) {
+
+             }
+         });
+
+        SubCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         serchInput.addTextChangedListener(new TextWatcher() {
 
@@ -93,9 +113,26 @@ public class SearchProductFragment extends Fragment {
 
                 heading.setText("Showing results for "
                         + inputString.toString().toLowerCase());
+                subcat= "";
 
-//                RecyclerView recyclerView = (RecyclerView) view
-//                        .findViewById(R.id.product_list_recycler_view);
+                if(Category.getSelectedItem().toString().equals("Animal")){
+                    if(SubCategory.getSelectedItem().toString().equals("Food")){
+                        subcat="Animal's Food";
+                    }else if(SubCategory.getSelectedItem().toString().equals("Medicine")){
+                        subcat="Animals";
+                    }else{
+                        subcat="Animal's Medicine";
+                    }
+
+                }else{
+                    if(SubCategory.getSelectedItem().toString().equals("Medicine")){
+                        subcat="Pet";
+                    }else if(SubCategory.getSelectedItem().toString().equals("Food")){
+                        subcat="Pet's Food";
+                    }else{
+                        subcat="Pet's Medicine";
+                    }
+                }
 
                 serachListView.setVisibility(View.GONE);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
@@ -103,8 +140,8 @@ public class SearchProductFragment extends Fragment {
                 serachListView.setLayoutManager(linearLayoutManager);
                 serachListView.setHasFixedSize(true);
 
-                ProductListAdapter adapter = new ProductListAdapter("Animals",
-                        getActivity(), ProductOverviewFragment.sortString);
+                ProductListAdapter adapter = new ProductListAdapter(subcat,
+                        getActivity(), inputString.toString());
                 serachListView.setAdapter(adapter);
 
                 serachListView.setVisibility(View.VISIBLE);
@@ -114,7 +151,7 @@ public class SearchProductFragment extends Fragment {
                     public void onItemClick(View view, int position) {
 
                         Utils.switchFragmentWithAnimation(R.id.frag_container,
-                                new ProductDetailsFragment("Animals", position, false),
+                                new ProductDetailsFragment(subcat, position, false),
                                 ((ECartHomeActivity) (getContext())), null,
                                 AnimationType.SLIDE_LEFT);
 
@@ -210,7 +247,49 @@ public class SearchProductFragment extends Fragment {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
                     heading.setText("Showing Results for " + result.get(0));
+                    subcat= "";
+                    if(Category.getSelectedItem().toString().equals("Animal")){
+                        if(SubCategory.getSelectedItem().toString().equals("Food")){
+                            subcat="Animal's Food";
+                        }else if(SubCategory.getSelectedItem().toString().equals("Medicine")){
+                            subcat="Animals";
+                        }else{
+                            subcat="Animal's Medicine";
+                        }
 
+                    }else{
+                        if(SubCategory.getSelectedItem().toString().equals("Medicine")){
+                            subcat="Pet";
+                        }else if(SubCategory.getSelectedItem().toString().equals("Food")){
+                            subcat="Pet's Food";
+                        }else{
+                            subcat="Pet's Medicine";
+                        }
+                    }
+
+                    serachListView.setVisibility(View.GONE);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                            getActivity().getBaseContext());
+                    serachListView.setLayoutManager(linearLayoutManager);
+                    serachListView.setHasFixedSize(true);
+
+                    ProductListAdapter adapter = new ProductListAdapter(subcat,
+                            getActivity(), result.get(0));
+                    serachListView.setAdapter(adapter);
+
+                    serachListView.setVisibility(View.VISIBLE);
+                    adapter.SetOnItemClickListener(new ProductListAdapter.OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(View view, int position) {
+
+                            Utils.switchFragmentWithAnimation(R.id.frag_container,
+                                    new ProductDetailsFragment("Animals", position, false),
+                                    ((ECartHomeActivity) (getContext())), null,
+                                    AnimationType.SLIDE_LEFT);
+
+                        }
+                    });
 
                     break;
                 }
