@@ -29,6 +29,7 @@
     <string name="address_value">C 1002, Lorelle Socity Wakad Pune</string>
     <string name="country_prompt">Choose a country</string>
     <string name="register_link"><u>Do not have an Account?</u></string>
+    <string name="invalid_breed">Please enter a valid Breed</string>
     <string name="category"><u>Categories</u></string>
     <string-array name="Category">
         <item>Select Category</item>

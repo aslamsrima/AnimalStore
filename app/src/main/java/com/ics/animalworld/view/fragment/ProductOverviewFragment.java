@@ -12,6 +12,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
+import com.ics.animalworld.view.adapter.ProductListAdapter;
 import com.ics.animalworld.view.adapter.ProductsInCategoryPagerAdapter;
 
 import java.util.ArrayList;
@@ -55,12 +58,16 @@ public class ProductOverviewFragment extends Fragment {
     List<String> animalList;
     public ProgressBar circularProgressBar;
     ArrayList<Animals> productList;
+    RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_category_details,
                 container, false);
+
+        View view1 = inflater.inflate(R.layout.frag_product_list_fragment, container,
+                false);
 
         //getActivity().setTitle("Animal World");
 
@@ -87,7 +94,7 @@ public class ProductOverviewFragment extends Fragment {
         LoadingTxt = (TextView) view.findViewById(R.id.loadertxt);
         LoadingTxt.setVisibility(View.GONE);
         tabLayout = (TabLayout) view.findViewById(R.id.htab_tabs);
-
+        recyclerView = (RecyclerView)view1.findViewById(R.id.product_list_recycler_view);
         mToolbar = (Toolbar) view.findViewById(R.id.htab_toolbar);
 //        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress);
 //        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress1);
@@ -221,8 +228,17 @@ public class ProductOverviewFragment extends Fragment {
                 if (i > 0) {
                     if (sortString.equals("")) {
                         sortString = SortBy.getSelectedItem().toString();
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        ft.detach(ProductOverviewFragment.this).attach(ProductOverviewFragment.this).commit();
+                        // Fill Recycler View
+                        ProductListFragment list=new ProductListFragment();
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                                getActivity().getBaseContext());
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        recyclerView.setHasFixedSize(true);
+
+                        ProductListAdapter adapter = new ProductListAdapter("Animals",
+                                getActivity(), ProductOverviewFragment.sortString);
+                        recyclerView.setAdapter(adapter);
+
                     }
                 }
             }

@@ -72,17 +72,17 @@ public class ProductListAdapter extends
 
             tinydb.putListObject(subcategoryKey, productList);
         } else {
-//            if (sortBy.equals("")) {
-//            } else {
-//                ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
-//                for (Animals item : productList) {
-//                    if (item.SubCategory.equals(sortBy))
-//                        Sortedlist.add(item);
-//                }
-//                productList.clear();
-//                if (Sortedlist.size() > 0)
-//                    productList = Sortedlist;
-//            }
+            if (sortBy.equals("")) {
+            } else {
+                ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
+                for (Animals item : productList) {
+                    if (item.SubCategory.equals(sortBy))
+                        Sortedlist.add(item);
+                }
+                productList.clear();
+                if (Sortedlist.size() > 0)
+                    productList = Sortedlist;
+            }
 //            ConcurrentHashMap<String, ArrayList<Animals>> productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
 //            productMap.put(subcategoryKey, productList);
            FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);

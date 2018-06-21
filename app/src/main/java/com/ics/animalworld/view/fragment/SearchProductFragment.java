@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -25,6 +27,7 @@ import com.ics.animalworld.model.entities.Product;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
+import com.ics.animalworld.view.adapter.ProductListAdapter;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -38,7 +41,7 @@ public class SearchProductFragment extends Fragment {
     private TextView heading;
     private ImageButton btnSpeak;
     private EditText serchInput;
-    private ListView serachListView;
+    private RecyclerView serachListView;
 
     /** The search adapter. */
     // private SearchListArrayAdapter searchAdapter;
@@ -67,20 +70,20 @@ public class SearchProductFragment extends Fragment {
 
         serchInput.setSelected(true);
 
-        serachListView = (ListView) rootView
+         serachListView = (RecyclerView) rootView
                 .findViewById(R.id.search_list_view);
 
-        serachListView.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                Toast.makeText(getActivity(), "Selected" + position, 500)
-                        .show();
-
-            }
-        });
+//        serachListView.setOnItemClickListener(new OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id) {
+//
+//                Toast.makeText(getActivity(), "Selected" + position, 500)
+//                        .show();
+//
+//            }
+//        });
 
         serchInput.addTextChangedListener(new TextWatcher() {
 
@@ -90,6 +93,34 @@ public class SearchProductFragment extends Fragment {
 
                 heading.setText("Showing results for "
                         + inputString.toString().toLowerCase());
+
+//                RecyclerView recyclerView = (RecyclerView) view
+//                        .findViewById(R.id.product_list_recycler_view);
+
+                serachListView.setVisibility(View.GONE);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                        getActivity().getBaseContext());
+                serachListView.setLayoutManager(linearLayoutManager);
+                serachListView.setHasFixedSize(true);
+
+                ProductListAdapter adapter = new ProductListAdapter("Animals",
+                        getActivity(), ProductOverviewFragment.sortString);
+                serachListView.setAdapter(adapter);
+
+                serachListView.setVisibility(View.VISIBLE);
+                adapter.SetOnItemClickListener(new ProductListAdapter.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                        Utils.switchFragmentWithAnimation(R.id.frag_container,
+                                new ProductDetailsFragment("Animals", position, false),
+                                ((ECartHomeActivity) (getContext())), null,
+                                AnimationType.SLIDE_LEFT);
+
+                    }
+                });
+//                (new ProductListAdapter("Animals",getActivity().getApplicationContext(),""));
 
             }
 

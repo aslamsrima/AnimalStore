@@ -32,6 +32,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+//import com.basgeekball.awesomevalidation.ValidationStyle;
+//import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+//import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ics.animalworld.R;
@@ -65,6 +69,7 @@ public class SellActivity extends AppCompatActivity {
     Toolbar toolbar;
     Bitmap bitmap;
     Bitmap FINAL_IMAGE;
+//    private AwesomeValidation awesomeValidation;
 
     // List<String> subCategoryList;
     ArrayAdapter<String> dataAdapter, petAdapter, subCategoryAdapter, petTypeAdapter;
@@ -82,7 +87,7 @@ public class SellActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frag_sell);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+       // awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
         category = (Spinner) findViewById(R.id.category);
         subCategory = (Spinner) findViewById(R.id.subCategory);
@@ -124,7 +129,8 @@ public class SellActivity extends AppCompatActivity {
 
                 // find the radiobutton by returned id
                 radioButton = (RadioButton) findViewById(selectedId);
-                createNewListItem(view);
+                submitForm(view);
+
             }
         });
         ActivityCompat.requestPermissions(SellActivity.this,
@@ -590,6 +596,22 @@ public class SellActivity extends AppCompatActivity {
         } else
             return null;
     }
+    private void addValidationToViews() {
+
+      //  awesomeValidation.addValidation(this, R.id.reg_breed, RegexTemplate.NOT_EMPTY, R.string.invalid_breed);
+
+
+    }
+    private void submitForm(View v) {
+        // Validate the form...
+      //  if (awesomeValidation.validate()) {
+            // Here, we are sure that form is successfully validated. So, do your stuffs now...
+            createNewListItem(v);
+           // Toast.makeText(this, "Form Validated Successfully", Toast.LENGTH_LONG).show();
+     //   }
+    }
+
+
 
 
 }
