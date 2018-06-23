@@ -33,9 +33,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-//import com.basgeekball.awesomevalidation.ValidationStyle;
-//import com.basgeekball.awesomevalidation.utility.RegexTemplate;
-//import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.google.common.collect.Range;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ics.animalworld.R;
@@ -69,7 +70,7 @@ public class SellActivity extends AppCompatActivity {
     Toolbar toolbar;
     Bitmap bitmap;
     Bitmap FINAL_IMAGE;
-//    private AwesomeValidation awesomeValidation;
+    private AwesomeValidation awesomeValidation;
 
     // List<String> subCategoryList;
     ArrayAdapter<String> dataAdapter, petAdapter, subCategoryAdapter, petTypeAdapter;
@@ -87,7 +88,7 @@ public class SellActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frag_sell);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-       // awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+
 
         category = (Spinner) findViewById(R.id.category);
         subCategory = (Spinner) findViewById(R.id.subCategory);
@@ -121,6 +122,7 @@ public class SellActivity extends AppCompatActivity {
         price = (EditText) findViewById(R.id.price);
         negotiable = (CheckBox) findViewById(R.id.chk_is_negotiable);
         AddPost = (Button) findViewById(R.id.btnAddPost);
+
 
         AddPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -283,7 +285,7 @@ public class SellActivity extends AppCompatActivity {
                     Age.setVisibility(View.VISIBLE);
                     breedTxt.setVisibility(View.VISIBLE);
                     breed.setVisibility(View.VISIBLE);
-
+                    addValidationToViews();
 
                 }
                 if (position == 1) {
@@ -303,7 +305,7 @@ public class SellActivity extends AppCompatActivity {
                     Age.setVisibility(View.GONE);
                     breedTxt.setVisibility(View.GONE);
                     breed.setVisibility(View.GONE);
-
+                    addValidationToViews();
 
                 } else if (position == 2) {
                     subCateg.setVisibility(View.VISIBLE);
@@ -323,6 +325,7 @@ public class SellActivity extends AppCompatActivity {
                     Age.setVisibility(View.GONE);
                     breedTxt.setVisibility(View.GONE);
                     breed.setVisibility(View.GONE);
+                    addValidationToViews();
                 }
             }
 
@@ -597,18 +600,35 @@ public class SellActivity extends AppCompatActivity {
             return null;
     }
     private void addValidationToViews() {
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        if(breed.getVisibility()== View.VISIBLE)
+            awesomeValidation.addValidation(this, R.id.reg_breed, RegexTemplate.NOT_EMPTY, R.string.invalid_breed);
+        awesomeValidation.addValidation(this, R.id.reg_supplier_contact, "^[+]?[0-9]{10,13}$", R.string.invalid_phone);
+        if(Age.getVisibility()== View.VISIBLE)
+            awesomeValidation.addValidation(this, R.id.reg_age, Range.closed(1, 15), R.string.invalid_age);
+        if(milkRec.getVisibility()== View.VISIBLE)
+            awesomeValidation.addValidation(this, R.id.milkval, Range.closed(1, 20), R.string.invalid_mlkrec);
+        if(weight.getVisibility()== View.VISIBLE)
+            awesomeValidation.addValidation(this, R.id.reg_weight, "^[+]?[0-9]{1,3}$", R.string.invalid_weight);
+        if(product_name.getVisibility()== View.VISIBLE)
+            awesomeValidation.addValidation(this, R.id.reg_product_name, RegexTemplate.NOT_EMPTY, R.string.invalid_productName);
+        if(company_name.getVisibility()== View.VISIBLE)
+            awesomeValidation.addValidation(this, R.id.reg_company_name, RegexTemplate.NOT_EMPTY, R.string.invalid_companyName);
+        awesomeValidation.addValidation(this, R.id.reg_description, "^[a-zA-Z0-9% ]{20,100}$$", R.string.invalid_description);
+        awesomeValidation.addValidation(this, R.id.price, "^[0-9]{1,5}$", R.string.invalid_price);
+        awesomeValidation.addValidation(this, R.id.reg_city, "^[a-zA-Z]{3,15}$$", R.string.invalid_city);
+        awesomeValidation.addValidation(this, R.id.reg_district, "^[a-zA-Z]{3,15}$$", R.string.invalid_district);
 
-      //  awesomeValidation.addValidation(this, R.id.reg_breed, RegexTemplate.NOT_EMPTY, R.string.invalid_breed);
 
 
     }
     private void submitForm(View v) {
         // Validate the form...
-      //  if (awesomeValidation.validate()) {
+       if (awesomeValidation.validate()) {
             // Here, we are sure that form is successfully validated. So, do your stuffs now...
             createNewListItem(v);
            // Toast.makeText(this, "Form Validated Successfully", Toast.LENGTH_LONG).show();
-     //   }
+        }
     }
 
 
