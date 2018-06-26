@@ -41,6 +41,7 @@ public class ProductListAdapter extends
     private IBuilder mDrawableBuilder;
     ImageView imagView;
     private TextDrawable drawable;
+    private String subcategory;
 
     private String ImageUrl;
 
@@ -52,7 +53,7 @@ public class ProductListAdapter extends
     public ProductListAdapter(String subcategoryKey, Context context,
                               String sortBy) {
 
-
+        this.subcategory=subcategoryKey;
         TinyDB tinydb = new TinyDB(context.getApplicationContext());
         productList = tinydb.getListObject(subcategoryKey, Animals.class);
         if (productList.size() == 0) {
@@ -171,7 +172,9 @@ public class ProductListAdapter extends
 
     @Override
     public int getItemCount() {
-        return productList == null ? 0 : productList.size();
+        return CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                .get(this.subcategory) == null ? 0 : CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                .get(this.subcategory).size();
     }
 
     public void SetOnItemClickListener(

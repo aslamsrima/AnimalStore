@@ -223,13 +223,14 @@ public class ProductOverviewFragment extends Fragment {
         SortBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                ProductListAdapter adapter = new ProductListAdapter(ProductListFragment.subcategoryKey,
-//                        getActivity(),SortBy.getSelectedItem().toString() );
+                productList.clear();
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
+                TinyDB tinydb = new TinyDB(getContext());
+                productList = tinydb.getListObject("Animals", Animals.class);
+
                 if (i > 0) {
                     if (sortString.equals("")) {
                         sortString = SortBy.getSelectedItem().toString();
-                        TinyDB tinydb = new TinyDB(getContext());
-                        productList = tinydb.getListObject("Animals", Animals.class);
 
 
                         ProductListFragment.recyclerView.setVisibility(View.GONE);
@@ -238,30 +239,30 @@ public class ProductOverviewFragment extends Fragment {
                         int cnt=0;
                         for (Animals item : productList) {
                             if (!item.SubCategory.toLowerCase().equals(sortString.toLowerCase())){
-
-                                ProductListFragment.recyclerView.getAdapter().notifyItemRemoved(cnt);
-                            }else
+                               ProductListFragment.recyclerView.getAdapter().notifyItemRemoved(cnt);
+                            }else{
+//                                if(productList.size()>ProductListFragment.recyclerView.getAdapter().getItemCount())
+//                                    ProductListFragment.recyclerView.getAdapter().notifyItemInserted(cnt);
                                 Sortedlist.add(item);
+                            }
+
                             cnt++;
                         }
 
-                        productList.clear();
-                        if (Sortedlist.size() > 0)
+
+                        if (Sortedlist.size() > 0){
+                            productList.clear();
                             productList = Sortedlist;
+                        }
+
                         FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
-
+                        //ProductListFragment.recyclerView.getAdapter().notifyDataSetChanged();
                         ProductListFragment.recyclerView.setVisibility(View.VISIBLE);
-
-
-
                         sortString = "";
-//                        ProductListAdapter adapter = new ProductListAdapter("Animals",
-//                                getActivity(), ProductOverviewFragment.sortString);
-//                        recyclerView.setAdapter(adapter);
-
-                       // recyclerView.getAdapter().notifyDataSetChanged();
-
                     }
+                }else{
+                    FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
+
                 }
             }
 
