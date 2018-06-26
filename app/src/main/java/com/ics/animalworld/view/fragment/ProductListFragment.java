@@ -23,7 +23,7 @@ import com.ics.animalworld.view.adapter.ProductListAdapter.OnItemClickListener;
 public class ProductListFragment extends Fragment {
     public String subcategoryKey;
     private boolean isShoppingList;
-
+   public static RecyclerView recyclerView;
     public ProductListFragment() {
         isShoppingList = true;
     }
@@ -68,7 +68,7 @@ public class ProductListFragment extends Fragment {
 
         // Fill Recycler View
 
-        RecyclerView recyclerView = (RecyclerView) view
+        recyclerView = (RecyclerView) view
                 .findViewById(R.id.product_list_recycler_view);
 
         recyclerView.setVisibility(View.GONE);
@@ -124,5 +124,10 @@ public class ProductListFragment extends Fragment {
 
         return view;
     }
+
+//    public void adapterNotifier()
+//    {
+//        recyclerView.getAdapter().notifyDataSetChanged();
+//    }
 
 }

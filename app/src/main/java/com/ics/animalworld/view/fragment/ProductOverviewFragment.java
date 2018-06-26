@@ -58,7 +58,7 @@ public class ProductOverviewFragment extends Fragment {
     List<String> animalList;
     public ProgressBar circularProgressBar;
     ArrayList<Animals> productList;
-    RecyclerView recyclerView;
+    //RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,7 +94,7 @@ public class ProductOverviewFragment extends Fragment {
         LoadingTxt = (TextView) view.findViewById(R.id.loadertxt);
         LoadingTxt.setVisibility(View.GONE);
         tabLayout = (TabLayout) view.findViewById(R.id.htab_tabs);
-        recyclerView = (RecyclerView)view1.findViewById(R.id.product_list_recycler_view);
+       // recyclerView = (RecyclerView)view1.findViewById(R.id.product_list_recycler_view);
         mToolbar = (Toolbar) view.findViewById(R.id.htab_toolbar);
 //        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress);
 //        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress1);
@@ -228,16 +228,38 @@ public class ProductOverviewFragment extends Fragment {
                 if (i > 0) {
                     if (sortString.equals("")) {
                         sortString = SortBy.getSelectedItem().toString();
-                        // Fill Recycler View
-                        ProductListFragment list=new ProductListFragment();
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
-                                getActivity().getBaseContext());
-                        recyclerView.setLayoutManager(linearLayoutManager);
-                        recyclerView.setHasFixedSize(true);
+                        TinyDB tinydb = new TinyDB(getContext());
+                        productList = tinydb.getListObject("Animals", Animals.class);
 
-                        ProductListAdapter adapter = new ProductListAdapter("Animals",
-                                getActivity(), ProductOverviewFragment.sortString);
-                        recyclerView.setAdapter(adapter);
+
+                        ProductListFragment.recyclerView.setVisibility(View.GONE);
+
+                        ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
+                        int cnt=0;
+                        for (Animals item : productList) {
+                            if (!item.SubCategory.toLowerCase().equals(sortString.toLowerCase())){
+
+                                ProductListFragment.recyclerView.getAdapter().notifyItemRemoved(cnt);
+                            }else
+                                Sortedlist.add(item);
+                            cnt++;
+                        }
+
+                        productList.clear();
+                        if (Sortedlist.size() > 0)
+                            productList = Sortedlist;
+                        FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
+
+                        ProductListFragment.recyclerView.setVisibility(View.VISIBLE);
+
+
+
+                        sortString = "";
+//                        ProductListAdapter adapter = new ProductListAdapter("Animals",
+//                                getActivity(), ProductOverviewFragment.sortString);
+//                        recyclerView.setAdapter(adapter);
+
+                       // recyclerView.getAdapter().notifyDataSetChanged();
 
                     }
                 }

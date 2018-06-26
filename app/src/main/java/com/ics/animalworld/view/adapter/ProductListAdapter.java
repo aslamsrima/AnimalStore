@@ -47,10 +47,11 @@ public class ProductListAdapter extends
     private ArrayList<Animals> productList = new ArrayList<Animals>();
     private OnItemClickListener clickListener;
 
-    private Context context;
+    public static Context context;
 
     public ProductListAdapter(String subcategoryKey, Context context,
                               String sortBy) {
+
 
         TinyDB tinydb = new TinyDB(context.getApplicationContext());
         productList = tinydb.getListObject(subcategoryKey, Animals.class);

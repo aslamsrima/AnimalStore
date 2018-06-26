@@ -121,192 +121,186 @@
                     </RadioGroup>
                 </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/breedTxt"
-                    android:layout_width="fill_parent"
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="Breed"
-                    android:layout_marginTop="05dip"
-                    android:textStyle="bold" />
+                    android:alpha="1">
 
-                <EditText
-                    android:id="@+id/reg_breed"
-                    android:layout_width="fill_parent"
+                    <EditText
+                        android:id="@+id/reg_breed"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:singleLine="true"
+                        android:hint="Breed"
+                        android:layout_marginBottom="10dip" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <!--  Age -->
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dip"
-                    android:singleLine="true"
-                    android:layout_marginBottom="10dip" />
+                    android:alpha="1">
 
+                    <EditText
+                        android:id="@+id/reg_age"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:singleLine="true"
+                        android:hint="Age"
+                        android:layout_marginBottom="20dip" />
+                </android.support.design.widget.TextInputLayout>
 
-                <!--  Age Label -->
-                <TextView
-                    android:id="@+id/ageTxt"
-                    android:layout_width="fill_parent"
+                <!-- Milk Record  -->
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="Age"
-                    android:textStyle="bold" />
+                    android:alpha="1">
 
-                <EditText
-                    android:id="@+id/reg_age"
-                    android:layout_width="fill_parent"
+                    <EditText
+                        android:id="@+id/milkval"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Milk record/Day"
+                        android:singleLine="true"
+                        android:layout_marginTop="5dip" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <!-- Product Name  -->
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dip"
-                    android:singleLine="true"
-                    android:layout_marginBottom="20dip" />
-                <!-- Password Label -->
-                <TextView
-                    android:id="@+id/milktext"
-                    android:layout_width="fill_parent"
+                    android:alpha="1">
+
+                    <EditText
+                        android:id="@+id/reg_product_name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:singleLine="true"
+                        android:hint="Product Name"
+                        android:layout_marginBottom="20dip" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <!-- Company Name  -->
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="Milk record/Day"
-                    android:textStyle="bold" />
+                    android:alpha="1">
 
-                <EditText
-                    android:id="@+id/milkval"
-                    android:layout_width="fill_parent"
+                    <EditText
+                        android:id="@+id/reg_company_name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:singleLine="true"
+                        android:hint="Company Name"
+                        android:layout_marginBottom="20dip" />
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Weight  -->
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:alpha="1">
 
-                    android:singleLine="true"
-                    android:layout_marginTop="5dip" />
+                    <EditText
+                        android:id="@+id/reg_weight"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:singleLine="true"
+                        android:hint="Weight(In Kg)"
+                        android:layout_marginBottom="20dip" />
+                </android.support.design.widget.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/reg_product_nameTxt"
-                    android:layout_width="fill_parent"
+                <!-- Description  -->
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="Product Name"
-                    android:layout_marginTop="10dip"
-                    android:textStyle="bold" />
+                    android:alpha="1">
 
-                <EditText
-                    android:id="@+id/reg_product_name"
-                    android:layout_width="fill_parent"
+                    <EditText
+                        android:id="@+id/reg_description"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:singleLine="true"
+                        android:hint="Description"
+                        android:layout_marginBottom="20dip" />
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- City  -->
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dip"
-                    android:singleLine="true"
-                    android:layout_marginBottom="20dip" />
+                    android:alpha="1">
 
-                <TextView
-                    android:id="@+id/reg_company_nameTxt"
-                    android:layout_width="fill_parent"
+                    <EditText
+                        android:id="@+id/reg_city"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:singleLine="true"
+                        android:hint="City"
+                        android:layout_marginBottom="20dip" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <!-- District  -->
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="Company Name"
-                    android:layout_marginTop="10dip"
-                    android:textStyle="bold" />
+                    android:alpha="1">
 
-                <EditText
-                    android:id="@+id/reg_company_name"
-                    android:layout_width="fill_parent"
+                    <EditText
+                        android:id="@+id/reg_district"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:singleLine="true"
+                        android:hint="District"
+                        android:layout_marginBottom="20dip" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <!-- Contact  -->
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dip"
-                    android:singleLine="true"
-                    android:layout_marginBottom="20dip" />
+                    android:alpha="1">
 
+                    <EditText
+                        android:id="@+id/reg_supplier_contact"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:singleLine="true"
+                        android:hint="Supplier Contact"
+                        android:layout_marginBottom="20dip" />
+                </android.support.design.widget.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/weightTxt"
-                    android:layout_width="fill_parent"
+                <!-- Price  -->
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="Weight(In Kg)"
-                    android:layout_marginTop="10dip"
-                    android:textStyle="bold" />
+                    android:alpha="1">
 
-                <EditText
-                    android:id="@+id/reg_weight"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dip"
-                    android:singleLine="true"
-                    android:layout_marginBottom="20dip" />
+                    <EditText
+                        android:id="@+id/price"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Price"
+                        android:singleLine="true"
+                        android:layout_marginTop="5dip" />
+                </android.support.design.widget.TextInputLayout>
 
-                <TextView
-
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="Description"
-                    android:layout_marginTop="10dip"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/reg_description"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dip"
-                    android:singleLine="true"
-                    android:layout_marginBottom="20dip" />
-
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="City"
-                    android:layout_marginTop="10dip"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/reg_city"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dip"
-                    android:singleLine="true"
-                    android:layout_marginBottom="20dip" />
-
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="District"
-                    android:layout_marginTop="10dip"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/reg_district"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dip"
-                    android:singleLine="true"
-                    android:layout_marginBottom="20dip" />
-
-
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="Supplier Contact"
-                    android:layout_marginTop="10dip"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/reg_supplier_contact"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dip"
-                    android:singleLine="true"
-                    android:layout_marginBottom="20dip" />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="Price"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/price"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-
-                    android:singleLine="true"
-                    android:layout_marginTop="5dip" />
 
                 <CheckBox
                     android:id="@+id/chk_is_negotiable"
@@ -338,10 +332,9 @@
                     android:text="Submit"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
-                <!-- Link to Login Screen -->
+
 
             </LinearLayout>
-            <!-- Registration Form Ends -->
 
 
         </RelativeLayout>

@@ -39,9 +39,6 @@ import com.ics.animalworld.view.customview.ClickableViewPager.OnItemClickListene
 import com.ics.animalworld.view.customview.LabelView;
 import com.ics.animalworld.view.customview.TextDrawable;
 import com.ics.animalworld.view.customview.TextDrawable.IBuilder;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 
@@ -54,7 +51,7 @@ public class ProductDetailsFragment extends Fragment {
 
     private int productListNumber;
     private ImageView itemImage;
-    private TextView itemSellPrice, itemName, quanitity, itemdescription, itembreed, itemage, itemgender, itemaddress,itemsupplier;
+    private TextView itemSellPrice, itemName, quanitity, itemdescription, itembreed, itemage, itemgender, itemaddress, itemsupplier;
     private IBuilder mDrawableBuilder;
     private Button BtnContact;
     private TextDrawable drawable;
@@ -66,7 +63,7 @@ public class ProductDetailsFragment extends Fragment {
     private Toolbar mToolbar;
     private FirebaseAuth mAuth;
     Bitmap b;
-    private  String type;
+    private String type;
 
     /**
      * Instantiates a new product details fragment.
@@ -147,10 +144,10 @@ public class ProductDetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FirebaseUser currentUser = mAuth.getCurrentUser();
-                if(currentUser!=null){
+                if (currentUser != null) {
                     BtnContact.setVisibility(View.GONE);
                     itemsupplier.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     Intent intent = new Intent();
                     intent.setClass(getActivity(), LogInActivity.class);
                     intent.putExtra("reqCode", Common.LOGIN_REQ);
@@ -249,24 +246,104 @@ public class ProductDetailsFragment extends Fragment {
 
             type = CenterRepository.getCenterRepository()
                     .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Type;
-            if ( type != null   )
-            {
-            if(type.equals("Animal Food") || type.equals("Animal Medicine") || type.equals("Pet Food") || type.equals("Pet Medicine") ) {
+
+                if (type.equals("Animal Food") || type.equals("Animal Medicine") || type.equals("Pet Food") || type.equals("Pet Medicine")) {
+                    itemName.setText(CenterRepository.getCenterRepository()
+                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                            .SubCategory);
+
+                    itembreed.setText("Product Name : " + CenterRepository.getCenterRepository()
+                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                            .ProductName);
+
+                    itemage.setText("Company Name : " + CenterRepository.getCenterRepository()
+                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                            .CompanyName);
+
+                    itemgender.setText("Weight: " + CenterRepository.getCenterRepository()
+                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                            .weight);
+
+                    itemaddress.setText("Address: " + CenterRepository.getCenterRepository()
+                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                            .City + ", " + CenterRepository.getCenterRepository()
+                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                            .District);
+
+                    itemdescription.setText("Description: " + CenterRepository.getCenterRepository()
+                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                            .Description);
+                    itemsupplier.setText(CenterRepository.getCenterRepository()
+                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                            .SupplierContact);
+
+                    String sellCostString = Money.rupees(
+                            BigDecimal.valueOf(CenterRepository
+                                    .getCenterRepository().getMapOfProductsInCategory()
+                                    .get(subcategoryKey).get(productListNumber)
+                                    .Prize)).toString()
+                            + "  ";
+
+                    String buyMRP = Money.rupees(
+                            BigDecimal.valueOf(CenterRepository
+                                    .getCenterRepository().getMapOfProductsInCategory()
+                                    .get(subcategoryKey).get(productListNumber)
+                                    .Prize)).toString();
+
+                    String costString = sellCostString + buyMRP;
+
+                    itemSellPrice.setText(costString, BufferType.SPANNABLE);
+
+                    Spannable spannable = (Spannable) itemSellPrice.getText();
+
+                    spannable.setSpan(new StrikethroughSpan(), sellCostString.length(),
+                            costString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                    mDrawableBuilder = TextDrawable.builder().beginConfig()
+                            .withBorder(4).endConfig().roundRect(10);
+
+                    drawable = mDrawableBuilder.build(
+                            String.valueOf(CenterRepository.getCenterRepository()
+                                    .getMapOfProductsInCategory().get(subcategoryKey)
+                                    .get(productListNumber).Category.charAt(0)),
+                            mColorGenerator.getColor(CenterRepository
+                                    .getCenterRepository().getMapOfProductsInCategory()
+                                    .get(subcategoryKey).get(productListNumber)
+                                    .Category));
+
+//
+
+                    b = StringToBitMap(CenterRepository.getCenterRepository()
+                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
+
+                    itemImage.setImageBitmap(b);
+
+                    LabelView label = new LabelView(getActivity());
+
+                    label.setText("0");//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getDiscount()
+
+                    label.setBackgroundColor(0xffE91E63);
+                    itemImage.getLayoutParams().height = itemImage.getHeight();
+                    itemImage.getLayoutParams().width = itemImage.getWidth();
+
+                    label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);
+
+            } else {
                 itemName.setText(CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                         .SubCategory);
 
-                itembreed.setText("Product Name : " + CenterRepository.getCenterRepository()
+                itembreed.setText("Breed: " + CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .ProductName);
+                        .Breed);
 
-                itemage.setText("Company Name : " + CenterRepository.getCenterRepository()
+                itemage.setText("Age: " + CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .CompanyName);
+                        .Age);
 
-                itemgender.setText("Weight: " + CenterRepository.getCenterRepository()
+                itemgender.setText("Gender: " + CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .weight);
+                        .Gender);
 
                 itemaddress.setText("Address: " + CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
@@ -275,87 +352,6 @@ public class ProductDetailsFragment extends Fragment {
                         .District);
 
                 itemdescription.setText("Description: " + CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .Description);
-                itemsupplier.setText(CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .SupplierContact);
-
-                String sellCostString = Money.rupees(
-                        BigDecimal.valueOf(CenterRepository
-                                .getCenterRepository().getMapOfProductsInCategory()
-                                .get(subcategoryKey).get(productListNumber)
-                                .Prize)).toString()
-                        + "  ";
-
-                String buyMRP = Money.rupees(
-                        BigDecimal.valueOf(CenterRepository
-                                .getCenterRepository().getMapOfProductsInCategory()
-                                .get(subcategoryKey).get(productListNumber)
-                                .Prize)).toString();
-
-                String costString = sellCostString + buyMRP;
-
-                itemSellPrice.setText(costString, BufferType.SPANNABLE);
-
-                Spannable spannable = (Spannable) itemSellPrice.getText();
-
-                spannable.setSpan(new StrikethroughSpan(), sellCostString.length(),
-                        costString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                mDrawableBuilder = TextDrawable.builder().beginConfig()
-                        .withBorder(4).endConfig().roundRect(10);
-
-                drawable = mDrawableBuilder.build(
-                        String.valueOf(CenterRepository.getCenterRepository()
-                                .getMapOfProductsInCategory().get(subcategoryKey)
-                                .get(productListNumber).Category.charAt(0)),
-                        mColorGenerator.getColor(CenterRepository
-                                .getCenterRepository().getMapOfProductsInCategory()
-                                .get(subcategoryKey).get(productListNumber)
-                                .Category));
-
-//
-
-                b = StringToBitMap(CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
-
-                itemImage.setImageBitmap(b);
-
-                LabelView label = new LabelView(getActivity());
-
-                label.setText("0");//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getDiscount()
-
-                label.setBackgroundColor(0xffE91E63);
-
-                label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);
-            }
-            }
-            else
-            {
-                itemName.setText(CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .SubCategory);
-
-                itembreed.setText("Breed: "+CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .Breed);
-
-                itemage.setText("Age: "+CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .Age);
-
-                itemgender.setText("Gender: "+CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .Gender);
-
-                itemaddress.setText("Address: "+CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .City +", "+CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .District);
-
-                itemdescription.setText("Description: "+ CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                         .Description);
                 itemsupplier.setText(CenterRepository.getCenterRepository()
@@ -428,6 +424,8 @@ public class ProductDetailsFragment extends Fragment {
                 label.setText("0");//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getDiscount()
 
                 label.setBackgroundColor(0xffE91E63);
+                    itemImage.getLayoutParams().height =180;
+                    itemImage.getLayoutParams().width =360;
 
                 label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);
             }
@@ -521,19 +519,19 @@ public class ProductDetailsFragment extends Fragment {
         if (requestCode == Common.LOGIN_REQ && resultCode == Activity.RESULT_OK) {
             // update visibility of label
             FirebaseUser currentUser = mAuth.getCurrentUser();
-            if(currentUser!=null){
+            if (currentUser != null) {
                 BtnContact.setVisibility(View.GONE);
                 itemsupplier.setVisibility(View.VISIBLE);
             }
         }
     }
 
-    public Bitmap StringToBitMap(String encodedString){
+    public Bitmap StringToBitMap(String encodedString) {
         try {
-            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
-            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
             return bitmap;
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.getMessage();
             return null;
         }
