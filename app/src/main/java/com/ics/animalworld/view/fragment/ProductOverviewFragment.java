@@ -1,5 +1,3 @@
-
-
 package com.ics.animalworld.view.fragment;
 
 import android.graphics.Bitmap;
@@ -40,6 +38,12 @@ import java.util.Set;
 
 public class ProductOverviewFragment extends Fragment {
 
+    public static String sortString = "";
+    public ProgressBar circularProgressBar;
+    TextView SortTxt, LoadingTxt;
+    ArrayAdapter<String> dataAdapter;
+    List<String> animalList;
+    ArrayList<Animals> productList;
     // SimpleRecyclerAdapter adapter;
     private KenBurnsView header;
     private Bitmap bitmap;
@@ -48,12 +52,6 @@ public class ProductOverviewFragment extends Fragment {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TabLayout tabLayout;
     private Spinner SortBy;
-    public static String sortString = "";
-    TextView SortTxt, LoadingTxt;
-    ArrayAdapter<String> dataAdapter;
-    List<String> animalList;
-    public ProgressBar circularProgressBar;
-    ArrayList<Animals> productList;
     //RecyclerView recyclerView;
 
     @Override
@@ -90,7 +88,7 @@ public class ProductOverviewFragment extends Fragment {
         LoadingTxt = (TextView) view.findViewById(R.id.loadertxt);
         LoadingTxt.setVisibility(View.GONE);
         tabLayout = (TabLayout) view.findViewById(R.id.htab_tabs);
-       // recyclerView = (RecyclerView)view1.findViewById(R.id.product_list_recycler_view);
+        // recyclerView = (RecyclerView)view1.findViewById(R.id.product_list_recycler_view);
         mToolbar = (Toolbar) view.findViewById(R.id.htab_toolbar);
 //        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress);
 //        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress1);
@@ -206,7 +204,6 @@ public class ProductOverviewFragment extends Fragment {
 
             }
             LoadingTxt.setVisibility(View.GONE);
-            // FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
 
             setUpUi();
             setupViewPager(viewPager);
@@ -226,36 +223,25 @@ public class ProductOverviewFragment extends Fragment {
 
                 if (i > 0) {
                     if (sortString.equals("")) {
+
                         sortString = SortBy.getSelectedItem().toString();
-
-
-                        ProductListFragment.recyclerView.setVisibility(View.GONE);
-
                         ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
-                        int cnt=0;
                         for (Animals item : productList) {
-                            if (!item.SubCategory.toLowerCase().equals(sortString.toLowerCase())){
-                               ProductListFragment.recyclerView.getAdapter().notifyItemRemoved(cnt);
-                            }else{
-//                                if(productList.size()>ProductListFragment.recyclerView.getAdapter().getItemCount())
-//                                    ProductListFragment.recyclerView.getAdapter().notifyItemInserted(cnt);
+                            if (item.SubCategory.toLowerCase().equals(sortString.toLowerCase())) {
                                 Sortedlist.add(item);
                             }
-
-                            cnt++;
                         }
 
-
-                        if (Sortedlist.size() > 0){
+                        if (Sortedlist.size() > 0) {
                             productList.clear();
                             productList = Sortedlist;
                         }
 
                         FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
-                        ProductListFragment.recyclerView.setVisibility(View.VISIBLE);
+
                         sortString = "";
                     }
-                }else{
+                } else {
                     FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
                 }
                 ProductListFragment.recyclerView.getAdapter().notifyDataSetChanged();
@@ -267,21 +253,13 @@ public class ProductOverviewFragment extends Fragment {
             }
         });
 
-
-        /*if (null != ((ECartHomeActivity) getContext()).getProgressBar())
-            ((ECartHomeActivity) getContext()).getProgressBar().setVisibility(
-                    View.GONE)*/
-        ;
-
         return view;
     }
 
     private void setUpUi() {
 
         setupViewPager(viewPager);
-
         tabLayout.setupWithViewPager(viewPager);
-
         bitmap = BitmapFactory
                 .decodeResource(getResources(), R.drawable.header);
 

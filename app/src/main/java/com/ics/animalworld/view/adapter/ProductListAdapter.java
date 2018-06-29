@@ -110,6 +110,9 @@ public class ProductListAdapter extends
     @Override
     public void onBindViewHolder(final VersionViewHolder holder,
                                  final int position) {
+        productList=CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                .get(subcategory);
+
         if (productList.get(position).Type.equals("Animal") || productList.get(position).Type.equals("Pet")) {
             holder.itemName.setText(productList.get(position)
                     .Breed + "," + productList.get(position)
@@ -147,7 +150,8 @@ public class ProductListAdapter extends
 //                .getColor(productList.get(position).Breed));
 
 
-        b = StringToBitMap(productList.get(position).Pic.toString());
+        b = StringToBitMap(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                .get(subcategory).get(position).Pic.toString());
 
         imagView.setImageBitmap(b);
 
