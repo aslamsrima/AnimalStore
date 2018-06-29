@@ -110,6 +110,8 @@ public class ProductListAdapter extends
     @Override
     public void onBindViewHolder(final VersionViewHolder holder,
                                  final int position) {
+        productList = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                .get(subcategory);
         if (productList.get(position).Type.equals("Animal") || productList.get(position).Type.equals("Pet")) {
             holder.itemName.setText(productList.get(position)
                     .Breed + "," + productList.get(position)

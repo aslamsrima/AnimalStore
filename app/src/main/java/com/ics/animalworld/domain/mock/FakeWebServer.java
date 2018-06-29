@@ -129,7 +129,7 @@ public class FakeWebServer {
             productMap.put("Pet's Food", petsfood);
             productMap.put("Pet's Medicine", petsmedicine);
         }
-
+        CenterRepository.getCenterRepository().clear();
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
 
     }

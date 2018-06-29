@@ -232,20 +232,18 @@ public class ProductOverviewFragment extends Fragment {
                         ProductListFragment.recyclerView.setVisibility(View.GONE);
 
                         ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
-                        int cnt=0;
+                        int cnt=1;
                         for (Animals item : productList) {
                             if (!item.SubCategory.toLowerCase().equals(sortString.toLowerCase())){
-                               ProductListFragment.recyclerView.getAdapter().notifyItemRemoved(cnt);
+                            //    ProductListFragment.recyclerView.getAdapter().notifyItemRemoved(cnt);
                             }else{
-//                                if(productList.size()>ProductListFragment.recyclerView.getAdapter().getItemCount())
-//                                    ProductListFragment.recyclerView.getAdapter().notifyItemInserted(cnt);
                                 Sortedlist.add(item);
                             }
 
                             cnt++;
                         }
 
-
+                        //ProductListFragment.recyclerView.getAdapter().notifyItemRemoved(1);
                         if (Sortedlist.size() > 0){
                             productList.clear();
                             productList = Sortedlist;
@@ -258,6 +256,7 @@ public class ProductOverviewFragment extends Fragment {
                 }else{
                     FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
                 }
+
                 ProductListFragment.recyclerView.getAdapter().notifyDataSetChanged();
             }
 
