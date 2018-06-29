@@ -8,12 +8,9 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -35,7 +32,6 @@ import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
-import com.ics.animalworld.view.adapter.ProductListAdapter;
 import com.ics.animalworld.view.adapter.ProductsInCategoryPagerAdapter;
 
 import java.util.ArrayList;
@@ -256,14 +252,13 @@ public class ProductOverviewFragment extends Fragment {
                         }
 
                         FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
-                        //ProductListFragment.recyclerView.getAdapter().notifyDataSetChanged();
                         ProductListFragment.recyclerView.setVisibility(View.VISIBLE);
                         sortString = "";
                     }
                 }else{
                     FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
-
                 }
+                ProductListFragment.recyclerView.getAdapter().notifyDataSetChanged();
             }
 
             @Override
