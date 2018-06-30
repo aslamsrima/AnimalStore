@@ -53,34 +53,53 @@ import java.util.List;
 import java.util.Map;
 
 public class SellActivity extends AppCompatActivity {
+    public static final int GRANTED = 0;
+    public static final int DENIED = 1;
+    public static final int BLOCKED_OR_NEVER_ASKED = 2;
+    private static final int CAMERA_REQUEST = 1888;
+    View appRoot;
+    ImageView productImage;
+    DatabaseReference mDB;
+    DatabaseReference mAnimalRef;
+    Toolbar toolbar;
+    Bitmap bitmap;
+    Bitmap FINAL_IMAGE;
+    ArrayAdapter<String> dataAdapter, petAdapter, subCategoryAdapter, petTypeAdapter;
     private RadioButton male, female;
-    private TextView  subCateg, typeTxt, genderTxt;
+    private TextView subCateg, typeTxt, genderTxt;
     private EditText breed, milkRec, Price, Age, description, city, district, supplierContact, price, product_name, company_name, weight;
     private CheckBox negotiable;
     private Spinner category, type, subCategory;
     private Button AddPost;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
-    View appRoot;
-    ImageView productImage;
-    DatabaseReference mDB;
-    DatabaseReference mAnimalRef;
     private ArrayList<Animals> mAnimal;
-    Toolbar toolbar;
-    Bitmap bitmap;
-    Bitmap FINAL_IMAGE;
     private AwesomeValidation awesomeValidation;
 
+    private static File getOutputMediaFile() {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "CameraDemo");
 
-    ArrayAdapter<String> dataAdapter, petAdapter, subCategoryAdapter, petTypeAdapter;
-    private static final int CAMERA_REQUEST = 1888;
-    public static final int GRANTED = 0;
-    public static final int DENIED = 1;
-    public static final int BLOCKED_OR_NEVER_ASKED = 2;
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
 
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({GRANTED, DENIED, BLOCKED_OR_NEVER_ASKED})
-    public @interface PermissionStatus {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_" + timeStamp + ".jpg");
+    }
+
+    @PermissionStatus
+    public static int getPermissionStatus(SellActivity activity, String androidPermissionName) {
+        if (ContextCompat.checkSelfPermission(activity, androidPermissionName) != PackageManager.PERMISSION_GRANTED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(activity, androidPermissionName)) {
+                return BLOCKED_OR_NEVER_ASKED;
+            }
+            return DENIED;
+        }
+        return GRANTED;
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +173,7 @@ public class SellActivity extends AppCompatActivity {
         subCategoryListAnimal.add("Rabbit");
         subCategoryListAnimal.add("Sheeps");
 
-        subCategoryAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, subCategoryListAnimal);
+        subCategoryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subCategoryListAnimal);
         subCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
@@ -166,7 +185,7 @@ public class SellActivity extends AppCompatActivity {
         subCategoryListPet.add("Bird");
         subCategoryListPet.add("Fish");
 
-        petAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, subCategoryListPet);
+        petAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subCategoryListPet);
         petAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
@@ -176,7 +195,7 @@ public class SellActivity extends AppCompatActivity {
         animalList.add("Animal Food");
         animalList.add("Animal Medicine");
 
-        dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, animalList);
+        dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, animalList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
@@ -186,7 +205,7 @@ public class SellActivity extends AppCompatActivity {
         petList.add("Pet Food");
         petList.add("Pet Medicine");
 
-        petTypeAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, petList);
+        petTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, petList);
         petTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
@@ -290,7 +309,6 @@ public class SellActivity extends AppCompatActivity {
 
     }
 
-
     private void selectImage() {
 
 
@@ -353,26 +371,13 @@ public class SellActivity extends AppCompatActivity {
 
     }
 
-    private static File getOutputMediaFile() {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "CameraDemo");
-
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                return null;
-            }
-        }
-
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        return new File(mediaStorageDir.getPath() + File.separator +
-                "IMG_" + timeStamp + ".jpg");
-    }
-
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bitmap mphoto = (Bitmap) data.getExtras().get("data");
             bitmap = mphoto;
+            mphoto = Bitmap.createScaledBitmap(mphoto, 900, 500, false);
             productImage.setImageBitmap(mphoto);
+
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
 
             Uri selectedImage = data.getData();
@@ -390,6 +395,8 @@ public class SellActivity extends AppCompatActivity {
             //                matrix.postRotate(90);
             thumbnail = Bitmap.createBitmap(thumbnail, 0, 0, thumbnail.getWidth(), thumbnail.getHeight(), matrix, true);
             bitmap = thumbnail;
+            thumbnail = Bitmap.createScaledBitmap(bitmap, 900, 500, false);
+
             productImage.setImageBitmap(thumbnail);
             productImage.setAdjustViewBounds(true);
             //productImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -457,17 +464,6 @@ public class SellActivity extends AppCompatActivity {
                 // other 'case' lines to check for other
                 // permissions this app might request
         }
-    }
-
-    @PermissionStatus
-    public static int getPermissionStatus(SellActivity activity, String androidPermissionName) {
-        if (ContextCompat.checkSelfPermission(activity, androidPermissionName) != PackageManager.PERMISSION_GRANTED) {
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(activity, androidPermissionName)) {
-                return BLOCKED_OR_NEVER_ASKED;
-            }
-            return DENIED;
-        }
-        return GRANTED;
     }
 
     public void createNewListItem(View v) {
@@ -540,6 +536,13 @@ public class SellActivity extends AppCompatActivity {
 
     public String BitMapToString(Bitmap bitmap) {
         if (bitmap != null) {
+            bitmap = Bitmap.createScaledBitmap(bitmap, 1080, 500, false);
+//            if (bitmap.getWidth() < 200)
+//                itemImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 400, 500, false));
+//            else if (bitmap.getWidth() > 200 && bitmap.getWidth() < 500)
+//                itemImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 700, 500, false));
+//            else if (bitmap.getWidth() > 500)
+//                itemImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 900, 500, false));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
             byte[] b = baos.toByteArray();
@@ -569,17 +572,20 @@ public class SellActivity extends AppCompatActivity {
         awesomeValidation.addValidation(this, R.id.reg_city, "^[a-zA-Z]{3,15}$$", R.string.invalid_city);
         awesomeValidation.addValidation(this, R.id.reg_district, "^[a-zA-Z]{3,15}$$", R.string.invalid_district);
 
-
-
     }
 
     private void submitForm(View v) {
-        // Validate the form...
+
         if (awesomeValidation.validate()) {
-            // Here, we are sure that form is successfully validated. So, do your stuffs now...
+
             createNewListItem(v);
-            // Toast.makeText(this, "Form Validated Successfully", Toast.LENGTH_LONG).show();
+
         }
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({GRANTED, DENIED, BLOCKED_OR_NEVER_ASKED})
+    public @interface PermissionStatus {
     }
 
 

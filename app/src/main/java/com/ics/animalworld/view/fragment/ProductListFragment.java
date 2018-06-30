@@ -54,11 +54,11 @@ public class ProductListFragment extends Fragment {
                                     ((ECartHomeActivity) (getContext())),
                                     AnimationType.SLIDE_DOWN);
 
-                            Utils.switchFragmentWithAnimation(
-                                    R.id.frag_container,
-                                    new HomeFragment(),
-                                    ((ECartHomeActivity) (getContext())), Utils.HOME_FRAGMENT,
-                                    AnimationType.SLIDE_DOWN);
+//                            Utils.switchFragmentWithAnimation(
+//                                    R.id.frag_container,
+//                                    new HomeFragment(),
+//                                    ((ECartHomeActivity) (getContext())), Utils.HOME_FRAGMENT,
+//                                    AnimationType.SLIDE_DOWN);
 
 
                             return false;
