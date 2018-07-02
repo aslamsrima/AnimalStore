@@ -52,23 +52,23 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <!--<TextView-->
-                <!--android:id="@+id/category_discount"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:layout_marginTop="30dp"-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:textColor="@color/holo_gray_dark"-->
-                <!--android:textSize="20sp"-->
-                <!--android:textStyle="bold" />-->
+            <TextView
+                android:id="@+id/category_discount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/holo_gray_dark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
             <!--</LinearLayout>-->
             <LinearLayout
                 android:id="@+id/actual_start_linear_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/product_name"
+                android:layout_below="@id/category_discount"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="60dp"
                 android:orientation="horizontal">
