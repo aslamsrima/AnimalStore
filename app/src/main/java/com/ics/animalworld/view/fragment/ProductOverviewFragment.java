@@ -218,9 +218,10 @@ public class ProductOverviewFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 productList.clear();
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
+                TabLayout.Tab tab = tabLayout.getTabAt(tabLayout.getSelectedTabPosition());
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory(tab.getText().toString(), productList);
                 TinyDB tinydb = new TinyDB(getContext());
-                productList = tinydb.getListObject("Animals", Animals.class);
+                productList = tinydb.getListObject(tab.getText().toString(), Animals.class);
 
                 if (i > 0) {
                     if (sortString.equals("")) {
@@ -238,12 +239,12 @@ public class ProductOverviewFragment extends Fragment {
                             productList = Sortedlist;
                         }
 
-                        FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
+                        FakeWebServer.getFakeWebServer().updateProductMapForCategory(tab.getText().toString(), productList);
 
                         sortString = "";
                     }
                 } else {
-                    FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
+                    FakeWebServer.getFakeWebServer().updateProductMapForCategory(tab.getText().toString(), productList);
                 }
                 ProductListFragment.recyclerView.getAdapter().notifyDataSetChanged();
             }
