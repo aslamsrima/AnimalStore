@@ -45,6 +45,8 @@
         <item>Select Category</item>
         <item>Animal</item>
         <item>Pet</item>
+        <item>Farming Tools</item>
+        <item>Farming Product</item>
     </string-array>
     <string-array name="Language">
         <item>English</item>

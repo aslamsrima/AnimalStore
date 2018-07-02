@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
@@ -188,10 +189,10 @@ public class ProductOverviewFragment extends Fragment {
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
                 productList.clear();
                 productList = tinydb.getListObject("Animal's Food", Animals.class);
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Food", productList);
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Food", tinydb.getListObject("Animal's Food", Animals.class));
                 productList.clear();
                 productList = tinydb.getListObject("Animal's Medicine", Animals.class);
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Medicine", productList);
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Medicine", tinydb.getListObject("Animal's Medicine", Animals.class));
             } else if (AppConstants.CURRENT_CATEGORY == 1) {
 
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet", productList);
@@ -290,7 +291,7 @@ public class ProductOverviewFragment extends Fragment {
                                 header.setImageResource(R.drawable.header_1);
 
                                 bitmap = BitmapFactory.decodeResource(
-                                        getResources(), R.drawable.header_1);
+                                        getResources(), R.drawable.header);
 
                                 Palette.from(bitmap).generate(
                                         new Palette.PaletteAsyncListener() {
@@ -313,10 +314,10 @@ public class ProductOverviewFragment extends Fragment {
                                 dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, animalList);
                                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 SortBy.setAdapter(dataAdapter);
-                                header.setImageResource(R.drawable.header_2);
+                                header.setImageResource(R.drawable.header);
 
                                 bitmap = BitmapFactory.decodeResource(
-                                        getResources(), R.drawable.header_2);
+                                        getResources(), R.drawable.header);
 
                                 Palette.from(bitmap).generate(
                                         new Palette.PaletteAsyncListener() {
@@ -338,10 +339,10 @@ public class ProductOverviewFragment extends Fragment {
                                 break;
                             case 2:
 
-                                header.setImageResource(R.drawable.header2);
+                                header.setImageResource(R.drawable.header);
 
                                 Bitmap bitmap = BitmapFactory.decodeResource(
-                                        getResources(), R.drawable.header2);
+                                        getResources(), R.drawable.header);
 
                                 Palette.from(bitmap).generate(
                                         new Palette.PaletteAsyncListener() {
@@ -393,118 +394,11 @@ public class ProductOverviewFragment extends Fragment {
     }
 
 
-    // TODO
-    //Below Code Work Well But requires JSOn to work
-    // Below line of code does caching for offline usage
 
-	
-	/*void fillProductMapFromCache() {
-
-		String cached_ProductMapJSON = PreferenceHelper
-				.getPrefernceHelperInstace().getString(
-						PreferenceHelper.ALL_PRODUCT_LIST_RESPONSE_JSON, null);
-
-		if (null != cached_ProductMapJSON) {
-			new JSONParser(NetworkConstants.GET_ALL_PRODUCT,
-					cached_ProductMapJSON).parse();
-
-			adapter.notifyDataSetChanged();
-
-		}
-
-	}
-
-	public void fillCategoryData() {
-
-		loadingIndicator.setVisibility(View.VISIBLE);
-
-		JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET,
-				NetworkConstants.URL_GET_PRODUCTS_MAP,
-				new Response.Listener<JSONObject>() {
-
-					@Override
-					public void onResponse(JSONObject response) {
-
-						if (getView() != null && getView().isShown()) {
-
-							new JSONParser(NetworkConstants.GET_ALL_PRODUCT,
-									response.toString()).parse();
-
-							PreferenceHelper
-									.getPrefernceHelperInstace()
-									.setString(
-											PreferenceHelper.ALL_PRODUCT_LIST_RESPONSE_JSON,
-											response.toString());
-							
-							setUpPager();
+    public void refresh(){
 
 
-							if (null != loadingIndicator) {
-								loadingIndicator.setVisibility(View.GONE);
-							}
-
-						}
-					}
-
-				}, new Response.ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError error) {
-
-						fillProductMapFromCache();
+    }
 
 
-						if (null != loadingIndicator) {
-							loadingIndicator.setVisibility(View.GONE);
-						}
-						if (error instanceof TimeoutError
-								|| error instanceof NoConnectionError) {
-
-
-							if (null != getActivity())
-								((ECartHomeActivity) getActivity())
-										.ShowErrorMessage(Errorhandler.OFFLINE_MODE, true);
-
-						} else if (error instanceof AuthFailureError) {
-							// TODO
-						} else if (error instanceof ServerError) {
-
-							
-							if (null != getActivity())
-								((ECartHomeActivity) getActivity())
-										.ShowErrorMessage(Errorhandler.SERVER_ERROR, true);
-							// TODO
-						} else if (error instanceof NetworkError) {
-
-							
-							if (null != getActivity())
-								((ECartHomeActivity) getActivity())
-										.ShowErrorMessage(Errorhandler.NETWORK_ERROR, true);
-
-						} else if (error instanceof ParseError) {
-
-							if (null != getActivity())
-								Toast.makeText(
-										getActivity(),
-										"Parsing Error" + error.networkResponse
-												+ error.getLocalizedMessage(),
-										Toast.LENGTH_LONG).show();
-
-						}
-					}
-
-				}) {
-
-		};
-
-		// jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(60000 * 2, 0, 0));
-
-		jsonObjReq.setRetryPolicy(new DefaultRetryPolicy((int) TimeUnit.SECONDS
-				.toMillis(60), DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-				DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-		AppController.getInstance().addToRequestQueue(jsonObjReq, tagJSONReq);
-
-	}
-*/
 }

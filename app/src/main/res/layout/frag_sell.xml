@@ -43,6 +43,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#372c24"
+                    android:layout_marginTop="5dp"
                     android:text="Category"
                     android:textStyle="bold" />
 
@@ -58,6 +59,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#372c24"
+                    android:layout_marginTop="5dp"
                     android:text="Type"
                     android:id="@+id/typetext"
                     android:textStyle="bold" />
@@ -73,6 +75,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#372c24"
+                    android:layout_marginTop="5dp"
                     android:text="Sub Category"
                     android:id="@+id/subCategorytext"
                     android:textStyle="bold" />
@@ -95,7 +98,9 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+
+                    >
 
                     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                         android:layout_width="fill_parent"
@@ -134,7 +139,7 @@
                         android:layout_marginTop="5dip"
                         android:singleLine="true"
                         android:hint="Breed"
-                        android:layout_marginBottom="10dip" />
+                        />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -152,7 +157,7 @@
                         android:layout_marginTop="5dip"
                         android:singleLine="true"
                         android:hint="Age"
-                        android:layout_marginBottom="20dip" />
+                         />
                 </android.support.design.widget.TextInputLayout>
 
                 <!-- Milk Record  -->
@@ -184,7 +189,7 @@
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
                         android:hint="Product Name"
-                        android:layout_marginBottom="20dip" />
+                         />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -201,7 +206,7 @@
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
                         android:hint="Company Name"
-                        android:layout_marginBottom="20dip" />
+                         />
                 </android.support.design.widget.TextInputLayout>
 
                 <!-- Weight  -->
@@ -217,7 +222,7 @@
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
                         android:hint="Weight(In Kg)"
-                        android:layout_marginBottom="20dip" />
+                         />
                 </android.support.design.widget.TextInputLayout>
 
                 <!-- Description  -->
@@ -233,7 +238,7 @@
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
                         android:hint="Description"
-                        android:layout_marginBottom="20dip" />
+                        />
                 </android.support.design.widget.TextInputLayout>
 
                 <!-- City  -->
@@ -249,7 +254,7 @@
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
                         android:hint="City"
-                        android:layout_marginBottom="20dip" />
+                        />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -266,7 +271,7 @@
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
                         android:hint="District"
-                        android:layout_marginBottom="20dip" />
+                         />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -283,7 +288,7 @@
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
                         android:hint="Supplier Contact"
-                        android:layout_marginBottom="20dip" />
+                         />
                 </android.support.design.widget.TextInputLayout>
 
                 <!-- Price  -->

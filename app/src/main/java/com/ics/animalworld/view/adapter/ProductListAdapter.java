@@ -35,7 +35,7 @@ public class ProductListAdapter extends
         RecyclerView.Adapter<ProductListAdapter.VersionViewHolder> implements
         ItemTouchHelperAdapter {
 
-    public static Context context;
+    public Context context;
     Bitmap b;
     ImageView imagView;
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
