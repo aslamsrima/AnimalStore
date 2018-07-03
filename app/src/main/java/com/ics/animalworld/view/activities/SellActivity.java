@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -40,6 +41,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ics.animalworld.R;
 import com.ics.animalworld.model.entities.Animals;
+import com.ics.animalworld.util.TinyDB;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -50,6 +52,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class SellActivity extends AppCompatActivity {
@@ -75,6 +78,7 @@ public class SellActivity extends AppCompatActivity {
     private RadioButton radioButton;
     private ArrayList<Animals> mAnimal;
     private AwesomeValidation awesomeValidation;
+    private String language;
 
     private static File getOutputMediaFile() {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
@@ -105,6 +109,17 @@ public class SellActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frag_sell);
+        TinyDB tiny = new TinyDB(getApplicationContext());
+        language =tiny.getString("lang");
+        if (language.equalsIgnoreCase(""))
+            return;
+        Locale myLocale = new Locale(language);//Set Selected Locale
+        //  saveLocale(lang);//Save the selected locale
+        Locale.setDefault(myLocale);//set new locale as default
+        Configuration config = new Configuration();//get Configuration
+        config.locale = myLocale;//set config locale as selected locale
+        getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());//Update the config
+       // updateTexts();//Update texts according to locale
 
         //Initialized view elements
         category = (Spinner) findViewById(R.id.category);
@@ -164,14 +179,36 @@ public class SellActivity extends AppCompatActivity {
         });
 
         //SubCategory List(Animals)
+
+
         List<String> subCategoryListAnimal = new ArrayList<String>();
-        subCategoryListAnimal.add("Select Animal");
-        subCategoryListAnimal.add("Buffloes");
-        subCategoryListAnimal.add("Cows");
-        subCategoryListAnimal.add("Goats");
-        subCategoryListAnimal.add("Horse");
-        subCategoryListAnimal.add("Rabbit");
-        subCategoryListAnimal.add("Sheeps");
+        if(language.equals("en")){
+            subCategoryListAnimal.add("Select Animal");
+            subCategoryListAnimal.add("Buffloes");
+            subCategoryListAnimal.add("Cows");
+            subCategoryListAnimal.add("Goats");
+            subCategoryListAnimal.add("Horse");
+            subCategoryListAnimal.add("Rabbit");
+            subCategoryListAnimal.add("Sheeps");
+
+        }else if(language.equals("hi")){
+            subCategoryListAnimal.add("कृपया चुने");
+            subCategoryListAnimal.add("भेंस");
+            subCategoryListAnimal.add("गाय");
+            subCategoryListAnimal.add("बकरा");
+            subCategoryListAnimal.add("घोड़ा");
+            subCategoryListAnimal.add("खरगोश");
+            subCategoryListAnimal.add("भेड़");
+        }
+        else if(language.equals("mr")){
+            subCategoryListAnimal.add("कृपया प्राणी निवडा");
+            subCategoryListAnimal.add("म्हैस");
+            subCategoryListAnimal.add("गाय");
+            subCategoryListAnimal.add("शेळी");
+            subCategoryListAnimal.add("अश्व");
+            subCategoryListAnimal.add("खरगोश");
+            subCategoryListAnimal.add("मेंढी");
+        }
 
         subCategoryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subCategoryListAnimal);
         subCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -179,11 +216,25 @@ public class SellActivity extends AppCompatActivity {
 
         //SubCategory List(Pets)
         List<String> subCategoryListPet = new ArrayList<String>();
-        subCategoryListPet.add("Select Pet");
-        subCategoryListPet.add("Cat");
-        subCategoryListPet.add("Dog");
-        subCategoryListPet.add("Bird");
-        subCategoryListPet.add("Fish");
+        if(language.equals("en")){
+            subCategoryListPet.add("Select Pet");
+            subCategoryListPet.add("Cat");
+            subCategoryListPet.add("Dog");
+            subCategoryListPet.add("Bird");
+            subCategoryListPet.add("Fish");
+        }else if(language.equals("hi")){
+            subCategoryListPet.add("कृपया चुने");
+            subCategoryListPet.add("बिल्ली");
+            subCategoryListPet.add("कुत्ता");
+            subCategoryListPet.add("पक्षी");
+            subCategoryListPet.add("मछली");
+        }else if(language.equals("mr")){
+            subCategoryListPet.add("कृपया पशु निवडा");
+            subCategoryListPet.add("मांजर");
+            subCategoryListPet.add("कुत्रा");
+            subCategoryListPet.add("पक्षी");
+            subCategoryListPet.add("मासे");
+        }
 
         petAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subCategoryListPet);
         petAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -191,9 +242,19 @@ public class SellActivity extends AppCompatActivity {
 
         //Type List(Animals)
         List<String> animalList = new ArrayList<String>();
-        animalList.add("Animal");
-        animalList.add("Animal Food");
-        animalList.add("Animal Medicine");
+        if(language.equals("en")){
+            animalList.add("Animal");
+            animalList.add("Animal Food");
+            animalList.add("Animal Medicine");
+        }else if(language.equals("hi")){
+            animalList.add("जानवर");
+            animalList.add("जानवर का भोजन");
+            animalList.add("जानवर की दवाई");
+        }else if(language.equals("mr")){
+            animalList.add("प्राणी");
+            animalList.add("प्राण्यांचे अन्न");
+            animalList.add("प्राण्यांचे औषधे");
+        }
 
         dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, animalList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -201,9 +262,19 @@ public class SellActivity extends AppCompatActivity {
 
         //Type List(Pets)
         List<String> petList = new ArrayList<String>();
-        petList.add("Pet");
-        petList.add("Pet Food");
-        petList.add("Pet Medicine");
+        if(language.equals("en")) {
+            petList.add("Pets");
+            petList.add("Pet's Food");
+            petList.add("Pet's Medicine");
+        }else if(language.equals("hi")){
+            petList.add("पालतू जानवर");
+            petList.add("पालतू जानवर का खाना");
+            petList.add("पालतू जानवर की दवाई");
+        }else if(language.equals("mr")){
+            petList.add("पाळीव प्राणी");
+            petList.add("पाळीव प्राण्याचे अन्न");
+            petList.add("पाळीव प्राण्याचे औषध");
+        }
 
         petTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, petList);
         petTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

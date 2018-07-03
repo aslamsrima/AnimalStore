@@ -46,9 +46,7 @@ public class CenterRepository {
         this.mapOfProductsInCategory = mapOfProductsInCategory;
     }
 
-    public void clear() {
-        this.mapOfProductsInCategory.clear();
-    }
+
 
     public ArrayList<ProductCategoryModel> getListOfCategory() {
 

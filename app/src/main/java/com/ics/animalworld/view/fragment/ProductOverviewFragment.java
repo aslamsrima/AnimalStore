@@ -396,10 +396,7 @@ public class ProductOverviewFragment extends Fragment {
 
 
 
-    public void refresh(){
 
-
-    }
 
 
 }

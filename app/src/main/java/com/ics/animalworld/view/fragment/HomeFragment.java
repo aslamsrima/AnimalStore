@@ -163,17 +163,20 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
-
+                TinyDB tiny = new TinyDB(getActivity().getApplicationContext());
                 if (position == 0) {
                     lang = "en";
                     changeLocale(lang);
+                    tiny.putString("lang",lang);
                 }
                 if (position == 1) {
                     lang = "hi";
                     changeLocale(lang);
+                    tiny.putString("lang",lang);
                 } else if (position == 2) {
                     lang = "mr";
                     changeLocale(lang);
+                    tiny.putString("lang",lang);
                 }
             }
 

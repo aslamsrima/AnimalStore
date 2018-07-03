@@ -154,10 +154,11 @@ public class ProductListFragment extends Fragment {
                         if (success) {
                             try {
                                 mSwipeRefreshLayout.setRefreshing(false);
-                                Utils.switchContent(R.id.frag_container,
-                                        Utils.PRODUCT_OVERVIEW_FRAGMENT_TAG,
-                                        ((ECartHomeActivity) (getActivity())),
-                                        AnimationType.SLIDE_RIGHT);
+                                recyclerView.getAdapter().notifyDataSetChanged();
+//                                Utils.switchContent(R.id.frag_container,
+//                                        Utils.PRODUCT_OVERVIEW_FRAGMENT_TAG,
+//                                        ((ECartHomeActivity) (getActivity())),
+//                                        AnimationType.SLIDE_RIGHT);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
