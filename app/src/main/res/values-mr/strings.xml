@@ -18,16 +18,42 @@
     <string name="offer_banner">"Shop for 2000 to get Rs 100 discount and shop for 3000 to get Rs 200 discount"</string>
     <string name="checkout">CheckOut</string>
     <string name="similar_product">You may also like</string>
-    <string name="slogan">Assignment</string>
-    <string name="email_developer_">Email Developer:</string>
-    <string name="personal_website_">Personal Website :</string>
-    <string name="site_hitesh">www.hiteshsahu.com</string>
-    <string name="contact_number">Contact Number</string>
-    <string name="mob_num">8888813275</string>
-    <string name="lab_locations">Locations</string>
-    <string name="pune">Pune</string>
-    <string name="address_value">C 1002, Lorelle Socity Wakad Pune</string>
-    <string name="country_prompt">Choose a country</string>
+
+    <string name="Category">विभाग</string>
+    <string name="Type">प्रकार</string>
+    <string name="SubCategory">उपप्रकार</string>
+    <string name="Gender">लिंग</string>
+    <string name="Breed">जाती</string>
+    <string name="Age">वय</string>
+    <string name="MlkRec">दूध प्रति दिन (लिटरमध्ये)</string>
+    <string name="Description">वर्णन</string>
+    <string name="City">City</string>
+    <string name="District">District</string>
+    <string name="SupplierContact">Supplier Contact</string>
+    <string name="Price">Price</string>
+    <string name="Negotiable">Is Price Negotiable?</string>
+    <string name="ProductName">उत्पादनाचे नांव</string>
+    <string name="CompanyName">कंपनीचे नाव</string>
+    <string name="weight">वजन</string>
+    <string name="male">नर</string>
+    <string name="female">मादी</string>
+
+
+
+    <string name="invalid_breed">Please enter a valid Breed</string>
+    <string name="invalid_price">Please enter a valid price</string>
+    <string name="invalid_productName">Please enter a valid Product Name</string>
+    <string name="invalid_city">Please enter a valid City</string>
+    <string name="invalid_district">Please enter a valid District</string>
+    <string name="invalid_companyName">Please enter a valid Company Name</string>
+    <string name="invalid_description">Description should be of atleast 20 characters</string>
+    <string name="invalid_weight">Please enter a valid weight</string>
+    <string name="invalid_mlkrec">Please enter a valid Milk Record</string>
+    <string name="invalid_phone">Please enter a valid Phone</string>
+    <string name="invalid_age">Age must be between 1 and 15.</string>
+
+
+
     <string name="register_link"><u>Do not have an Account?</u></string>
     <string name="category"><u>श्रेण्या</u></string>
     <string-array name="Category">

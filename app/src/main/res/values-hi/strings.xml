@@ -5,8 +5,6 @@
     <string name="Company_name">(इनारा कंसल्टेंसी सेवा)</string>
     <string name="action_login">लॉग इन करें</string>
     <string name="action_settings">सेटिंग्स</string>
-    <string name="empty_text">Select song from below to play</string>
-    <string name="standard">Standard</string>
     <string name="title_changelog">Change log</string>
     <string name="changelog_close">Close</string>
     <string name="action_hide">Hide Panel</string>
@@ -21,6 +19,43 @@
     <string name="lab_locations">Locations</string>
     <string name="country_prompt">Choose a country</string>
     <string name="register_link"><u>Do not have an Account?</u></string>
+
+    <string name="Category">वर्ग</string>
+    <string name="Type">प्रकार</string>
+    <string name="SubCategory">उपप्रकार</string>
+    <string name="Gender">लिंग</string>
+    <string name="Breed">नस्ल</string>
+    <string name="Age">उम्र</string>
+    <string name="MlkRec">प्रति दिन दूध रिकॉर्ड (लीटर में)</string>
+    <string name="Description">विवरण</string>
+    <string name="City">City</string>
+    <string name="District">District</string>
+    <string name="SupplierContact">Supplier Contact</string>
+    <string name="Price">Price</string>
+    <string name="Negotiable">Is Price Negotiable?</string>
+    <string name="ProductName">उत्पाद का नाम</string>
+    <string name="CompanyName">कंपनी का नाम</string>
+    <string name="weight">वजन</string>
+    <string name="male">नर</string>
+    <string name="female">मादा</string>
+
+
+
+    <string name="invalid_breed">Please enter a valid Breed</string>
+    <string name="invalid_price">Please enter a valid price</string>
+    <string name="invalid_productName">Please enter a valid Product Name</string>
+    <string name="invalid_city">Please enter a valid City</string>
+    <string name="invalid_district">Please enter a valid District</string>
+    <string name="invalid_companyName">Please enter a valid Company Name</string>
+    <string name="invalid_description">Description should be of atleast 20 characters</string>
+    <string name="invalid_weight">Please enter a valid weight</string>
+    <string name="invalid_mlkrec">Please enter a valid Milk Record</string>
+    <string name="invalid_phone">Please enter a valid Phone</string>
+    <string name="invalid_age">Age must be between 1 and 15.</string>
+    <string name="categories"><u>Categories</u></string>
+
+
+
     <string name="category"><u>विविधताँ</u></string>
     <string-array name="Category">
         <item>कृपया चुने</item>
