@@ -1,5 +1,3 @@
-
-
 package com.ics.animalworld.domain.mock;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,15 +18,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class FakeWebServer {
 
-    public interface FakeWebServiceResponseListener {
-        void onServiceResponse(boolean success);
-    }
-
     private static FakeWebServer fakeServer;
+    public ConcurrentHashMap<String, ArrayList<Animals>> productMap;
     private DatabaseReference mDatabase;
     private ArrayList<Animals> animalFoods;
     private int selectedCategory;
-    public ConcurrentHashMap<String, ArrayList<Animals>> productMap;
+
     public static FakeWebServer getFakeWebServer() {
 
         if (null == fakeServer) {
@@ -77,7 +72,7 @@ public class FakeWebServer {
         CenterRepository.getCenterRepository().setListOfCategory(listOfCategory);
     }
 
-    public void getAllAnimals(Map<String, Object> animal,int productCategory) {
+    public void getAllAnimals(Map<String, Object> animal, int productCategory) {
 
         productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
 
@@ -98,18 +93,18 @@ public class FakeWebServer {
         ArrayList<Animals> petsfood = new ArrayList<Animals>();
         ArrayList<Animals> petsmedicine = new ArrayList<Animals>();
 
-        for (Animals item:productlist  ){
-            if(productCategory==0){
-            if(item.Category.equals("Animal")){
-                if(item.Type.equals("Animal"))
-                    animalslist.add(item);
-                else if(item.Type.equals("Animal Food"))
-                    animalsfood.add(item);
-                else if(item.Type.equals("Animal Medicine"))
-                    animalsmedicine.add(item);
+        for (Animals item : productlist) {
+            if (productCategory == 0) {
+                if (item.Category.equals("Animal")) {
+                    if (item.Type.equals("Animal"))
+                        animalslist.add(item);
+                    else if (item.Type.equals("Animal Food"))
+                        animalsfood.add(item);
+                    else if (item.Type.equals("Animal Medicine"))
+                        animalsmedicine.add(item);
 
-            }
-            }else if(productCategory==1) {
+                }
+            } else if (productCategory == 1) {
                 if (item.Category.equals("Pet")) {
                     if (item.Type.equals("Pet"))
                         petslist.add(item);
@@ -120,11 +115,11 @@ public class FakeWebServer {
                 }
             }
         }
-        if(productCategory==0) {
+        if (productCategory == 0) {
             productMap.put("Animals", animalslist);
             productMap.put("Animal's Food", animalsfood);
             productMap.put("Animal's Medicine", animalsmedicine);
-        }else if(productCategory==1) {
+        } else if (productCategory == 1) {
             productMap.put("Pet", petslist);
             productMap.put("Pet's Food", petsfood);
             productMap.put("Pet's Medicine", petsmedicine);
@@ -142,93 +137,33 @@ public class FakeWebServer {
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
     }
 
-    public void getAllPets(Map<String, Object> Pets) {
-        ConcurrentHashMap<String, ArrayList<Animals>> productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
-
-//        ArrayList<Animals> productlist = new ArrayList<Animals>();
-//        Animals myAnimal = new Animals();
-//        Gson gson = new Gson();
-//
-//        for (String s : Pets.keySet()) {
-//            JsonElement jsonElement = gson.toJsonTree(Pets.get(s));
-//            myAnimal = gson.fromJson(jsonElement, Animals.class);
-//            productlist.add(myAnimal);
-//        }
-//
-//        productMap.put("Pets", productlist);
-//
-//        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
-
-
-    }
-
-    public void getAllFarmingTools(Map<String, Object> farmingTool) {
-/*
-        ConcurrentHashMap<String, ArrayList<Animals>> productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
-
-        ArrayList<Animals> productlist = new ArrayList<Animals>();
-        Animals myAnimal = new Animals();
-        Gson gson = new Gson();
-
-        for (String s : Pets.keySet()) {
-            JsonElement jsonElement = gson.toJsonTree(Pets.get(s));
-            myAnimal = gson.fromJson(jsonElement, Animals.class);
-            productlist.add(myAnimal);
-        }
-
-        productMap.put("Pets", productlist);
-
-        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
-*/
-
-
-    }
-
-    public void getAllFarmingProducts(Map<String, Object> farmingProduct) {
-/*
-        ConcurrentHashMap<String, ArrayList<Animals>> productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
-
-        ArrayList<Animals> productlist = new ArrayList<Animals>();
-        Animals myAnimal = new Animals();
-        Gson gson = new Gson();
-
-        for (String s : Pets.keySet()) {
-            JsonElement jsonElement = gson.toJsonTree(Pets.get(s));
-            myAnimal = gson.fromJson(jsonElement, Animals.class);
-            productlist.add(myAnimal);
-        }
-
-        productMap.put("Pets", productlist);
-
-        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
-*/
-
-
-    }
     public void getAllProducts(int productCategory, final FakeWebServiceResponseListener listener) {
-        selectedCategory=productCategory;
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("Animals");
-            mDatabase.addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            getAllAnimals((Map<String, Object>) dataSnapshot.getValue(),selectedCategory);
-                            if (listener != null)
-                                listener.onServiceResponse(true);
-                        }
+        selectedCategory = productCategory;
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Animals");
+        mDatabase.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        getAllAnimals((Map<String, Object>) dataSnapshot.getValue(), selectedCategory);
+                        if (listener != null)
+                            listener.onServiceResponse(true);
+                    }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            //handle databaseError
-                            if (listener != null)
-                                listener.onServiceResponse(false);
-                        }
-                    });
-
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                        if (listener != null)
+                            listener.onServiceResponse(false);
+                    }
+                });
 
 
     }
 
+
+    public interface FakeWebServiceResponseListener {
+        void onServiceResponse(boolean success);
+    }
 
 
 }

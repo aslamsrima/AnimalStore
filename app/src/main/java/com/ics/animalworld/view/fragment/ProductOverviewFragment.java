@@ -1,5 +1,3 @@
-
-
 package com.ics.animalworld.view.fragment;
 
 import android.graphics.Bitmap;
@@ -8,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
@@ -40,6 +39,12 @@ import java.util.Set;
 
 public class ProductOverviewFragment extends Fragment {
 
+    public static String sortString = "";
+    public ProgressBar circularProgressBar;
+    TextView SortTxt, LoadingTxt;
+    ArrayAdapter<String> dataAdapter;
+    List<String> animalList;
+    ArrayList<Animals> productList;
     // SimpleRecyclerAdapter adapter;
     private KenBurnsView header;
     private Bitmap bitmap;
@@ -48,12 +53,6 @@ public class ProductOverviewFragment extends Fragment {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TabLayout tabLayout;
     private Spinner SortBy;
-    public static String sortString = "";
-    TextView SortTxt, LoadingTxt;
-    ArrayAdapter<String> dataAdapter;
-    List<String> animalList;
-    public ProgressBar circularProgressBar;
-    ArrayList<Animals> productList;
     //RecyclerView recyclerView;
 
     @Override
@@ -90,7 +89,7 @@ public class ProductOverviewFragment extends Fragment {
         LoadingTxt = (TextView) view.findViewById(R.id.loadertxt);
         LoadingTxt.setVisibility(View.GONE);
         tabLayout = (TabLayout) view.findViewById(R.id.htab_tabs);
-       // recyclerView = (RecyclerView)view1.findViewById(R.id.product_list_recycler_view);
+        // recyclerView = (RecyclerView)view1.findViewById(R.id.product_list_recycler_view);
         mToolbar = (Toolbar) view.findViewById(R.id.htab_toolbar);
 //        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress);
 //        circularProgressBar = (ProgressView) view.findViewById(R.id.circular_progress1);
@@ -190,10 +189,10 @@ public class ProductOverviewFragment extends Fragment {
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
                 productList.clear();
                 productList = tinydb.getListObject("Animal's Food", Animals.class);
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Food", productList);
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Food", tinydb.getListObject("Animal's Food", Animals.class));
                 productList.clear();
                 productList = tinydb.getListObject("Animal's Medicine", Animals.class);
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Medicine", productList);
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Medicine", tinydb.getListObject("Animal's Medicine", Animals.class));
             } else if (AppConstants.CURRENT_CATEGORY == 1) {
 
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet", productList);
@@ -206,7 +205,6 @@ public class ProductOverviewFragment extends Fragment {
 
             }
             LoadingTxt.setVisibility(View.GONE);
-            // FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
 
             setUpUi();
             setupViewPager(viewPager);
@@ -220,43 +218,34 @@ public class ProductOverviewFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 productList.clear();
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
+                TabLayout.Tab tab = tabLayout.getTabAt(tabLayout.getSelectedTabPosition());
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory(tab.getText().toString(), productList);
                 TinyDB tinydb = new TinyDB(getContext());
-                productList = tinydb.getListObject("Animals", Animals.class);
+                productList = tinydb.getListObject(tab.getText().toString(), Animals.class);
 
                 if (i > 0) {
                     if (sortString.equals("")) {
+
                         sortString = SortBy.getSelectedItem().toString();
-
-
-                        ProductListFragment.recyclerView.setVisibility(View.GONE);
-
                         ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
-                        int cnt=1;
                         for (Animals item : productList) {
-                            if (!item.SubCategory.toLowerCase().equals(sortString.toLowerCase())){
-                            //    ProductListFragment.recyclerView.getAdapter().notifyItemRemoved(cnt);
-                            }else{
+                            if (item.SubCategory.toLowerCase().equals(sortString.toLowerCase())) {
                                 Sortedlist.add(item);
                             }
-
-                            cnt++;
                         }
 
-                        //ProductListFragment.recyclerView.getAdapter().notifyItemRemoved(1);
-                        if (Sortedlist.size() > 0){
+                        if (Sortedlist.size() > 0) {
                             productList.clear();
                             productList = Sortedlist;
                         }
 
-                        FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
-                        ProductListFragment.recyclerView.setVisibility(View.VISIBLE);
+                        FakeWebServer.getFakeWebServer().updateProductMapForCategory(tab.getText().toString(), productList);
+
                         sortString = "";
                     }
-                }else{
-                    FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
+                } else {
+                    FakeWebServer.getFakeWebServer().updateProductMapForCategory(tab.getText().toString(), productList);
                 }
-
                 ProductListFragment.recyclerView.getAdapter().notifyDataSetChanged();
             }
 
@@ -266,21 +255,13 @@ public class ProductOverviewFragment extends Fragment {
             }
         });
 
-
-        /*if (null != ((ECartHomeActivity) getContext()).getProgressBar())
-            ((ECartHomeActivity) getContext()).getProgressBar().setVisibility(
-                    View.GONE)*/
-        ;
-
         return view;
     }
 
     private void setUpUi() {
 
         setupViewPager(viewPager);
-
         tabLayout.setupWithViewPager(viewPager);
-
         bitmap = BitmapFactory
                 .decodeResource(getResources(), R.drawable.header);
 
@@ -311,7 +292,7 @@ public class ProductOverviewFragment extends Fragment {
                                 header.setImageResource(R.drawable.header_1);
 
                                 bitmap = BitmapFactory.decodeResource(
-                                        getResources(), R.drawable.header_1);
+                                        getResources(), R.drawable.header);
 
                                 Palette.from(bitmap).generate(
                                         new Palette.PaletteAsyncListener() {
@@ -334,10 +315,10 @@ public class ProductOverviewFragment extends Fragment {
                                 dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, animalList);
                                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 SortBy.setAdapter(dataAdapter);
-                                header.setImageResource(R.drawable.header_2);
+                                header.setImageResource(R.drawable.header);
 
                                 bitmap = BitmapFactory.decodeResource(
-                                        getResources(), R.drawable.header_2);
+                                        getResources(), R.drawable.header);
 
                                 Palette.from(bitmap).generate(
                                         new Palette.PaletteAsyncListener() {
@@ -359,10 +340,10 @@ public class ProductOverviewFragment extends Fragment {
                                 break;
                             case 2:
 
-                                header.setImageResource(R.drawable.header2);
+                                header.setImageResource(R.drawable.header);
 
                                 Bitmap bitmap = BitmapFactory.decodeResource(
-                                        getResources(), R.drawable.header2);
+                                        getResources(), R.drawable.header);
 
                                 Palette.from(bitmap).generate(
                                         new Palette.PaletteAsyncListener() {
@@ -414,118 +395,11 @@ public class ProductOverviewFragment extends Fragment {
     }
 
 
-    // TODO
-    //Below Code Work Well But requires JSOn to work
-    // Below line of code does caching for offline usage
 
-	
-	/*void fillProductMapFromCache() {
-
-		String cached_ProductMapJSON = PreferenceHelper
-				.getPrefernceHelperInstace().getString(
-						PreferenceHelper.ALL_PRODUCT_LIST_RESPONSE_JSON, null);
-
-		if (null != cached_ProductMapJSON) {
-			new JSONParser(NetworkConstants.GET_ALL_PRODUCT,
-					cached_ProductMapJSON).parse();
-
-			adapter.notifyDataSetChanged();
-
-		}
-
-	}
-
-	public void fillCategoryData() {
-
-		loadingIndicator.setVisibility(View.VISIBLE);
-
-		JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET,
-				NetworkConstants.URL_GET_PRODUCTS_MAP,
-				new Response.Listener<JSONObject>() {
-
-					@Override
-					public void onResponse(JSONObject response) {
-
-						if (getView() != null && getView().isShown()) {
-
-							new JSONParser(NetworkConstants.GET_ALL_PRODUCT,
-									response.toString()).parse();
-
-							PreferenceHelper
-									.getPrefernceHelperInstace()
-									.setString(
-											PreferenceHelper.ALL_PRODUCT_LIST_RESPONSE_JSON,
-											response.toString());
-							
-							setUpPager();
+    public void refresh(){
 
 
-							if (null != loadingIndicator) {
-								loadingIndicator.setVisibility(View.GONE);
-							}
-
-						}
-					}
-
-				}, new Response.ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError error) {
-
-						fillProductMapFromCache();
+    }
 
 
-						if (null != loadingIndicator) {
-							loadingIndicator.setVisibility(View.GONE);
-						}
-						if (error instanceof TimeoutError
-								|| error instanceof NoConnectionError) {
-
-
-							if (null != getActivity())
-								((ECartHomeActivity) getActivity())
-										.ShowErrorMessage(Errorhandler.OFFLINE_MODE, true);
-
-						} else if (error instanceof AuthFailureError) {
-							// TODO
-						} else if (error instanceof ServerError) {
-
-							
-							if (null != getActivity())
-								((ECartHomeActivity) getActivity())
-										.ShowErrorMessage(Errorhandler.SERVER_ERROR, true);
-							// TODO
-						} else if (error instanceof NetworkError) {
-
-							
-							if (null != getActivity())
-								((ECartHomeActivity) getActivity())
-										.ShowErrorMessage(Errorhandler.NETWORK_ERROR, true);
-
-						} else if (error instanceof ParseError) {
-
-							if (null != getActivity())
-								Toast.makeText(
-										getActivity(),
-										"Parsing Error" + error.networkResponse
-												+ error.getLocalizedMessage(),
-										Toast.LENGTH_LONG).show();
-
-						}
-					}
-
-				}) {
-
-		};
-
-		// jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(60000 * 2, 0, 0));
-
-		jsonObjReq.setRetryPolicy(new DefaultRetryPolicy((int) TimeUnit.SECONDS
-				.toMillis(60), DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-				DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-		AppController.getInstance().addToRequestQueue(jsonObjReq, tagJSONReq);
-
-	}
-*/
 }

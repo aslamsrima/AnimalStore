@@ -29,31 +29,27 @@ import com.ics.animalworld.view.customview.TextDrawable.IBuilder;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 public class ProductListAdapter extends
         RecyclerView.Adapter<ProductListAdapter.VersionViewHolder> implements
         ItemTouchHelperAdapter {
 
-    private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
+    public Context context;
     Bitmap b;
-    private IBuilder mDrawableBuilder;
     ImageView imagView;
+    private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
+    private IBuilder mDrawableBuilder;
     private TextDrawable drawable;
     private String subcategory;
-
     private String ImageUrl;
-
     private ArrayList<Animals> productList = new ArrayList<Animals>();
     private OnItemClickListener clickListener;
-
-    public static Context context;
 
     public ProductListAdapter(String subcategoryKey, Context context,
                               String sortBy) {
 
-        this.subcategory=subcategoryKey;
+        this.subcategory = subcategoryKey;
         TinyDB tinydb = new TinyDB(context.getApplicationContext());
         productList = tinydb.getListObject(subcategoryKey, Animals.class);
         if (productList.size() == 0) {
@@ -75,7 +71,7 @@ public class ProductListAdapter extends
             tinydb.putListObject(subcategoryKey, productList);
         } else {
             if (sortBy.equals("")) {
-               // FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);
+                // FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);
             } else {
                 ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
                 for (Animals item : productList) {
@@ -86,10 +82,7 @@ public class ProductListAdapter extends
                 if (Sortedlist.size() > 0)
                     productList = Sortedlist;
             }
-//            ConcurrentHashMap<String, ArrayList<Animals>> productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
-//            productMap.put(subcategoryKey, productList);
-           FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);
-
+            FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);
 
 
         }
@@ -112,6 +105,7 @@ public class ProductListAdapter extends
                                  final int position) {
         productList = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
                 .get(subcategory);
+
         if (productList.get(position).Type.equals("Animal") || productList.get(position).Type.equals("Pet")) {
             holder.itemName.setText(productList.get(position)
                     .Breed + "," + productList.get(position)
@@ -144,12 +138,9 @@ public class ProductListAdapter extends
         mDrawableBuilder = TextDrawable.builder().beginConfig().withBorder(4)
                 .endConfig().roundRect(10);
 
-//        drawable = mDrawableBuilder.build(String.valueOf(productList
-//                .get(position).Category.charAt(0)), mColorGenerator
-//                .getColor(productList.get(position).Breed));
 
-
-        b = StringToBitMap(productList.get(position).Pic.toString());
+        b = StringToBitMap(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                .get(subcategory).get(position).Pic.toString());
 
         imagView.setImageBitmap(b);
 

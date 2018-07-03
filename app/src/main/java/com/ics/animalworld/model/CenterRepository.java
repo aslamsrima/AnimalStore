@@ -58,6 +58,9 @@ public class CenterRepository {
     public void setListOfCategory(ArrayList<ProductCategoryModel> listOfCategory) {
         this.listOfCategory = listOfCategory;
     }
+    public void clear(){
+        this.mapOfProductsInCategory.clear();
+    }
 
     public List<Set<String>> getItemSetList() {
 

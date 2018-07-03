@@ -13,7 +13,6 @@ import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
 import android.util.Base64;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +49,7 @@ import java.math.BigDecimal;
  */
 public class ProductDetailsFragment extends Fragment {
 
+    Bitmap b;
     private int productListNumber;
     private ImageView itemImage;
     private TextView itemSellPrice, itemName, quanitity, itemdescription, itembreed, itemage, itemgender, itemaddress, itemsupplier;
@@ -63,7 +63,6 @@ public class ProductDetailsFragment extends Fragment {
     private ClickableViewPager topSellingPager;
     private Toolbar mToolbar;
     private FirebaseAuth mAuth;
-    Bitmap b;
     private String type;
 
     /**
@@ -317,15 +316,18 @@ public class ProductDetailsFragment extends Fragment {
                 b = StringToBitMap(CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
 
-                itemImage.setImageBitmap(b);
+                if (b.getWidth() < 200)
+                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
+                else if (b.getWidth() > 200 && b.getWidth() < 500)
+                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
+                else if (b.getWidth() > 500)
+                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
 
                 LabelView label = new LabelView(getActivity());
 
                 label.setText("0");//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getDiscount()
 
                 label.setBackgroundColor(0xffE91E63);
-                itemImage.getLayoutParams().height = itemImage.getHeight();
-                itemImage.getLayoutParams().width = itemImage.getWidth();
 
                 label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);
 
@@ -418,15 +420,12 @@ public class ProductDetailsFragment extends Fragment {
                 b = StringToBitMap(CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
 
-                DisplayMetrics displaymetrics = new DisplayMetrics();
-                getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-                int height = displaymetrics.heightPixels;
-                int width = displaymetrics.widthPixels;
-
-                itemImage.getLayoutParams().height = 500;
-                itemImage.getLayoutParams().width = width;
-                itemImage.setImageBitmap(b);
-
+                if (b.getWidth() < 200)
+                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
+                else if (b.getWidth() > 200 && b.getWidth() < 500)
+                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
+                else if (b.getWidth() > 500)
+                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
 
                 LabelView label = new LabelView(getActivity());
 
@@ -509,7 +508,13 @@ public class ProductDetailsFragment extends Fragment {
             b = StringToBitMap(CenterRepository.getCenterRepository()
                     .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
 
-            itemImage.setImageBitmap(b);
+            if (b.getWidth() < 200)
+                itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
+            else if (b.getWidth() > 200 && b.getWidth() < 500)
+                itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
+            else if (b.getWidth() > 500)
+                itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
+
 
             LabelView label = new LabelView(getActivity());
 
