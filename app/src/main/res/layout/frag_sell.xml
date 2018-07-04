@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#372c24"
                     android:layout_marginTop="5dp"
-                    android:text="Category"
+                    android:text="@string/Category"
                     android:textStyle="bold" />
 
                 <Spinner
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#372c24"
                     android:layout_marginTop="5dp"
-                    android:text="Type"
+                    android:text="@string/Type"
                     android:id="@+id/typetext"
                     android:textStyle="bold" />
 
@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#372c24"
                     android:layout_marginTop="5dp"
-                    android:text="Sub Category"
+                    android:text="@string/SubCategory"
                     android:id="@+id/subCategorytext"
                     android:textStyle="bold" />
 
@@ -92,7 +92,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#372c24"
-                    android:text="Gender"
+                    android:text="@string/Gender"
                     android:layout_marginTop="10dip"
                     android:textStyle="bold" />
 
@@ -113,7 +113,7 @@
                             android:layout_marginTop="10dip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Male" />
+                            android:text="@string/male" />
 
 
                         <RadioButton
@@ -121,7 +121,7 @@
                             android:layout_marginTop="10dip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Female" />
+                            android:text="@string/female" />
 
                     </RadioGroup>
                 </RelativeLayout>
@@ -138,7 +138,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dip"
                         android:singleLine="true"
-                        android:hint="Breed"
+                        android:hint="@string/Breed"
                         />
                 </android.support.design.widget.TextInputLayout>
 
@@ -156,7 +156,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dip"
                         android:singleLine="true"
-                        android:hint="Age"
+                        android:hint="@string/Age"
                          />
                 </android.support.design.widget.TextInputLayout>
 
@@ -170,7 +170,7 @@
                         android:id="@+id/milkval"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Milk record/Day"
+                        android:hint="@string/MlkRec"
                         android:singleLine="true"
                         android:layout_marginTop="5dip" />
                 </android.support.design.widget.TextInputLayout>
@@ -188,7 +188,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
-                        android:hint="Product Name"
+                        android:hint="@string/ProductName"
                          />
                 </android.support.design.widget.TextInputLayout>
 
@@ -205,7 +205,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
-                        android:hint="Company Name"
+                        android:hint="@string/CompanyName"
                          />
                 </android.support.design.widget.TextInputLayout>
 
@@ -221,7 +221,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
-                        android:hint="Weight(In Kg)"
+                        android:hint="@string/weight"
                          />
                 </android.support.design.widget.TextInputLayout>
 
@@ -237,7 +237,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
-                        android:hint="Description"
+                        android:hint="@string/Description"
                         />
                 </android.support.design.widget.TextInputLayout>
 
@@ -253,7 +253,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
-                        android:hint="City"
+                        android:hint="@string/City"
                         />
                 </android.support.design.widget.TextInputLayout>
 
@@ -270,7 +270,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
-                        android:hint="District"
+                        android:hint="@string/District"
                          />
                 </android.support.design.widget.TextInputLayout>
 
@@ -287,7 +287,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dip"
                         android:singleLine="true"
-                        android:hint="Supplier Contact"
+                        android:hint="@string/SupplierContact"
                          />
                 </android.support.design.widget.TextInputLayout>
 
@@ -311,7 +311,7 @@
                     android:id="@+id/chk_is_negotiable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Negotiable price" />
+                    android:text="@string/Negotiable" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

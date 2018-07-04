@@ -27,8 +27,8 @@
     <string name="Age">वय</string>
     <string name="MlkRec">दूध प्रति दिन (लिटरमध्ये)</string>
     <string name="Description">वर्णन</string>
-    <string name="City">City</string>
-    <string name="District">District</string>
+    <string name="City">शहर</string>
+    <string name="District">जिल्हा</string>
     <string name="SupplierContact">Supplier Contact</string>
     <string name="Price">Price</string>
     <string name="Negotiable">Is Price Negotiable?</string>

@@ -28,8 +28,8 @@
     <string name="Age">उम्र</string>
     <string name="MlkRec">प्रति दिन दूध रिकॉर्ड (लीटर में)</string>
     <string name="Description">विवरण</string>
-    <string name="City">City</string>
-    <string name="District">District</string>
+    <string name="City">शहर</string>
+    <string name="District">जिला</string>
     <string name="SupplierContact">Supplier Contact</string>
     <string name="Price">Price</string>
     <string name="Negotiable">Is Price Negotiable?</string>
