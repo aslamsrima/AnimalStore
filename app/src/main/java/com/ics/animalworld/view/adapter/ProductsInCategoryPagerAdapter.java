@@ -32,6 +32,14 @@ public class ProductsInCategoryPagerAdapter extends FragmentStatePagerAdapter {
 
     }
 
+    public Fragment getFragAtIndex(int index) {
+        if (mFragmentList != null &&
+                mFragmentList.size() > 0)
+            return mFragmentList.get(index);
+        else
+            return null;
+    }
+
     @Override
     public CharSequence getPageTitle(int position) {
         return mFragmentTitleList.get(position);

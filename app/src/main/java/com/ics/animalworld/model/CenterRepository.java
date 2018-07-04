@@ -1,5 +1,7 @@
 package com.ics.animalworld.model;
 
+import android.support.v7.widget.RecyclerView;
+
 import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.ProductCategoryModel;
 
@@ -12,6 +14,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CenterRepository {
+
+    public RecyclerView recyclerViewRef;
 
     private static CenterRepository centerRepository;
 

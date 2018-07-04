@@ -2,7 +2,6 @@ package com.ics.animalworld.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +24,7 @@ import com.ics.animalworld.view.adapter.ProductListAdapter;
 import com.ics.animalworld.view.adapter.ProductListAdapter.OnItemClickListener;
 
 public class ProductListFragment extends Fragment {
-    public static RecyclerView recyclerView;
+    public RecyclerView recyclerView;
     public String subcategoryKey;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private boolean isShoppingList;
@@ -56,16 +55,16 @@ public class ProductListFragment extends Fragment {
                         public boolean onTouch(View v, MotionEvent event) {
 
 
-                            Utils.switchContent(R.id.frag_container,
-                                    Utils.HOME_FRAGMENT,
-                                    ((ECartHomeActivity) (getContext())),
-                                    AnimationType.SLIDE_DOWN);
-
-//                            Utils.switchFragmentWithAnimation(
-//                                    R.id.frag_container,
-//                                    new HomeFragment(),
-//                                    ((ECartHomeActivity) (getContext())), Utils.HOME_FRAGMENT,
+//                            Utils.switchContent(R.id.frag_container,
+//                                    Utils.HOME_FRAGMENT,
+//                                    ((ECartHomeActivity) (getContext())),
 //                                    AnimationType.SLIDE_DOWN);
+
+                            Utils.switchFragmentWithAnimation(
+                                    R.id.frag_container,
+                                    new HomeFragment(),
+                                    ((ECartHomeActivity) (getContext())), Utils.HOME_FRAGMENT,
+                                    AnimationType.SLIDE_DOWN);
 
 
                             return false;
@@ -90,23 +89,7 @@ public class ProductListFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
 
-        ProductListAdapter adapter = new ProductListAdapter(subcategoryKey,
-                getActivity(), ProductOverviewFragment.sortString);
-        recyclerView.setAdapter(adapter);
-
-
-        adapter.SetOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(View view, int position) {
-
-                Utils.switchFragmentWithAnimation(R.id.frag_container,
-                        new ProductDetailsFragment(subcategoryKey, position, false),
-                        ((ECartHomeActivity) (getContext())), null,
-                        AnimationType.SLIDE_LEFT);
-
-            }
-        });
+        refreshData(subcategoryKey);
 
         // Handle Back press
         view.setFocusableInTouchMode(true);
@@ -135,13 +118,10 @@ public class ProductListFragment extends Fragment {
             }
         });
 
+        System.out.println("ProductListFragment, product list fragment on create view called");
+
         return view;
     }
-
-//    public void adapterNotifier()
-//    {
-//        recyclerView.getAdapter().notifyDataSetChanged();
-//    }
 
     private void refreshContent() {
         TinyDB tiny = new TinyDB(getContext());
@@ -170,6 +150,37 @@ public class ProductListFragment extends Fragment {
         //overviewFragment.refresh();
 
 
+    }
+
+    public void refreshData(String subcategoryKey) {
+        this.subcategoryKey = subcategoryKey;
+        if (getActivity() != null) {
+            System.out.println("ProductListFragment, list refreshData called");
+            recyclerView.post(new Runnable() {
+                @Override
+                public void run() {
+                    ProductListAdapter adapter = new ProductListAdapter(ProductListFragment.this.subcategoryKey,
+                            getActivity(), ProductOverviewFragment.sortString);
+                    recyclerView.setAdapter(adapter);
+
+                    CenterRepository.getCenterRepository().recyclerViewRef = recyclerView;
+
+
+                    adapter.SetOnItemClickListener(new OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(View view, int position) {
+
+                            Utils.switchFragmentWithAnimation(R.id.frag_container,
+                                    new ProductDetailsFragment(ProductListFragment.this.subcategoryKey, position, false),
+                                    ((ECartHomeActivity) (getContext())), null,
+                                    AnimationType.SLIDE_LEFT);
+
+                        }
+                    });
+                }
+            });
+        }
     }
 
     ;

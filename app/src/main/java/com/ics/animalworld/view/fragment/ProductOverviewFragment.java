@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
@@ -39,7 +38,10 @@ import java.util.Set;
 
 public class ProductOverviewFragment extends Fragment {
 
+    private static ProductOverviewFragment localInstance;
+
     public static String sortString = "";
+    private View view;
     public ProgressBar circularProgressBar;
     TextView SortTxt, LoadingTxt;
     ArrayAdapter<String> dataAdapter;
@@ -55,10 +57,17 @@ public class ProductOverviewFragment extends Fragment {
     private Spinner SortBy;
     //RecyclerView recyclerView;
 
+    public static ProductOverviewFragment getInstance() {
+        if (localInstance == null) {
+            localInstance = new ProductOverviewFragment();
+        }
+        return localInstance;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_category_details,
+        view = inflater.inflate(R.layout.frag_category_details,
                 container, false);
 
         View view1 = inflater.inflate(R.layout.frag_product_list_fragment, container,
@@ -169,9 +178,9 @@ public class ProductOverviewFragment extends Fragment {
                                 try {
                                     setUpUi();
                                     setupViewPager(viewPager);
+                                    SortBy.setAdapter(dataAdapter);
                                     circularProgressBar.setVisibility(View.GONE);
                                     LoadingTxt.setVisibility(View.GONE);
-                                    SortBy.setAdapter(dataAdapter);
                                     SortTxt.setVisibility(View.VISIBLE);
                                     SortBy.setVisibility(View.VISIBLE);
                                 } catch (Exception e) {
@@ -181,47 +190,16 @@ public class ProductOverviewFragment extends Fragment {
                         }
                     });
         } else {
-
-            // set data to product map first. View is getting data from there
-            LoadingTxt.setVisibility(View.VISIBLE);
-            circularProgressBar = (ProgressBar) view.findViewById(R.id.circular_progress1);
-            if (AppConstants.CURRENT_CATEGORY == 0) {
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
-                productList.clear();
-                productList = tinydb.getListObject("Animal's Food", Animals.class);
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Food", tinydb.getListObject("Animal's Food", Animals.class));
-                productList.clear();
-                productList = tinydb.getListObject("Animal's Medicine", Animals.class);
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Medicine", tinydb.getListObject("Animal's Medicine", Animals.class));
-            } else if (AppConstants.CURRENT_CATEGORY == 1) {
-
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet", productList);
-                productList.clear();
-                productList = tinydb.getListObject("Pet's Food", Animals.class);
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet's Food", productList);
-                productList.clear();
-                productList = tinydb.getListObject("Pet's Medicine", Animals.class);
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet's Medicine", productList);
-
-            }
-            LoadingTxt.setVisibility(View.GONE);
-
-            setUpUi();
-            setupViewPager(viewPager);
-            circularProgressBar.setVisibility(View.GONE);
-            SortBy.setAdapter(dataAdapter);
-            SortTxt.setVisibility(View.VISIBLE);
-            SortBy.setVisibility(View.VISIBLE);
+            refreshData();
         }
-
         SortBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 productList.clear();
                 TabLayout.Tab tab = tabLayout.getTabAt(tabLayout.getSelectedTabPosition());
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory(tab.getText().toString(), productList);
                 TinyDB tinydb = new TinyDB(getContext());
                 productList = tinydb.getListObject(tab.getText().toString(), Animals.class);
+                // FakeWebServer.getFakeWebServer().updateProductMapForCategory(tab.getText().toString(), productList);
 
                 if (i > 0) {
                     if (sortString.equals("")) {
@@ -244,9 +222,10 @@ public class ProductOverviewFragment extends Fragment {
                         sortString = "";
                     }
                 } else {
-                    FakeWebServer.getFakeWebServer().updateProductMapForCategory(tab.getText().toString(), productList);
+                     FakeWebServer.getFakeWebServer().updateProductMapForCategory(tab.getText().toString(), productList);
                 }
-                ProductListFragment.recyclerView.getAdapter().notifyDataSetChanged();
+                if (CenterRepository.getCenterRepository().recyclerViewRef != null)
+                    CenterRepository.getCenterRepository().recyclerViewRef.getAdapter().notifyDataSetChanged();
             }
 
             @Override
@@ -254,9 +233,41 @@ public class ProductOverviewFragment extends Fragment {
 
             }
         });
-
         return view;
     }
+
+    public void refreshData() {
+        // set data to product map first. View is getting data from there
+        TinyDB tinydb = new TinyDB(this.getContext().getApplicationContext());
+         LoadingTxt.setVisibility(View.VISIBLE);
+         circularProgressBar = (ProgressBar) view.findViewById(R.id.circular_progress1);
+        if (AppConstants.CURRENT_CATEGORY == 0) {
+            FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", tinydb.getListObject("Animals", Animals.class));
+            FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Food", tinydb.getListObject("Animal's Food", Animals.class));
+            FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Medicine", tinydb.getListObject("Animal's Medicine", Animals.class));
+        } else if (AppConstants.CURRENT_CATEGORY == 1) {
+
+            FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet", productList);
+            productList.clear();
+            productList = tinydb.getListObject("Pet's Food", Animals.class);
+            FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet's Food", productList);
+            productList.clear();
+            productList = tinydb.getListObject("Pet's Medicine", Animals.class);
+            FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet's Medicine", productList);
+
+        }
+         LoadingTxt.setVisibility(View.GONE);
+
+         setUpUi();
+         setupViewPager(viewPager);
+         circularProgressBar.setVisibility(View.GONE);
+         SortBy.setAdapter(dataAdapter);
+        SortTxt.setVisibility(View.VISIBLE);
+        SortBy.setVisibility(View.VISIBLE);
+        System.out.println("ProductListFragment, overview refreshData called");
+    }
+
+
 
     private void setUpUi() {
 
@@ -285,7 +296,9 @@ public class ProductOverviewFragment extends Fragment {
                     public void onTabSelected(TabLayout.Tab tab) {
 
                         viewPager.setCurrentItem(tab.getPosition());
-
+                        ProductListFragment listFragment = (ProductListFragment) ((ProductsInCategoryPagerAdapter)viewPager.getAdapter())
+                                .getFragAtIndex(tab.getPosition());
+                        listFragment.refreshData(tab.getText().toString());
                         switch (tab.getPosition()) {
                             case 0:
 
@@ -386,7 +399,9 @@ public class ProductOverviewFragment extends Fragment {
                 .keySet();
 
         for (String string : keys) {
-            adapter.addFrag(new ProductListFragment(string), string);
+            ProductListFragment listFragment = new ProductListFragment(string);
+            adapter.addFrag(listFragment, string);
+//            listFragment.refreshData(string);
         }
 
         viewPager.setAdapter(adapter);

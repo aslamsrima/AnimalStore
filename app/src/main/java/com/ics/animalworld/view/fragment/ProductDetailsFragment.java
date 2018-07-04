@@ -175,10 +175,17 @@ public class ProductDetailsFragment extends Fragment {
                                 AnimationType.SLIDE_UP);
                     } else {
 
-                        Utils.switchContent(R.id.frag_container,
+                        /*Utils.switchContent(R.id.frag_container,
                                 Utils.PRODUCT_OVERVIEW_FRAGMENT_TAG,
                                 ((ECartHomeActivity) (getActivity())),
+                                AnimationType.SLIDE_RIGHT);*/
+
+                        Utils.switchFragmentWithAnimation(
+                                R.id.frag_container,
+                                ProductOverviewFragment.getInstance(),
+                                ((ECartHomeActivity) getActivity()), null,
                                 AnimationType.SLIDE_RIGHT);
+
                     }
 
                 }
@@ -548,5 +555,6 @@ public class ProductDetailsFragment extends Fragment {
             e.getMessage();
             return null;
         }
+//        return ((BitmapDrawable)getResources().getDrawable(R.drawable.header)).getBitmap();
     }
 }

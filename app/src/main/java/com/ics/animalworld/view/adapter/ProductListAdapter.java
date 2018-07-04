@@ -16,12 +16,10 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
 import com.ics.animalworld.R;
-import com.ics.animalworld.domain.mock.FakeWebServer;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Money;
 import com.ics.animalworld.util.ColorGenerator;
-import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
 import com.ics.animalworld.view.customview.TextDrawable;
 import com.ics.animalworld.view.customview.TextDrawable.IBuilder;
@@ -50,42 +48,8 @@ public class ProductListAdapter extends
                               String sortBy) {
 
         this.subcategory = subcategoryKey;
-        TinyDB tinydb = new TinyDB(context.getApplicationContext());
-        productList = tinydb.getListObject(subcategoryKey, Animals.class);
-        if (productList.size() == 0) {
-            productList = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
-                    .get(subcategoryKey);
-            if (sortBy.equals("")) {
-            } else {
-                ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
-                for (Animals item : productList) {
-                    if (item.SubCategory.toLowerCase().equals(sortBy.toLowerCase()))
-                        Sortedlist.add(item);
-                }
-                productList.clear();
-                if (Sortedlist.size() > 0)
-                    productList = Sortedlist;
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);
-            }
-
-            tinydb.putListObject(subcategoryKey, productList);
-        } else {
-            if (sortBy.equals("")) {
-                // FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);
-            } else {
-                ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
-                for (Animals item : productList) {
-                    if (item.SubCategory.toLowerCase().equals(sortBy.toLowerCase()))
-                        Sortedlist.add(item);
-                }
-                productList.clear();
-                if (Sortedlist.size() > 0)
-                    productList = Sortedlist;
-            }
-            FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);
-
-
-        }
+        productList = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                .get(subcategoryKey);
 
         this.context = context;
     }
@@ -165,9 +129,11 @@ public class ProductListAdapter extends
 
     @Override
     public int getItemCount() {
-        return CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+        int itemcount = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
                 .get(this.subcategory) == null ? 0 : CenterRepository.getCenterRepository().getMapOfProductsInCategory()
                 .get(this.subcategory).size();
+        System.out.println("ProductListFragment, list adapter item count :: " + itemcount);
+        return itemcount;
     }
 
     public void SetOnItemClickListener(
