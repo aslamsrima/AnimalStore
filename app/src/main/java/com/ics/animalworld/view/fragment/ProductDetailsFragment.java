@@ -175,9 +175,14 @@ public class ProductDetailsFragment extends Fragment {
                                 AnimationType.SLIDE_UP);
                     } else {
 
-                        Utils.switchContent(R.id.frag_container,
+                        /*Utils.switchContent(R.id.frag_container,
                                 Utils.PRODUCT_OVERVIEW_FRAGMENT_TAG,
                                 ((ECartHomeActivity) (getActivity())),
+                                AnimationType.SLIDE_RIGHT);*/
+                        Utils.switchFragmentWithAnimation(R.id.frag_container,
+                                new ProductOverviewFragment(),
+                                getActivity(),
+                                Utils.PRODUCT_OVERVIEW_FRAGMENT_TAG,
                                 AnimationType.SLIDE_RIGHT);
                     }
 
@@ -313,15 +318,19 @@ public class ProductDetailsFragment extends Fragment {
 
 //
 
-                b = StringToBitMap(CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
+                try {
+                    b = StringToBitMap(CenterRepository.getCenterRepository()
+                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
 
-                if (b.getWidth() < 200)
-                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
-                else if (b.getWidth() > 200 && b.getWidth() < 500)
-                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
-                else if (b.getWidth() > 500)
-                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
+                    if (b.getWidth() < 200)
+                        itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
+                    else if (b.getWidth() > 200 && b.getWidth() < 500)
+                        itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
+                    else if (b.getWidth() > 500)
+                        itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 LabelView label = new LabelView(getActivity());
 
@@ -417,15 +426,19 @@ public class ProductDetailsFragment extends Fragment {
 //                        }
 //                    });
 
-                b = StringToBitMap(CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
+                try {
+                    b = StringToBitMap(CenterRepository.getCenterRepository()
+                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
 
-                if (b.getWidth() < 200)
-                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
-                else if (b.getWidth() > 200 && b.getWidth() < 500)
-                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
-                else if (b.getWidth() > 500)
-                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
+                    if (b.getWidth() < 200)
+                        itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
+                    else if (b.getWidth() > 200 && b.getWidth() < 500)
+                        itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
+                    else if (b.getWidth() > 500)
+                        itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 LabelView label = new LabelView(getActivity());
 

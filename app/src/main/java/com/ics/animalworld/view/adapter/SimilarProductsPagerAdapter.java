@@ -20,9 +20,6 @@ import com.ics.animalworld.util.ColorGenerator;
 import com.ics.animalworld.view.customview.LabelView;
 import com.ics.animalworld.view.customview.TextDrawable;
 import com.ics.animalworld.view.customview.TextDrawable.IBuilder;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 
@@ -115,10 +112,14 @@ public class SimilarProductsPagerAdapter extends PagerAdapter {
                         .getMapOfProductsInCategory().get(productCategory).get(position)
                         .Category));
 
-        b = StringToBitMap(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
-                .get(productCategory).get(position).Pic.toString());
+        try {
+            b = StringToBitMap(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                    .get(productCategory).get(position).Pic.toString());
 
-        imageView.setImageBitmap(b);
+            imageView.setImageBitmap(b);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 //        final String ImageUrl = "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg";//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(productCategory).get(position).getImageURL();
 //
