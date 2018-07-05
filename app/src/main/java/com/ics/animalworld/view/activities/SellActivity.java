@@ -42,8 +42,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.common.collect.Range;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -87,6 +85,7 @@ public class SellActivity extends AppCompatActivity {
     private ArrayList<Animals> mAnimal;
     private AwesomeValidation awesomeValidation;
     private String language;
+    Animals animal;
 
     private static File getOutputMediaFile() {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
@@ -118,7 +117,7 @@ public class SellActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frag_sell);
         TinyDB tiny = new TinyDB(getApplicationContext());
-        language =tiny.getString("lang");
+        language = tiny.getString("lang");
         if (language.equalsIgnoreCase(""))
             return;
         Locale myLocale = new Locale(language);//Set Selected Locale
@@ -127,7 +126,7 @@ public class SellActivity extends AppCompatActivity {
         Configuration config = new Configuration();//get Configuration
         config.locale = myLocale;//set config locale as selected locale
         getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());//Update the config
-       // updateTexts();//Update texts according to locale
+        // updateTexts();//Update texts according to locale
 
         //Initialized view elements
         category = (Spinner) findViewById(R.id.category);
@@ -190,7 +189,7 @@ public class SellActivity extends AppCompatActivity {
 
 
         List<String> subCategoryListAnimal = new ArrayList<String>();
-        if(language.equals("en")){
+        if (language.equals("en")) {
             subCategoryListAnimal.add("Select Animal");
             subCategoryListAnimal.add("Buffloes");
             subCategoryListAnimal.add("Cows");
@@ -199,7 +198,7 @@ public class SellActivity extends AppCompatActivity {
             subCategoryListAnimal.add("Rabbit");
             subCategoryListAnimal.add("Sheeps");
 
-        }else if(language.equals("hi")){
+        } else if (language.equals("hi")) {
             subCategoryListAnimal.add("कृपया चुने");
             subCategoryListAnimal.add("भेंस");
             subCategoryListAnimal.add("गाय");
@@ -207,8 +206,7 @@ public class SellActivity extends AppCompatActivity {
             subCategoryListAnimal.add("घोड़ा");
             subCategoryListAnimal.add("खरगोश");
             subCategoryListAnimal.add("भेड़");
-        }
-        else if(language.equals("mr")){
+        } else if (language.equals("mr")) {
             subCategoryListAnimal.add("कृपया प्राणी निवडा");
             subCategoryListAnimal.add("म्हैस");
             subCategoryListAnimal.add("गाय");
@@ -224,19 +222,19 @@ public class SellActivity extends AppCompatActivity {
 
         //SubCategory List(Pets)
         List<String> subCategoryListPet = new ArrayList<String>();
-        if(language.equals("en")){
+        if (language.equals("en")) {
             subCategoryListPet.add("Select Pet");
             subCategoryListPet.add("Cat");
             subCategoryListPet.add("Dog");
             subCategoryListPet.add("Bird");
             subCategoryListPet.add("Fish");
-        }else if(language.equals("hi")){
+        } else if (language.equals("hi")) {
             subCategoryListPet.add("कृपया चुने");
             subCategoryListPet.add("बिल्ली");
             subCategoryListPet.add("कुत्ता");
             subCategoryListPet.add("पक्षी");
             subCategoryListPet.add("मछली");
-        }else if(language.equals("mr")){
+        } else if (language.equals("mr")) {
             subCategoryListPet.add("कृपया पशु निवडा");
             subCategoryListPet.add("मांजर");
             subCategoryListPet.add("कुत्रा");
@@ -250,15 +248,15 @@ public class SellActivity extends AppCompatActivity {
 
         //Type List(Animals)
         List<String> animalList = new ArrayList<String>();
-        if(language.equals("en")){
+        if (language.equals("en")) {
             animalList.add("Animal");
             animalList.add("Animal Food");
             animalList.add("Animal Medicine");
-        }else if(language.equals("hi")){
+        } else if (language.equals("hi")) {
             animalList.add("जानवर");
             animalList.add("जानवर का भोजन");
             animalList.add("जानवर की दवाई");
-        }else if(language.equals("mr")){
+        } else if (language.equals("mr")) {
             animalList.add("प्राणी");
             animalList.add("प्राण्यांचे अन्न");
             animalList.add("प्राण्यांचे औषधे");
@@ -270,15 +268,15 @@ public class SellActivity extends AppCompatActivity {
 
         //Type List(Pets)
         List<String> petList = new ArrayList<String>();
-        if(language.equals("en")) {
+        if (language.equals("en")) {
             petList.add("Pets");
             petList.add("Pet's Food");
             petList.add("Pet's Medicine");
-        }else if(language.equals("hi")){
+        } else if (language.equals("hi")) {
             petList.add("पालतू जानवर");
             petList.add("पालतू जानवर का खाना");
             petList.add("पालतू जानवर की दवाई");
-        }else if(language.equals("mr")){
+        } else if (language.equals("mr")) {
             petList.add("पाळीव प्राणी");
             petList.add("पाळीव प्राण्याचे अन्न");
             petList.add("पाळीव प्राण्याचे औषध");
@@ -547,11 +545,11 @@ public class SellActivity extends AppCompatActivity {
 
     public void createNewListItem(View v) {
         // Create new List Item  at /listItem
-
+        animal = new Animals();
         final String key = FirebaseDatabase.getInstance().getReference().child("Animals").push().getKey();
 
         java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this);
-        Animals animal = new Animals();
+
         if (Age.getVisibility() == View.GONE) {
             animal.Age = 0;
         } else {
@@ -598,15 +596,50 @@ public class SellActivity extends AppCompatActivity {
         animal.CreatedOn = new Date().toString();
         animal.Status = "Review";
         animal.Pic = BitMapToString(bitmap);
+
         animal.SupplierContact = supplierContact.getText().toString();
         animal.Type = type.getSelectedItem().toString();
 
+
+        new Thread(new Runnable() {
+
+            public void run() {
+
+                info.androidhive.navigationdrawer.activity.GMailSender sender = new info.androidhive.navigationdrawer.activity.GMailSender(
+
+                        "gmec365@gmail.com",
+
+                        "Silver007!");
+
+
+                // sender.addAttachment(Environment.getExternalStorageDirectory().getPath()+"/ABCPrint.txt");
+
+                try {
+                    sender.sendMail("Test mail", "Description: " + animal.Description + "\n City: " + animal.City + "\n District: " + animal.District ,
+
+                            "gmec365@gmail.com",
+
+                            "akshay.teli7@gmail.com");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+                //  Toast.makeText(getApplicationContext(),"mail sent",Toast.LENGTH_LONG).show();
+
+
+
+            }
+
+        }).start();
         Map<String, Object> listItemValues = animal.toMap(animal);
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/Animals/" + key, listItemValues);
 
         FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
 
+
+//        "\n Country: " + country + "\n PostalCode: " + postalCode + "\n knownName: " + knownName + "\n DeviceName: " + getDeviceName()
         Toast.makeText(SellActivity.this, "Your request for posting add has been submitted successfully. We will review your application in next 48 hours.",
                 Toast.LENGTH_LONG).show();
         startActivity(new Intent(SellActivity.this, ECartHomeActivity.class));
@@ -627,8 +660,8 @@ public class SellActivity extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
             byte[] b = baos.toByteArray();
             FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef= storage.getReference();
-            StorageReference mountainImagesRef= storageRef.child("images/mountains.jpg");
+            StorageReference storageRef = storage.getReference();
+            StorageReference mountainImagesRef = storageRef.child("images/mountains.jpg");
 
             UploadTask uploadTask = mountainImagesRef.putBytes(b);
             uploadTask.addOnFailureListener(new OnFailureListener() {
