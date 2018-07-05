@@ -75,11 +75,10 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        Utils.switchFragmentWithAnimation(R.id.frag_container,
-                                new SearchProductFragment(),
-                                ((ECartHomeActivity) getActivity()), null,
+                        Utils.switchContent(R.id.frag_container,
+                                Utils.SEARCH_FRAGMENT_TAG,
+                                getActivity(),
                                 AnimationType.SLIDE_UP);
-
                     }
                 });
 
@@ -130,34 +129,6 @@ public class HomeFragment extends Fragment {
         new ProductCategoryLoaderTask(recyclerView, getActivity()).execute();
 
 
-//
-//		if (simpleRecyclerAdapter == null) {
-//			simpleRecyclerAdapter = new CategoryListAdapter(getActivity());
-//			recyclerView.setAdapter(simpleRecyclerAdapter);
-//
-//			simpleRecyclerAdapter
-//					.SetOnItemClickListener(new OnItemClickListener() {
-//
-//						@Override
-//						public void onItemClick(View view, int position) {
-//
-//							if (position == 0) {
-//								CenterRepository.getCenterRepository()
-//										.getAllElectronics();
-//							} else if (position == 1) {
-//								CenterRepository.getCenterRepository()
-//										.getAllFurnitures();
-//							}
-//							Utils.switchFragmentWithAnimation(
-//									R.id.frag_container,
-//									new ProductOverviewFragment(),
-//									((ECartHomeActivity) getActivity()), null,
-//									AnimationType.SLIDE_LEFT);
-//
-//						}
-//					});
-//		}
-
         languageSipnner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -167,16 +138,16 @@ public class HomeFragment extends Fragment {
                 if (position == 0) {
                     lang = "en";
                     changeLocale(lang);
-                    tiny.putString("lang",lang);
+                    tiny.putString("lang", lang);
                 }
                 if (position == 1) {
                     lang = "hi";
                     changeLocale(lang);
-                    tiny.putString("lang",lang);
+                    tiny.putString("lang", lang);
                 } else if (position == 2) {
                     lang = "mr";
                     changeLocale(lang);
-                    tiny.putString("lang",lang);
+                    tiny.putString("lang", lang);
                 }
             }
 

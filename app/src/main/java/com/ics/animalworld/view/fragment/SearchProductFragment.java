@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.ics.animalworld.R;
 import com.ics.animalworld.model.entities.Product;
+import com.ics.animalworld.util.FragmentHolder;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
@@ -151,7 +152,7 @@ public class SearchProductFragment extends Fragment {
                     public void onItemClick(View view, int position) {
 
                         Utils.switchFragmentWithAnimation(R.id.frag_container,
-                                new ProductDetailsFragment(subcat, position, false),
+                                FragmentHolder.getInstance().getProductDetailsFragment(subcat, position, false),
                                 ((ECartHomeActivity) (getContext())), null,
                                 AnimationType.SLIDE_LEFT);
 
@@ -284,7 +285,7 @@ public class SearchProductFragment extends Fragment {
                         public void onItemClick(View view, int position) {
 
                             Utils.switchFragmentWithAnimation(R.id.frag_container,
-                                    new ProductDetailsFragment("Animals", position, false),
+                                    FragmentHolder.getInstance().getProductDetailsFragment("Animals", position, false),
                                     ((ECartHomeActivity) (getContext())), null,
                                     AnimationType.SLIDE_LEFT);
 

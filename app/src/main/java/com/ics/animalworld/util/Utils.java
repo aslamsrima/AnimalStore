@@ -206,10 +206,7 @@ public class Utils {
         return Math.round((float) dp * density);
     }
 
-    public static void switchFragmentWithAnimation(int id, Fragment fragment,
-                                                   FragmentActivity activity, String TAG, AnimationType transitionStyle) {
-
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+    private static FragmentTransaction getFragmentTransaction(FragmentManager fragmentManager, AnimationType transitionStyle) {
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
 
@@ -267,12 +264,24 @@ public class Utils {
                     break;
             }
         }
+        return fragmentTransaction;
+    }
+
+    public static void switchFragmentWithAnimation(int id, Fragment fragment,
+                                                   FragmentActivity activity, String TAG, AnimationType transitionStyle) {
+
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+
 
         CURRENT_TAG = TAG;
-
+        FragmentTransaction fragmentTransaction = getFragmentTransaction(fragmentManager, transitionStyle);
         fragmentTransaction.replace(id, fragment);
         fragmentTransaction.addToBackStack(TAG);
         fragmentTransaction.commit();
+    }
+
+    public static void popBackFragment(FragmentActivity activity) {
+        activity.getSupportFragmentManager().popBackStack();
     }
 
     public static void switchContent(int id, String TAG,
@@ -282,98 +291,52 @@ public class Utils {
 
         FragmentManager fragmentManager = baseActivity
                 .getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        // If our current fragment is null, or the new fragment is different, we
-        // need to change our current fragment
-        if (CURRENT_TAG == null || !TAG.equals(CURRENT_TAG)) {
 
-            if (transitionStyle != null) {
-                switch (transitionStyle) {
-                    case SLIDE_DOWN:
-                        // Exit from down
-                        transaction.setCustomAnimations(R.anim.slide_up,
-                                R.anim.slide_down);
+        FragmentTransaction transaction = getFragmentTransaction(fragmentManager, transitionStyle);
 
-                        break;
-                    case SLIDE_UP:
-                        // Enter from Up
-                        transaction.setCustomAnimations(R.anim.slide_in_up,
-                                R.anim.slide_out_up);
-                        break;
-                    case SLIDE_LEFT:
-                        // Enter from left
-                        transaction.setCustomAnimations(R.anim.slide_left,
-                                R.anim.slide_out_left);
-                        break;
-                    // Enter from right
-                    case SLIDE_RIGHT:
-                        transaction.setCustomAnimations(R.anim.slide_right,
-                                R.anim.slide_out_right);
-                        break;
-                    case FADE_IN:
-                        transaction.setCustomAnimations(R.anim.fade_in,
-                                R.anim.fade_out);
-                    case FADE_OUT:
-                        transaction.setCustomAnimations(R.anim.fade_in,
-                                R.anim.donot_move);
-                        break;
-                    case SLIDE_IN_SLIDE_OUT:
-                        transaction.setCustomAnimations(R.anim.slide_left,
-                                R.anim.slide_out_left);
-                        break;
-                    default:
-                        break;
-                }
+        // Try to find the fragment we are switching to
+        Fragment fragment = fragmentManager.findFragmentByTag(TAG);
+
+        // If the new fragment can't be found in the manager, create a new
+        // one
+        if (fragment == null) {
+
+            if (TAG.equals(HOME_FRAGMENT)) {
+                fragmentToReplace = FragmentHolder.getInstance().getHomeFragment();
+            } else if (TAG.equals(SHOPPING_LIST_TAG)) {
+                fragmentToReplace = FragmentHolder.getInstance().getMyCartFragment();
+            } else if (TAG.equals(SETTINGS_FRAGMENT_TAG)) {
+                fragmentToReplace = FragmentHolder.getInstance().getSettingsFragment();
+            } else if (TAG.equals(CONTACT_US_FRAGMENT)) {
+                fragmentToReplace = FragmentHolder.getInstance().getContactUsFragment();
+            } else if (TAG.equals(PRODUCT_OVERVIEW_FRAGMENT_TAG)) {
+                fragmentToReplace = FragmentHolder.getInstance().getProductOverviewFragment();
+            } else if (TAG.equals(SHOPPING_LIST_TAG)) {
+                fragmentToReplace = FragmentHolder.getInstance().getMyCartFragment();
             }
-
-            // Try to find the fragment we are switching to
-            Fragment fragment = fragmentManager.findFragmentByTag(TAG);
-
-            // If the new fragment can't be found in the manager, create a new
-            // one
-            if (fragment == null) {
-
-                if (TAG.equals(HOME_FRAGMENT)) {
-                    fragmentToReplace = new HomeFragment();
-                } else if (TAG.equals(SHOPPING_LIST_TAG)) {
-                    fragmentToReplace = new MyCartFragment();
-                } else if (TAG.equals(SETTINGS_FRAGMENT_TAG)) {
-                    fragmentToReplace = new SettingsFragment();
-                } else if (TAG.equals(CONTACT_US_FRAGMENT)) {
-                    fragmentToReplace = new ContactUsFragment();
-                } else if (TAG.equals(PRODUCT_OVERVIEW_FRAGMENT_TAG)) {
-                    fragmentToReplace = ProductOverviewFragment.getInstance();
-                } else if (TAG.equals(SHOPPING_LIST_TAG)) {
-                    fragmentToReplace = new MyCartFragment();
-                }
-
-            } else
-
-            {
-                if (TAG.equals(HOME_FRAGMENT)) {
-                    fragmentToReplace = (HomeFragment) fragment;
-                } else if (TAG.equals(SHOPPING_LIST_TAG)) {
-                    fragmentToReplace = (MyCartFragment) fragment;
-                } else if (TAG.equals(PRODUCT_OVERVIEW_FRAGMENT_TAG)) {
-                    fragmentToReplace = (ProductOverviewFragment) fragment;
-                } else if (TAG.equals(SETTINGS_FRAGMENT_TAG)) {
-                    fragmentToReplace = (SettingsFragment) fragment;
-                } else if (TAG.equals(CONTACT_US_FRAGMENT)) {
-                    fragmentToReplace = (ContactUsFragment) fragment;
-                }
-            }
-
-            CURRENT_TAG = TAG;
-
-            // Replace our current fragment with the one we are changing to
-            transaction.replace(id, fragmentToReplace, TAG);
-            transaction.commit();
 
         } else
 
         {
-            // Do nothing since we are already on the fragment being changed to
+            if (TAG.equals(HOME_FRAGMENT)) {
+                fragmentToReplace = (HomeFragment) fragment;
+            } else if (TAG.equals(SHOPPING_LIST_TAG)) {
+                fragmentToReplace = (MyCartFragment) fragment;
+            } else if (TAG.equals(PRODUCT_OVERVIEW_FRAGMENT_TAG)) {
+                fragmentToReplace = (ProductOverviewFragment) fragment;
+            } else if (TAG.equals(SETTINGS_FRAGMENT_TAG)) {
+                fragmentToReplace = (SettingsFragment) fragment;
+            } else if (TAG.equals(CONTACT_US_FRAGMENT)) {
+                fragmentToReplace = (ContactUsFragment) fragment;
+            }
         }
+
+        CURRENT_TAG = TAG;
+
+        // Replace our current fragment with the one we are changing to
+        transaction.replace(id, fragmentToReplace, TAG);
+        transaction.commit();
+
     }
 
     public static void vibrate(Context context) {

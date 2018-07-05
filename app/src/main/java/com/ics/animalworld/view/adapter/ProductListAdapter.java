@@ -54,6 +54,10 @@ public class ProductListAdapter extends
         this.context = context;
     }
 
+    public void setSubcategory(String subcategory) {
+        this.subcategory = subcategory;
+    }
+
     @Override
     public VersionViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(
@@ -102,11 +106,14 @@ public class ProductListAdapter extends
         mDrawableBuilder = TextDrawable.builder().beginConfig().withBorder(4)
                 .endConfig().roundRect(10);
 
+        try {
+            b = StringToBitMap(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                    .get(subcategory).get(position).Pic.toString());
 
-        b = StringToBitMap(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
-                .get(subcategory).get(position).Pic.toString());
-
-        imagView.setImageBitmap(b);
+            imagView.setImageBitmap(b);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }

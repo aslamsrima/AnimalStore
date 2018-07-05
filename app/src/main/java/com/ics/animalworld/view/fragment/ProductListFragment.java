@@ -1,5 +1,6 @@
 package com.ics.animalworld.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,9 +14,10 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 
 import com.ics.animalworld.R;
-import com.ics.animalworld.domain.mock.FakeWebServer;
+import com.ics.animalworld.domain.mock.DataManager;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.util.AppConstants;
+import com.ics.animalworld.util.FragmentHolder;
 import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
@@ -54,18 +56,10 @@ public class ProductListFragment extends Fragment {
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
 
-
-//                            Utils.switchContent(R.id.frag_container,
-//                                    Utils.HOME_FRAGMENT,
-//                                    ((ECartHomeActivity) (getContext())),
-//                                    AnimationType.SLIDE_DOWN);
-
-                            Utils.switchFragmentWithAnimation(
-                                    R.id.frag_container,
-                                    new HomeFragment(),
-                                    ((ECartHomeActivity) (getContext())), Utils.HOME_FRAGMENT,
+                            Utils.switchContent(R.id.frag_container,
+                                    Utils.HOME_FRAGMENT,
+                                    ((ECartHomeActivity) (getContext())),
                                     AnimationType.SLIDE_DOWN);
-
 
                             return false;
                         }
@@ -89,7 +83,9 @@ public class ProductListFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
 
-        refreshData(subcategoryKey);
+        setupListAdapter();
+
+        recyclerView.getAdapter().notifyDataSetChanged();
 
         // Handle Back press
         view.setFocusableInTouchMode(true);
@@ -102,16 +98,10 @@ public class ProductListFragment extends Fragment {
                 if (event.getAction() == KeyEvent.ACTION_UP
                         && keyCode == KeyEvent.KEYCODE_BACK) {
 
-//					Utils.switchContent(R.id.top_container,
-//							Utils.HOME_FRAGMENT,
-//							((ECartHomeActivity) (getContext())),
-//							AnimationType.SLIDE_UP);
-
-                    Utils.switchFragmentWithAnimation(
-                            R.id.frag_container,
-                            new HomeFragment(),
-                            ((ECartHomeActivity) (getContext())), Utils.HOME_FRAGMENT,
-                            AnimationType.SLIDE_UP);
+					Utils.switchContent(R.id.frag_container,
+							Utils.HOME_FRAGMENT,
+							((ECartHomeActivity) (getContext())),
+							AnimationType.SLIDE_UP);
 
                 }
                 return true;
@@ -123,12 +113,33 @@ public class ProductListFragment extends Fragment {
         return view;
     }
 
+    private void setupListAdapter() {
+        ProductListAdapter adapter = new ProductListAdapter(ProductListFragment.this.subcategoryKey,
+                getActivity(), ProductOverviewFragment.sortString);
+        recyclerView.setAdapter(adapter);
+
+        CenterRepository.getCenterRepository().recyclerViewRef = recyclerView;
+
+        adapter.SetOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(View view, int position) {
+
+                Utils.switchFragmentWithAnimation(R.id.frag_container,
+                        FragmentHolder.getInstance().getProductDetailsFragment(ProductListFragment.this.subcategoryKey, position, false),
+                        ((ECartHomeActivity) (getContext())), null,
+                        AnimationType.SLIDE_LEFT);
+
+            }
+        });
+    }
+
     private void refreshContent() {
         TinyDB tiny = new TinyDB(getContext());
         tiny.clear();
         CenterRepository.getCenterRepository().clear();
-        FakeWebServer.getFakeWebServer().getAllProducts(
-                AppConstants.CURRENT_CATEGORY, new FakeWebServer.FakeWebServiceResponseListener() {
+        DataManager.getInstance(getActivity()).fetchAllProducts(
+                AppConstants.CURRENT_CATEGORY, new DataManager.DataManagerListener() {
                     @Override
                     public void onServiceResponse(boolean success) {
                         if (success) {
@@ -152,14 +163,31 @@ public class ProductListFragment extends Fragment {
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        System.out.println("ProductListFragment, onAttach()");
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onResume() {
+        System.out.println("ProductListFragment, onResume()");
+        super.onResume();
+    }
+
     public void refreshData(String subcategoryKey) {
         this.subcategoryKey = subcategoryKey;
-        if (getActivity() != null) {
+        if (recyclerView != null) {
+            ((ProductListAdapter)recyclerView.getAdapter()).setSubcategory(subcategoryKey);
+            recyclerView.getAdapter().notifyDataSetChanged();
             System.out.println("ProductListFragment, list refreshData called");
+        }
+
+        if (getActivity() != null) {
             recyclerView.post(new Runnable() {
                 @Override
                 public void run() {
-                    ProductListAdapter adapter = new ProductListAdapter(ProductListFragment.this.subcategoryKey,
+                    /*ProductListAdapter adapter = new ProductListAdapter(ProductListFragment.this.subcategoryKey,
                             getActivity(), ProductOverviewFragment.sortString);
                     recyclerView.setAdapter(adapter);
 
@@ -172,12 +200,12 @@ public class ProductListFragment extends Fragment {
                         public void onItemClick(View view, int position) {
 
                             Utils.switchFragmentWithAnimation(R.id.frag_container,
-                                    new ProductDetailsFragment(ProductListFragment.this.subcategoryKey, position, false),
+                                    FragmentHolder.getInstance().getProductDetailsFragment(ProductListFragment.this.subcategoryKey, position, false),
                                     ((ECartHomeActivity) (getContext())), null,
                                     AnimationType.SLIDE_LEFT);
 
                         }
-                    });
+                    });*/
                 }
             });
         }

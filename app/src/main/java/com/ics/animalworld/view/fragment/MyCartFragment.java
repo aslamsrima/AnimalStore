@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 
 import com.ics.animalworld.R;
 import com.ics.animalworld.model.CenterRepository;
+import com.ics.animalworld.util.FragmentHolder;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
@@ -69,10 +70,10 @@ public class MyCartFragment extends Fragment implements OnStartDragListener {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
 
-                        Utils.switchFragmentWithAnimation(R.id.frag_container,
-                                new HomeFragment(),
-                                ((ECartHomeActivity) (getContext())),
-                                Utils.HOME_FRAGMENT, AnimationType.SLIDE_DOWN);
+                        Utils.switchContent(R.id.frag_container,
+                                Utils.HOME_FRAGMENT,
+                                getActivity(),
+                                AnimationType.SLIDE_DOWN);
 
                         return false;
                     }
@@ -106,7 +107,7 @@ public class MyCartFragment extends Fragment implements OnStartDragListener {
 
                             Utils.switchFragmentWithAnimation(
                                     R.id.frag_container,
-                                    new ProductDetailsFragment("", position,
+                                    FragmentHolder.getInstance().getProductDetailsFragment("", position,
                                             true),
                                     ((ECartHomeActivity) (getContext())), null,
                                     AnimationType.SLIDE_LEFT);

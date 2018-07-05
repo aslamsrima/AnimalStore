@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.ics.animalworld.domain.mock.FakeWebServer;
+import com.ics.animalworld.domain.mock.DataManager;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
 import com.ics.animalworld.view.adapter.ProductsInCategoryPagerAdapter;
@@ -66,7 +66,7 @@ public class ProductLoaderTask extends AsyncTask<String, Void, Void> {
             e.printStackTrace();
         }
 
-        FakeWebServer.getFakeWebServer().getAllProducts(1, null);
+        DataManager.getInstance(context).fetchAllProducts(1, null);
 
         return null;
     }

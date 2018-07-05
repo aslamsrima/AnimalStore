@@ -10,18 +10,18 @@ package com.ics.animalworld.domain.api;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.ics.animalworld.R;
-import com.ics.animalworld.domain.mock.FakeWebServer;
+import com.ics.animalworld.domain.mock.DataManager;
 import com.ics.animalworld.util.AppConstants;
+import com.ics.animalworld.util.FragmentHolder;
 import com.ics.animalworld.util.Utils;
-import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
 import com.ics.animalworld.view.adapter.CategoryListAdapter;
 import com.ics.animalworld.view.adapter.CategoryListAdapter.OnItemClickListener;
-import com.ics.animalworld.view.fragment.ProductOverviewFragment;
 
 
 public class ProductCategoryLoaderTask extends AsyncTask<String, Void, Void> {
@@ -66,15 +66,17 @@ public class ProductCategoryLoaderTask extends AsyncTask<String, Void, Void> {
 
                         @Override
                         public void onItemClick(View view, int position) {
-
                             AppConstants.CURRENT_CATEGORY = position;
 
-                            Utils.switchFragmentWithAnimation(
-                                    R.id.frag_container,
-                                    ProductOverviewFragment.getInstance(),
-                                    ((ECartHomeActivity) context), null,
-                                    AnimationType.SLIDE_LEFT);
-
+                            /*Utils.switchContent(R.id.frag_container,
+                                    Utils.PRODUCT_OVERVIEW_FRAGMENT_TAG,
+                                    (FragmentActivity) context,
+                                    AnimationType.SLIDE_LEFT);*/
+                            Utils.switchFragmentWithAnimation(R.id.frag_container,
+                                    FragmentHolder.getInstance().getProductOverviewFragment(),
+                                    (FragmentActivity) context,
+                                    Utils.PRODUCT_OVERVIEW_FRAGMENT_TAG,
+                                    Utils.AnimationType.SLIDE_LEFT);
                         }
                     });
         }
@@ -90,7 +92,7 @@ public class ProductCategoryLoaderTask extends AsyncTask<String, Void, Void> {
             e.printStackTrace();
         }
 
-        FakeWebServer.getFakeWebServer().addCategory();
+        DataManager.getInstance(context).addCategory();
 
         return null;
     }
