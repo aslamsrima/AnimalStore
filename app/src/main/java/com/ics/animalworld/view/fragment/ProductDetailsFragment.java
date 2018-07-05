@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.Toolbar;
@@ -22,8 +23,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.ics.animalworld.R;
 import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Money;
@@ -39,7 +44,9 @@ import com.ics.animalworld.view.customview.ClickableViewPager.OnItemClickListene
 import com.ics.animalworld.view.customview.LabelView;
 import com.ics.animalworld.view.customview.TextDrawable;
 import com.ics.animalworld.view.customview.TextDrawable.IBuilder;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.math.BigDecimal;
 
 // TODO: Auto-generated Javadoc
@@ -175,10 +182,6 @@ public class ProductDetailsFragment extends Fragment {
                                 AnimationType.SLIDE_UP);
                     } else {
 
-                        /*Utils.switchContent(R.id.frag_container,
-                                Utils.PRODUCT_OVERVIEW_FRAGMENT_TAG,
-                                ((ECartHomeActivity) (getActivity())),
-                                AnimationType.SLIDE_RIGHT);*/
                         Utils.switchFragmentWithAnimation(R.id.frag_container,
                                 new ProductOverviewFragment(),
                                 getActivity(),
@@ -318,19 +321,33 @@ public class ProductDetailsFragment extends Fragment {
 
 //
 
-                try {
-                    b = StringToBitMap(CenterRepository.getCenterRepository()
-                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference storageRef = storage.getReference();
+                StorageReference islandRef = storageRef.child("images/mountains.jpg");
+                final long ONE_MEGABYTE = 1024 * 1024;
+                islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        itemImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+                        // Data for "images/island.jpg" is returns, use this as needed
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                    }
+                });
 
-                    if (b.getWidth() < 200)
-                        itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
-                    else if (b.getWidth() > 200 && b.getWidth() < 500)
-                        itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
-                    else if (b.getWidth() > 500)
-                        itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//
+//                b = StringToBitMap(CenterRepository.getCenterRepository()
+//                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
+//
+//                if (b.getWidth() < 200)
+//                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
+//                else if (b.getWidth() > 200 && b.getWidth() < 500)
+//                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
+//                else if (b.getWidth() > 500)
+//                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
 
                 LabelView label = new LabelView(getActivity());
 
@@ -426,19 +443,35 @@ public class ProductDetailsFragment extends Fragment {
 //                        }
 //                    });
 
-                try {
-                    b = StringToBitMap(CenterRepository.getCenterRepository()
-                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference storageRef = storage.getReference();
+                StorageReference islandRef = storageRef.child("images/mountains.jpg");
+                final long ONE_MEGABYTE = 1024 * 1024;
+                islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        itemImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+                        // Data for "images/island.jpg" is returns, use this as needed
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                    }
+                });
+//                Picasso.with(getContext())
+//                        .load(islandRef.get)
+//                        .into(itemImage);
 
-                    if (b.getWidth() < 200)
-                        itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
-                    else if (b.getWidth() > 200 && b.getWidth() < 500)
-                        itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
-                    else if (b.getWidth() > 500)
-                        itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                b = StringToBitMap(CenterRepository.getCenterRepository()
+//                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
+//
+//                if (b.getWidth() < 200)
+//                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
+//                else if (b.getWidth() > 200 && b.getWidth() < 500)
+//                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
+//                else if (b.getWidth() > 500)
+//                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
 
                 LabelView label = new LabelView(getActivity());
 

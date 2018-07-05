@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -36,9 +37,16 @@ import android.widget.Toast;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.common.collect.Range;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.ics.animalworld.R;
 import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.util.TinyDB;
@@ -606,6 +614,7 @@ public class SellActivity extends AppCompatActivity {
     }
 
     public String BitMapToString(Bitmap bitmap) {
+
         if (bitmap != null) {
             bitmap = Bitmap.createScaledBitmap(bitmap, 1080, 500, false);
 //            if (bitmap.getWidth() < 200)
@@ -617,6 +626,23 @@ public class SellActivity extends AppCompatActivity {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
             byte[] b = baos.toByteArray();
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef= storage.getReference();
+            StorageReference mountainImagesRef= storageRef.child("images/mountains.jpg");
+
+            UploadTask uploadTask = mountainImagesRef.putBytes(b);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+
+                }
+            });
             String temp = Base64.encodeToString(b, Base64.DEFAULT);
             return temp;
         } else
