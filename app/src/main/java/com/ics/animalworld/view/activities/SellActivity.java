@@ -76,7 +76,7 @@ public class SellActivity extends AppCompatActivity {
     ArrayAdapter<String> dataAdapter, petAdapter, subCategoryAdapter, petTypeAdapter;
     private RadioButton male, female;
     private TextView subCateg, typeTxt, genderTxt;
-    private EditText breed, milkRec, Price, Age, description, city, district, supplierContact, price, product_name, company_name, weight;
+    private EditText breed, milkRec, Price, Age, description, city, district, supplierContact, price, product_name, company_name, weight,supplierName;;
     private CheckBox negotiable;
     private Spinner category, type, subCategory;
     private Button AddPost;
@@ -154,6 +154,7 @@ public class SellActivity extends AppCompatActivity {
         price = (EditText) findViewById(R.id.price);
         negotiable = (CheckBox) findViewById(R.id.chk_is_negotiable);
         AddPost = (Button) findViewById(R.id.btnAddPost);
+        supplierName = (EditText) findViewById(R.id.reg_Name_supplier_contact);
         AddPost.setClickable(false);
 
         //Submit OnClick Listener
@@ -591,14 +592,15 @@ public class SellActivity extends AppCompatActivity {
         } else {
             animal.weight = weight.getText().toString();
         }
-
+        animal.SupplierContact = supplierContact.getText().toString();
         animal.Prize = Integer.parseInt(price.getText().toString());
         animal.CreatedOn = new Date().toString();
         animal.Status = "Review";
-        animal.Pic = BitMapToString(bitmap);
 
         animal.SupplierContact = supplierContact.getText().toString();
         animal.Type = type.getSelectedItem().toString();
+        animal.Pic = "images/"+animal.CreatedOn+"_"+animal.SupplierContact+".jpg";
+        BitMapToString(bitmap,animal.CreatedOn,animal.SupplierContact);
 
 
         new Thread(new Runnable() {
@@ -646,9 +648,10 @@ public class SellActivity extends AppCompatActivity {
 
     }
 
-    public String BitMapToString(Bitmap bitmap) {
+    public String BitMapToString(Bitmap bitmap,String date,String number) {
 
         if (bitmap != null) {
+            String filename ="images/"+date+"_"+number+".jpg";
             bitmap = Bitmap.createScaledBitmap(bitmap, 1080, 500, false);
 //            if (bitmap.getWidth() < 200)
 //                itemImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 400, 500, false));
@@ -661,7 +664,7 @@ public class SellActivity extends AppCompatActivity {
             byte[] b = baos.toByteArray();
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
-            StorageReference mountainImagesRef = storageRef.child("images/mountains.jpg");
+            StorageReference mountainImagesRef = storageRef.child(filename);
 
             UploadTask uploadTask = mountainImagesRef.putBytes(b);
             uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -701,7 +704,7 @@ public class SellActivity extends AppCompatActivity {
         awesomeValidation.addValidation(this, R.id.price, "^[0-9]{1,5}$", R.string.invalid_price);
         awesomeValidation.addValidation(this, R.id.reg_city, "^[a-zA-Z]{3,15}$$", R.string.invalid_city);
         awesomeValidation.addValidation(this, R.id.reg_district, "^[a-zA-Z]{3,15}$$", R.string.invalid_district);
-
+        awesomeValidation.addValidation(this, R.id.reg_Name_supplier_contact, "^[a-zA-Z]{3,15}$$", R.string.invalid_sname);
     }
 
     private void submitForm(View v) {

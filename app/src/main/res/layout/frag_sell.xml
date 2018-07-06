@@ -274,7 +274,21 @@
                          />
                 </android.support.design.widget.TextInputLayout>
 
+                <!-- Contact Name  -->
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="1">
 
+                    <EditText
+                        android:id="@+id/reg_Name_supplier_contact"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:singleLine="true"
+                        android:hint="Supplier Name"
+                        android:layout_marginBottom="20dip" />
+                </android.support.design.widget.TextInputLayout>
                 <!-- Contact  -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"

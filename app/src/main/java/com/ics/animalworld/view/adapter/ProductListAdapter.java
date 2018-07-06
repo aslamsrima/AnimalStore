@@ -3,6 +3,7 @@ package com.ics.animalworld.view.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -15,6 +16,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.ics.animalworld.R;
 import com.ics.animalworld.domain.mock.FakeWebServer;
 import com.ics.animalworld.model.CenterRepository;
@@ -139,10 +144,25 @@ public class ProductListAdapter extends
                 .endConfig().roundRect(10);
 
         try {
-            b = StringToBitMap(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
-                    .get(subcategory).get(position).Pic.toString());
-
-            imagView.setImageBitmap(b);
+            String filename ="images/"+productList.get(position).CreatedOn+"_"+productList.get(position).SupplierContact+".jpg";
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+            StorageReference islandRef = storageRef.child(filename);
+            final long ONE_MEGABYTE = 1024 * 1024;
+            islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    imagView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+                    // Data for "images/island.jpg" is returns, use this as needed
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
+//            b = StringToBitMap(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+//                    .get(subcategory).get(position).Pic.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

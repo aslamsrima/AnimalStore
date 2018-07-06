@@ -52,6 +52,7 @@
     <string name="invalid_mlkrec">Please enter a valid Milk Record</string>
     <string name="invalid_phone">Please enter a valid Phone</string>
     <string name="invalid_age">Age must be between 1 and 15.</string>
+    <string name="invalid_sname">Supplier name required</string>
     <string name="category"><u>Categories</u></string>
     <string-array name="Category">
         <item>Select Category</item>

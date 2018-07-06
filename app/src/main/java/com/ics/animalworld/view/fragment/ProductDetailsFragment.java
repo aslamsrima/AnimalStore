@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -44,6 +45,8 @@ import com.ics.animalworld.view.customview.ClickableViewPager.OnItemClickListene
 import com.ics.animalworld.view.customview.LabelView;
 import com.ics.animalworld.view.customview.TextDrawable;
 import com.ics.animalworld.view.customview.TextDrawable.IBuilder;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -115,11 +118,11 @@ public class ProductDetailsFragment extends Fragment {
         ((ECartHomeActivity) getActivity()).getSupportActionBar()
                 .setDisplayHomeAsUpEnabled(true);
 
-        similarProductsPager = (ClickableViewPager) rootView
-                .findViewById(R.id.similar_products_pager);
-
-        topSellingPager = (ClickableViewPager) rootView
-                .findViewById(R.id.top_selleing_pager);
+//        similarProductsPager = (ClickableViewPager) rootView
+//                .findViewById(R.id.similar_products_pager);
+//
+//        topSellingPager = (ClickableViewPager) rootView
+//                .findViewById(R.id.top_selleing_pager);
 
         itemSellPrice = ((TextView) rootView
                 .findViewById(R.id.category_discount));
@@ -201,7 +204,7 @@ public class ProductDetailsFragment extends Fragment {
             topSellingPager.setVisibility(View.GONE);
 
         } else {
-            showRecomondation();
+           // showRecomondation();
         }
 
         return rootView;
@@ -323,13 +326,46 @@ public class ProductDetailsFragment extends Fragment {
 
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference storageRef = storage.getReference();
-                StorageReference islandRef = storageRef.child("images/mountains.jpg");
-                final long ONE_MEGABYTE = 1024 * 1024;
-                islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//                StorageReference islandRef = storageRef.child("images/mountains.jpg");
+//                final long ONE_MEGABYTE = 1024 * 1024;
+//                islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//                    @Override
+//                    public void onSuccess(byte[] bytes) {
+//                        itemImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+//                        // Data for "images/island.jpg" is returns, use this as needed
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception exception) {
+//                        // Handle any errors
+//                    }
+//                });
+
+                storageRef.child("images/mountains.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onSuccess(byte[] bytes) {
-                        itemImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-                        // Data for "images/island.jpg" is returns, use this as needed
+                    public void onSuccess(Uri uri) {
+                        Picasso.with(getActivity())
+                    .load(uri)
+                    .error(drawable).fit().centerCrop()
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(itemImage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+                            // Try again online if cache failed
+//
+//                            Picasso.with(getActivity())
+//                                    .load(//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getImageURL()
+//                                            "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg\",")
+//                                    .placeholder(drawable).error(drawable)
+//                                    .fit().centerCrop().into(itemImage);
+                        }
+                    });
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -337,7 +373,6 @@ public class ProductDetailsFragment extends Fragment {
                         // Handle any errors
                     }
                 });
-
 //
 //                b = StringToBitMap(CenterRepository.getCenterRepository()
 //                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
@@ -421,37 +456,48 @@ public class ProductDetailsFragment extends Fragment {
                                 .get(subcategoryKey).get(productListNumber)
                                 .Category));
 
-//            Picasso.with(getActivity())
-//                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg").placeholder(drawable)  //CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getImageURL(
-//                    .error(drawable).fit().centerCrop()
-//                    .networkPolicy(NetworkPolicy.OFFLINE)
-//                    .into(itemImage, new Callback() {
-//                        @Override
-//                        public void onSuccess() {
-//
-//                        }
-//
-//                        @Override
-//                        public void onError() {
-//                            // Try again online if cache failed
+
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference storageRef = storage.getReference();
+//                StorageReference islandRef = storageRef.child("images/mountains.jpg");
+//                final long ONE_MEGABYTE = 1024 * 1024;
+//                islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//                    @Override
+//                    public void onSuccess(byte[] bytes) {
+//                        itemImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+//                        // Data for "images/island.jpg" is returns, use this as needed
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception exception) {
+//                        // Handle any errors
+//                    }
+//                });
+                storageRef.child("images/mountains.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.with(getActivity())
+                                .load(uri)
+                                .error(drawable).fit().centerCrop()
+                                .networkPolicy(NetworkPolicy.OFFLINE)
+                                .into(itemImage, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError() {
+                                        // Try again online if cache failed
 //
 //                            Picasso.with(getActivity())
 //                                    .load(//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getImageURL()
 //                                            "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg\",")
 //                                    .placeholder(drawable).error(drawable)
 //                                    .fit().centerCrop().into(itemImage);
-//                        }
-//                    });
+                                    }
+                                });
 
-                FirebaseStorage storage = FirebaseStorage.getInstance();
-                StorageReference storageRef = storage.getReference();
-                StorageReference islandRef = storageRef.child("images/mountains.jpg");
-                final long ONE_MEGABYTE = 1024 * 1024;
-                islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        itemImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-                        // Data for "images/island.jpg" is returns, use this as needed
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -459,19 +505,7 @@ public class ProductDetailsFragment extends Fragment {
                         // Handle any errors
                     }
                 });
-//                Picasso.with(getContext())
-//                        .load(islandRef.get)
-//                        .into(itemImage);
 
-//                b = StringToBitMap(CenterRepository.getCenterRepository()
-//                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
-//
-//                if (b.getWidth() < 200)
-//                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
-//                else if (b.getWidth() > 200 && b.getWidth() < 500)
-//                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
-//                else if (b.getWidth() > 500)
-//                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
 
                 LabelView label = new LabelView(getActivity());
 

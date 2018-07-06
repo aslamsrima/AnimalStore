@@ -26,7 +26,7 @@
         <ImageView
             android:id="@+id/product_image"
             android:layout_width="match_parent"
-            android:layout_height="192dp"
+            android:layout_height="250dp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="3dp"
             android:scaleType="center" />
@@ -216,54 +216,54 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/hot_offers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:ellipsize="marquee"
-            android:gravity="center_horizontal"
-            android:text="@string/similar_product"
-            android:textColor="#000"
-            android:textSize="20sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/hot_offers"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--android:ellipsize="marquee"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:text="@string/similar_product"-->
+            <!--android:textColor="#000"-->
+            <!--android:textSize="20sp" />-->
 
-        <com.ics.animalworld.view.customview.ClickableViewPager
-            android:id="@+id/similar_products_pager"
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:layout_below="@+id/hot_offers"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:visibility="visible" />
+        <!--<com.ics.animalworld.view.customview.ClickableViewPager-->
+            <!--android:id="@+id/similar_products_pager"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="280dp"-->
+            <!--android:layout_below="@+id/hot_offers"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:visibility="visible" />-->
 
-        <TextView
-            android:id="@+id/best_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:freezesText="true"
-            android:gravity="center_horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="Top Selling"
-            android:textColor="#000"
-            android:textSize="20sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/best_value"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:ellipsize="marquee"-->
+            <!--android:focusable="true"-->
+            <!--android:focusableInTouchMode="true"-->
+            <!--android:freezesText="true"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:text="Top Selling"-->
+            <!--android:textColor="#000"-->
+            <!--android:textSize="20sp" />-->
 
-        <com.ics.animalworld.view.customview.ClickableViewPager
-            android:id="@+id/top_selleing_pager"
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:layout_below="@+id/best_value"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:visibility="visible" />
-    </LinearLayout>
+        <!--<com.ics.animalworld.view.customview.ClickableViewPager-->
+            <!--android:id="@+id/top_selleing_pager"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="280dp"-->
+            <!--android:layout_below="@+id/best_value"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:visibility="visible" />-->
+   </LinearLayout>
 
 </ScrollView>
