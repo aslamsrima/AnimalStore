@@ -325,6 +325,26 @@ public class SellActivity extends AppCompatActivity {
                     product_name.setVisibility(View.GONE);
                     company_name.setVisibility(View.GONE);
                     weight.setVisibility(View.GONE);
+                }else if (position == 3){
+                    AddPost.setClickable(true);
+                    milkRec.setVisibility(View.GONE);
+                    breed.setVisibility(View.GONE);
+                    Age.setVisibility(View.GONE);
+                    genderTxt.setVisibility(View.GONE);
+                    radioGroup.setVisibility(View.GONE);
+                    product_name.setVisibility(View.VISIBLE);
+                    company_name.setVisibility(View.VISIBLE);
+                    weight.setVisibility(View.GONE);
+                }else if (position == 4){
+                    AddPost.setClickable(true);
+                    milkRec.setVisibility(View.GONE);
+                    breed.setVisibility(View.GONE);
+                    Age.setVisibility(View.GONE);
+                    genderTxt.setVisibility(View.GONE);
+                    radioGroup.setVisibility(View.GONE);
+                    product_name.setVisibility(View.VISIBLE);
+                    company_name.setVisibility(View.VISIBLE);
+                    weight.setVisibility(View.GONE);
                 }
             }
 

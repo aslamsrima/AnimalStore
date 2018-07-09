@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/category_discount"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="25dp"
                 android:layout_marginTop="60dp"
                 android:orientation="horizontal">
 
@@ -82,7 +82,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:textColor="#000000"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -90,8 +90,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/actual_start_linear_layout"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="100dp"
                 android:orientation="horizontal">
 
 
@@ -103,7 +103,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:textColor="#000000"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
             </LinearLayout>
 
 
@@ -112,8 +112,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/actual_end_linear_layout"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="140dp"
                 android:orientation="horizontal">
 
 
@@ -125,7 +125,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:textColor="#000000"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
             </LinearLayout>
 
 
@@ -134,8 +134,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/actual_duration_linear_layout"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="120dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="180dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -146,7 +146,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:textColor="#000000"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
             </LinearLayout>
 
@@ -155,20 +155,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/on_location_linear_layout"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="140dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="220dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/product_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:layout_marginBottom="12dp"
                     android:layout_weight="0"
                     android:ellipsize="end"
                     android:maxLines="5"
                     android:textColor="#000000"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
             </LinearLayout>
 

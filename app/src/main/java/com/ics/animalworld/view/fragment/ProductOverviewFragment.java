@@ -31,6 +31,7 @@ import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
+import com.ics.animalworld.view.adapter.ProductListAdapter;
 import com.ics.animalworld.view.adapter.ProductsInCategoryPagerAdapter;
 
 import java.util.ArrayList;
@@ -147,17 +148,17 @@ public class ProductOverviewFragment extends Fragment {
             }
         });
 
-        // Simulate Web service calls
-        /*if (null != ((ECartHomeActivity) getContext()).getProgressBar())
-            ((ECartHomeActivity) getContext()).getProgressBar().setVisibility(
-                    View.VISIBLE);*/
 
 
         TinyDB tinydb = new TinyDB(this.getContext().getApplicationContext());
-        if (AppConstants.CURRENT_CATEGORY == 0)
+        if (AppConstants.CURRENT_CATEGORY == 0){
             productList = tinydb.getListObject("Animals", Animals.class);
+
+        }
+
         if (AppConstants.CURRENT_CATEGORY == 1)
             productList = tinydb.getListObject("Pet", Animals.class);
+        CenterRepository.getCenterRepository().clear();
         if (productList.size() == 0) {
             LoadingTxt.setVisibility(View.VISIBLE);
             circularProgressBar = (ProgressBar) view.findViewById(R.id.circular_progress1);
@@ -312,6 +313,7 @@ public class ProductOverviewFragment extends Fragment {
                                         });
                                 break;
                             case 1:
+
                                 dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, animalList);
                                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 SortBy.setAdapter(dataAdapter);
