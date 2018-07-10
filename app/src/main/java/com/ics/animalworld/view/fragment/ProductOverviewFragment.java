@@ -116,7 +116,7 @@ public class ProductOverviewFragment extends Fragment {
         });
         animalList = new ArrayList<String>();
         animalList.add("Select Animal");
-        animalList.add("Buffloes");
+        animalList.add("Buffaloes");
         animalList.add("Cows");
         animalList.add("Goats");
         animalList.add("Horse");
@@ -152,12 +152,15 @@ public class ProductOverviewFragment extends Fragment {
 
         TinyDB tinydb = new TinyDB(this.getContext().getApplicationContext());
         if (AppConstants.CURRENT_CATEGORY == 0){
-            productList = tinydb.getListObject("Animals", Animals.class);
-
+            productList = tinydb.getListObject("Animal", Animals.class);
         }
-
         if (AppConstants.CURRENT_CATEGORY == 1)
             productList = tinydb.getListObject("Pet", Animals.class);
+        if (AppConstants.CURRENT_CATEGORY == 2)
+            productList = tinydb.getListObject("Farming Tool", Animals.class);
+        if (AppConstants.CURRENT_CATEGORY == 3)
+            productList = tinydb.getListObject("Farming Product", Animals.class);
+
         CenterRepository.getCenterRepository().clear();
         if (productList.size() == 0) {
             LoadingTxt.setVisibility(View.VISIBLE);
@@ -187,23 +190,19 @@ public class ProductOverviewFragment extends Fragment {
             LoadingTxt.setVisibility(View.VISIBLE);
             circularProgressBar = (ProgressBar) view.findViewById(R.id.circular_progress1);
             if (AppConstants.CURRENT_CATEGORY == 0) {
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animals", productList);
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal", productList);
                 productList.clear();
-                productList = tinydb.getListObject("Animal's Food", Animals.class);
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Food", tinydb.getListObject("Animal's Food", Animals.class));
-                productList.clear();
-                productList = tinydb.getListObject("Animal's Medicine", Animals.class);
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal's Medicine", tinydb.getListObject("Animal's Medicine", Animals.class));
             } else if (AppConstants.CURRENT_CATEGORY == 1) {
-
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet", productList);
                 productList.clear();
-                productList = tinydb.getListObject("Pet's Food", Animals.class);
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet's Food", productList);
-                productList.clear();
-                productList = tinydb.getListObject("Pet's Medicine", Animals.class);
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet's Medicine", productList);
-
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet's Food", tinydb.getListObject("Animal's Food", Animals.class));
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Pet's Medicine", tinydb.getListObject("Animal's Food", Animals.class));
+            }else if (AppConstants.CURRENT_CATEGORY == 2){
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Farming Tool", productList);
+            }else if (AppConstants.CURRENT_CATEGORY == 3){
+                FakeWebServer.getFakeWebServer().updateProductMapForCategory("Farming Product", productList);
             }
             LoadingTxt.setVisibility(View.GONE);
 

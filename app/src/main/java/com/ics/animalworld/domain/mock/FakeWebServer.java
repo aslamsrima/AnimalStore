@@ -86,43 +86,55 @@ public class FakeWebServer {
             productlist.add(myAnimal);
         }
 
-        ArrayList<Animals> animalslist = new ArrayList<Animals>();
-        ArrayList<Animals> animalsfood = new ArrayList<Animals>();
-        ArrayList<Animals> animalsmedicine = new ArrayList<Animals>();
-        ArrayList<Animals> petslist = new ArrayList<Animals>();
-        ArrayList<Animals> petsfood = new ArrayList<Animals>();
-        ArrayList<Animals> petsmedicine = new ArrayList<Animals>();
+        ArrayList<Animals> list = new ArrayList<Animals>();
+        ArrayList<Animals> food = new ArrayList<Animals>();
+        ArrayList<Animals> medicine = new ArrayList<Animals>();
+//        ArrayList<Animals> petslist = new ArrayList<Animals>();
+//        ArrayList<Animals> petsfood = new ArrayList<Animals>();
+//        ArrayList<Animals> petsmedicine = new ArrayList<Animals>();
 
         for (Animals item : productlist) {
             if (productCategory == 0) {
                 if (item.Category.equals("Animal")) {
                     if (item.Type.equals("Animal"))
-                        animalslist.add(item);
+                        list.add(item);
                     else if (item.Type.equals("Animal Food"))
-                        animalsfood.add(item);
+                        food.add(item);
                     else if (item.Type.equals("Animal Medicine"))
-                        animalsmedicine.add(item);
+                        medicine.add(item);
 
                 }
             } else if (productCategory == 1) {
                 if (item.Category.equals("Pet")) {
                     if (item.Type.equals("Pet"))
-                        petslist.add(item);
+                        list.add(item);
                     else if (item.Type.equals("Pet Food"))
-                        petsfood.add(item);
+                        food.add(item);
                     else if (item.Type.equals("Pet Medicine"))
-                        petsmedicine.add(item);
+                        medicine.add(item);
+                }
+            }else if (productCategory == 2){
+                if (item.Category.equals("Farming Tool")){
+                    list.add(item);
+                }
+            }else if (productCategory == 3){
+                if (item.Category.equals("Farming Product")){
+                    list.add(item);
                 }
             }
         }
         if (productCategory == 0) {
-            productMap.put("Animals", animalslist);
-            productMap.put("Animal's Food", animalsfood);
-            productMap.put("Animal's Medicine", animalsmedicine);
+            productMap.put("Animal", list);
+            productMap.put("Animal's Food", food);
+            productMap.put("Animal's Medicine", medicine);
         } else if (productCategory == 1) {
-            productMap.put("Pet", petslist);
-            productMap.put("Pet's Food", petsfood);
-            productMap.put("Pet's Medicine", petsmedicine);
+            productMap.put("Pet", list);
+            productMap.put("Pet's Food", food);
+            productMap.put("Pet's Medicine", medicine);
+        }else if (productCategory == 2) {
+            productMap.put("Farming Tool", list);
+        }else if (productCategory == 3) {
+            productMap.put("Farming Product", list);
         }
         CenterRepository.getCenterRepository().clear();
         CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
@@ -139,7 +151,15 @@ public class FakeWebServer {
 
     public void getAllProducts(int productCategory, final FakeWebServiceResponseListener listener) {
         selectedCategory = productCategory;
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Animals");
+        if(productCategory == 0){
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("Animal");
+        }else if(productCategory == 1){
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("Pet");
+        }else if(productCategory == 2){
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("Farming Tool");
+        }else if(productCategory == 3)
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("Farming Product");
+
         mDatabase.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override

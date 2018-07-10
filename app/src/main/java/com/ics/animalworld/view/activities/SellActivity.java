@@ -582,8 +582,18 @@ public class SellActivity extends AppCompatActivity {
             animal.Breed = breed.getText().toString();
         }
         animal.Category = category.getSelectedItem().toString();
+        if(animal.Category.equals("Farming Tools")){
+            animal.Type = "Farming Tools";
+            animal.SubCategory = "Farming Tools";
+        }else if(animal.Category.equals("Farming Product")){
+            animal.Type = "Farming Product";
+            animal.SubCategory = "Farming Product";
+        }else{
+            animal.Type = type.getSelectedItem().toString();
+            animal.SubCategory = subCategory.getSelectedItem().toString();
+        }
         animal.City = city.getText().toString();
-        animal.SubCategory = subCategory.getSelectedItem().toString();
+
         animal.Description = description.getText().toString();
         animal.District = district.getText().toString();
         if (radioGroup.getVisibility() == View.GONE) {
@@ -618,7 +628,7 @@ public class SellActivity extends AppCompatActivity {
         animal.Status = "Review";
 
         animal.SupplierContact = supplierContact.getText().toString();
-        animal.Type = type.getSelectedItem().toString();
+
         animal.Pic = "images/"+animal.CreatedOn+"_"+animal.SupplierContact+".jpg";
         BitMapToString(bitmap,animal.CreatedOn,animal.SupplierContact);
 
@@ -656,7 +666,7 @@ public class SellActivity extends AppCompatActivity {
         }).start();
         Map<String, Object> listItemValues = animal.toMap(animal);
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Animals/" + key, listItemValues);
+        childUpdates.put("/"+animal.Category+"/" + key, listItemValues);
 
         FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
 

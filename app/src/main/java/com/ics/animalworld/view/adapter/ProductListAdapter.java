@@ -46,7 +46,7 @@ public class ProductListAdapter extends
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
     private IBuilder mDrawableBuilder;
     private TextDrawable drawable;
-    private String subcategory;
+    public String subcategory;
     private String ImageUrl;
     private ArrayList<Animals> productList = new ArrayList<Animals>();
     private OnItemClickListener clickListener;
