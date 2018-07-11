@@ -62,7 +62,7 @@ public class ProductDetailsFragment extends Fragment {
     Bitmap b;
     private int productListNumber;
     private ImageView itemImage;
-    private TextView itemSellPrice, itemName, quanitity, itemdescription, itembreed, itemage, itemgender, itemaddress, itemsupplier;
+    private TextView itemSellPrice, itemName, itemSupplierName, itemdescription,itemdescriptionTxt, itembreed,itembreedTxt, itemage,itemageTxt, itemgender,itemgenderTxt, itemaddress,itemaddressTxt, itemsupplier;
     private IBuilder mDrawableBuilder;
     private Button BtnContact;
     private TextDrawable drawable;
@@ -132,24 +132,40 @@ public class ProductDetailsFragment extends Fragment {
         itembreed = ((TextView) rootView
                 .findViewById(R.id.product_breed));
 
+        itembreedTxt= ((TextView) rootView
+                .findViewById(R.id.product_breed_txt));
+
         itemage = ((TextView) rootView
                 .findViewById(R.id.product_Age));
+
+        itemageTxt = ((TextView) rootView
+                .findViewById(R.id.product_Age_txt));
 
         itemgender = ((TextView) rootView
                 .findViewById(R.id.product_Gender));
 
+        itemgenderTxt = ((TextView) rootView
+                .findViewById(R.id.product_Gender_txt));
+
         itemaddress = ((TextView) rootView
                 .findViewById(R.id.product_Addreess));
 
+        itemaddressTxt = ((TextView) rootView
+                .findViewById(R.id.product_Addreess_txt));
+
         itemdescription = ((TextView) rootView
                 .findViewById(R.id.product_description));
+
+        itemdescriptionTxt = ((TextView) rootView
+                .findViewById(R.id.product_description_txt));
 
         itemImage = (ImageView) rootView.findViewById(R.id.product_image);
 
         BtnContact = (Button) rootView.findViewById(R.id.btnContact);
         itemsupplier = (TextView) rootView.findViewById(R.id.supplier_contact);
-
+        itemSupplierName= (TextView) rootView.findViewById(R.id.supplier_name);
         itemsupplier.setVisibility(View.GONE);
+        itemSupplierName.setVisibility(View.GONE);
         BtnContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,6 +173,7 @@ public class ProductDetailsFragment extends Fragment {
                 if (currentUser != null) {
                     BtnContact.setVisibility(View.GONE);
                     itemsupplier.setVisibility(View.VISIBLE);
+                    itemSupplierName.setVisibility(View.VISIBLE);
                 } else {
                     Intent intent = new Intent();
                     intent.setClass(getActivity(), LogInActivity.class);
@@ -258,201 +275,119 @@ public class ProductDetailsFragment extends Fragment {
             type = CenterRepository.getCenterRepository()
                     .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Type;
 
-            if (type.equals("Animal Food") || type.equals("Animal Medicine") || type.equals("Pet Food") || type.equals("Pet Medicine")) {
+            if (type.equals("Animal Food") || type.equals("Animal Medicine") || type.equals("Pet Food") || type.equals("Pet Medicine") ||type.equals("Farming Tools") || type.equals("Farming Product")) {
                 itemName.setText(CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                         .SubCategory);
 
-                itembreed.setText("Product Name : " + CenterRepository.getCenterRepository()
+                itembreedTxt.setText("Product Name : ");
+
+                itembreed.setText( CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                         .ProductName);
 
-                itemage.setText("Company Name : " + CenterRepository.getCenterRepository()
+                itemageTxt.setText("Company Name : ");
+
+                itemage.setText( CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                         .CompanyName);
 
-                itemgender.setText("Weight: " + CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .weight);
+                if(!type.equals("Farming Tools")){
 
-                itemaddress.setText("Address: " + CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .City + ", " + CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .District);
+                    itemgenderTxt.setText("Weight: ");
 
-                itemdescription.setText("Description: " + CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .Description);
-                itemsupplier.setText(CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .SupplierContact);
+                    itemgender.setText(CenterRepository.getCenterRepository()
+                            .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                            .weight);
 
-                String sellCostString = Money.rupees(
-                        BigDecimal.valueOf(CenterRepository
-                                .getCenterRepository().getMapOfProductsInCategory()
-                                .get(subcategoryKey).get(productListNumber)
-                                .Prize)).toString()
-                        + "  ";
+                }
 
-                String buyMRP = Money.rupees(
-                        BigDecimal.valueOf(CenterRepository
-                                .getCenterRepository().getMapOfProductsInCategory()
-                                .get(subcategoryKey).get(productListNumber)
-                                .Prize)).toString();
-
-                String costString = sellCostString + buyMRP;
-
-                itemSellPrice.setText(costString, BufferType.SPANNABLE);
-
-                Spannable spannable = (Spannable) itemSellPrice.getText();
-
-                spannable.setSpan(new StrikethroughSpan(), sellCostString.length(),
-                        costString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                mDrawableBuilder = TextDrawable.builder().beginConfig()
-                        .withBorder(4).endConfig().roundRect(10);
-
-                drawable = mDrawableBuilder.build(
-                        String.valueOf(CenterRepository.getCenterRepository()
-                                .getMapOfProductsInCategory().get(subcategoryKey)
-                                .get(productListNumber).Category.charAt(0)),
-                        mColorGenerator.getColor(CenterRepository
-                                .getCenterRepository().getMapOfProductsInCategory()
-                                .get(subcategoryKey).get(productListNumber)
-                                .Category));
-
-//
-
-                FirebaseStorage storage = FirebaseStorage.getInstance();
-                StorageReference storageRef = storage.getReference();
-//                StorageReference islandRef = storageRef.child("images/mountains.jpg");
-//                final long ONE_MEGABYTE = 1024 * 1024;
-//                islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//                    @Override
-//                    public void onSuccess(byte[] bytes) {
-//                        itemImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-//                        // Data for "images/island.jpg" is returns, use this as needed
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception exception) {
-//                        // Handle any errors
-//                    }
-//                });
-
-                storageRef.child("images/mountains.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Picasso.with(getActivity())
-                                .load(uri.toString())
-                                .error(drawable).fit().centerCrop()
-                                .networkPolicy(NetworkPolicy.OFFLINE)
-                                .into(itemImage, new Callback() {
-                                    @Override
-                                    public void onSuccess() {
-
-                                    }
-
-                                    @Override
-                                    public void onError() {
-
-                                    }
-                                });
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                    }
-                });
-//
-//                b = StringToBitMap(CenterRepository.getCenterRepository()
-//                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
-//
-//                if (b.getWidth() < 200)
-//                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
-//                else if (b.getWidth() > 200 && b.getWidth() < 500)
-//                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
-//                else if (b.getWidth() > 500)
-//                    itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
-
-                LabelView label = new LabelView(getActivity());
-
-                label.setText("0");//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getDiscount()
-
-                label.setBackgroundColor(0xffE91E63);
-
-                label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);
 
             } else {
                 itemName.setText(CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                         .SubCategory);
 
-                itembreed.setText("Breed: " + CenterRepository.getCenterRepository()
+                itembreedTxt.setText("Breed : ");
+
+                itembreed.setText(CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                         .Breed);
 
-                itemage.setText("Age: " + CenterRepository.getCenterRepository()
+                itemageTxt.setText("Age : ");
+
+                itemage.setText(CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                         .Age);
 
-                itemgender.setText("Gender: " + CenterRepository.getCenterRepository()
+                itemgenderTxt.setText("Gender: ");
+
+                itemgender.setText(CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                         .Gender);
+            }
 
-                itemaddress.setText("Address: " + CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .City + ", " + CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .District);
+            itemaddressTxt.setText("Address: ");
 
-                itemdescription.setText("Description: " + CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .Description);
-                itemsupplier.setText(CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .SupplierContact);
+            itemaddress.setText(CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                    .City + ", " + CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                    .District);
 
-                String sellCostString = Money.rupees(
-                        BigDecimal.valueOf(CenterRepository
-                                .getCenterRepository().getMapOfProductsInCategory()
-                                .get(subcategoryKey).get(productListNumber)
-                                .Prize)).toString()
-                        + "  ";
+            itemdescriptionTxt.setText("Description: ");
 
-                String buyMRP = Money.rupees(
-                        BigDecimal.valueOf(CenterRepository
-                                .getCenterRepository().getMapOfProductsInCategory()
-                                .get(subcategoryKey).get(productListNumber)
-                                .Prize)).toString();
+            itemdescription.setText( CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                    .Description);
 
-                String costString = sellCostString + buyMRP;
+            itemsupplier.setText(CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                    .SupplierContact);
 
-                itemSellPrice.setText(costString, BufferType.SPANNABLE);
-
-                Spannable spannable = (Spannable) itemSellPrice.getText();
-
-                spannable.setSpan(new StrikethroughSpan(), sellCostString.length(),
-                        costString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                mDrawableBuilder = TextDrawable.builder().beginConfig()
-                        .withBorder(4).endConfig().roundRect(10);
-
-                drawable = mDrawableBuilder.build(
-                        String.valueOf(CenterRepository.getCenterRepository()
-                                .getMapOfProductsInCategory().get(subcategoryKey)
-                                .get(productListNumber).Category.charAt(0)),
-                        mColorGenerator.getColor(CenterRepository
-                                .getCenterRepository().getMapOfProductsInCategory()
-                                .get(subcategoryKey).get(productListNumber)
-                                .Category));
+            itemSupplierName.setText(CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                    .SupplierName);
 
 
-                FirebaseStorage storage = FirebaseStorage.getInstance();
-                StorageReference storageRef = storage.getReference();
+            String sellCostString = Money.rupees(
+                    BigDecimal.valueOf(CenterRepository
+                            .getCenterRepository().getMapOfProductsInCategory()
+                            .get(subcategoryKey).get(productListNumber)
+                            .Prize)).toString()
+                    + "  ";
+
+            String buyMRP = Money.rupees(
+                    BigDecimal.valueOf(CenterRepository
+                            .getCenterRepository().getMapOfProductsInCategory()
+                            .get(subcategoryKey).get(productListNumber)
+                            .Prize)).toString();
+
+            String costString =  buyMRP;
+
+            itemSellPrice.setText(costString);
+
+//            Spannable spannable = (Spannable) itemSellPrice.getText();
+
+//            spannable.setSpan(new StrikethroughSpan(), sellCostString.length(),
+//                    costString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            mDrawableBuilder = TextDrawable.builder().beginConfig()
+                    .withBorder(4).endConfig().roundRect(10);
+
+            drawable = mDrawableBuilder.build(
+                    String.valueOf(CenterRepository.getCenterRepository()
+                            .getMapOfProductsInCategory().get(subcategoryKey)
+                            .get(productListNumber).Category.charAt(0)),
+                    mColorGenerator.getColor(CenterRepository
+                            .getCenterRepository().getMapOfProductsInCategory()
+                            .get(subcategoryKey).get(productListNumber)
+                            .Category));
+
+//
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
 //                StorageReference islandRef = storageRef.child("images/mountains.jpg");
 //                final long ONE_MEGABYTE = 1024 * 1024;
 //                islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -467,131 +402,45 @@ public class ProductDetailsFragment extends Fragment {
 //                        // Handle any errors
 //                    }
 //                });
-                storageRef.child("images/mountains.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Picasso.with(getActivity())
-                                .load(uri.toString())
-                                .error(drawable).fit().centerCrop()
-                                .networkPolicy(NetworkPolicy.OFFLINE)
-                                .into(itemImage, new Callback() {
-                                    @Override
-                                    public void onSuccess() {
 
-                                    }
+            storageRef.child("images/mountains.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.with(getActivity())
+                            .load(uri.toString())
+                            .error(drawable).fit().centerCrop()
+                            .networkPolicy(NetworkPolicy.OFFLINE)
+                            .into(itemImage, new Callback() {
+                                @Override
+                                public void onSuccess() {
 
-                                    @Override
-                                    public void onError() {
+                                }
 
-                                    }
-                                });
+                                @Override
+                                public void onError() {
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                    }
-                });
+                                }
+                            });
 
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
 
-                LabelView label = new LabelView(getActivity());
+            LabelView label = new LabelView(getActivity());
 
-                label.setText("0");//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getDiscount()
+            label.setText("0");//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getDiscount()
 
-                label.setBackgroundColor(0xffE91E63);
+            label.setBackgroundColor(0xffE91E63);
 
-
-                label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);
-            }
+            label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);
 
         }
-//        } else {
-//
-//
-//            //Fetch and display products from Shopping list
-//
-//            itemName.setText(CenterRepository.getCenterRepository()
-//                    .getListOfProductsInShoppingList().get(productListNumber).Category);
-//
-//            quanitity.setText("1");//CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getQuantity());
-//
-//            itemdescription.setText(CenterRepository.getCenterRepository()
-//                    .getListOfProductsInShoppingList().get(productListNumber).Description);
-//
-//            String sellCostString = Money.rupees(
-//                    BigDecimal.valueOf(CenterRepository
-//                            .getCenterRepository().getListOfProductsInShoppingList()
-//                            .get(productListNumber).Prize)).toString()
-//                    + "  ";
-//
-//            String buyMRP = Money.rupees(
-//                    BigDecimal.valueOf(CenterRepository
-//                            .getCenterRepository().getListOfProductsInShoppingList()
-//                            .get(productListNumber).Prize)).toString();
-//
-//            String costString = sellCostString + buyMRP;
-//
-//            itemSellPrice.setText(costString, BufferType.SPANNABLE);
-//
-//            Spannable spannable = (Spannable) itemSellPrice.getText();
-//
-//            spannable.setSpan(new StrikethroughSpan(), sellCostString.length(),
-//                    costString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//
-//            mDrawableBuilder = TextDrawable.builder().beginConfig()
-//                    .withBorder(4).endConfig().roundRect(10);
-//
-//            drawable = mDrawableBuilder.build(
-//                    String.valueOf(CenterRepository.getCenterRepository()
-//                            .getListOfProductsInShoppingList().get(productListNumber)
-//                            .Category.charAt(0)),
-//                    mColorGenerator.getColor(CenterRepository
-//                            .getCenterRepository().getListOfProductsInShoppingList()
-//                            .get(productListNumber).Category));
-//
-////            Picasso.with(getActivity())
-////                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg" //CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getImageURL()
-////                    ).placeholder(drawable)
-////                    .error(drawable).fit().centerCrop()
-////                    .networkPolicy(NetworkPolicy.OFFLINE)
-////                    .into(itemImage, new Callback() {
-////                        @Override
-////                        public void onSuccess() {
-////
-////                        }
-////
-////                        @Override
-////                        public void onError() {
-////                            // Try again online if cache failed
-////
-////                            Picasso.with(getActivity())
-////                                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg" //CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getImageURL()
-////                                    )
-////                                    .placeholder(drawable).error(drawable)
-////                                    .fit().centerCrop().into(itemImage);
-////                        }
-////                    });
-//
-//            b = StringToBitMap(CenterRepository.getCenterRepository()
-//                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
-//
-//            if (b.getWidth() < 200)
-//                itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
-//            else if (b.getWidth() > 200 && b.getWidth() < 500)
-//                itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
-//            else if (b.getWidth() > 500)
-//                itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
-//
-//
-//            LabelView label = new LabelView(getActivity());
-//
-//            label.setText("0");//CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getDiscount());
-//            label.setBackgroundColor(0xffE91E63);
-//
-//            label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);
-//
-//        }
+
+
     }
 
     @Override
@@ -603,6 +452,7 @@ public class ProductDetailsFragment extends Fragment {
             if (currentUser != null) {
                 BtnContact.setVisibility(View.GONE);
                 itemsupplier.setVisibility(View.VISIBLE);
+                itemSupplierName.setVisibility(View.VISIBLE);
             }
         }
     }

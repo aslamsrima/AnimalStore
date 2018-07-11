@@ -131,14 +131,14 @@ public class ProductListAdapter extends
                 BigDecimal.valueOf(productList.get(position)
                         .Prize)).toString();
 
-        String costString = sellCostString + buyMRP;
+        String costString =  buyMRP;
 
-        holder.itemCost.setText(costString, BufferType.SPANNABLE);
+        holder.itemCost.setText(costString);
 
-        Spannable spannable = (Spannable) holder.itemCost.getText();
-
-        spannable.setSpan(new StrikethroughSpan(), sellCostString.length(),
-                costString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        Spannable spannable = (Spannable) holder.itemCost.getText();
+//
+//        spannable.setSpan(new StrikethroughSpan(), sellCostString.length(),
+//                costString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         mDrawableBuilder = TextDrawable.builder().beginConfig().withBorder(4)
                 .endConfig().roundRect(10);
