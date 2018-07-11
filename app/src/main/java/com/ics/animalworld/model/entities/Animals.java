@@ -14,11 +14,12 @@ public class Animals {
     public String Breed;
     public String Gender;
     public double Prize;
-    public boolean IsPrizeNegoyiable;
+    public boolean IsPrizeNegotiable;
     public double MlkRec;
     public String Description;
     public String Status;
     public String SupplierContact;
+    public String SupplierName;
     public String City;
     public String District;
     public String State;
@@ -45,11 +46,12 @@ public class Animals {
         result.put("Breed", animal.Breed);
         result.put("Gender", animal.Gender);
         result.put("Prize", animal.Prize);
-        result.put("IsPrizeNegoyiable", animal.IsPrizeNegoyiable);
+        result.put("IsPrizeNegotiable", animal.IsPrizeNegotiable);
         result.put("MlkRec", animal.MlkRec);
         result.put("Description", animal.Description);
         result.put("Status", animal.Status);
         result.put("SupplierContact", animal.SupplierContact);
+        result.put("SupplierName", animal.SupplierName);
         result.put("City", animal.City);
         result.put("District", animal.District);
         result.put("State", animal.State);

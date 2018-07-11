@@ -345,26 +345,20 @@ public class ProductDetailsFragment extends Fragment {
                     @Override
                     public void onSuccess(Uri uri) {
                         Picasso.with(getActivity())
-                    .load(uri)
-                    .error(drawable).fit().centerCrop()
-                    .networkPolicy(NetworkPolicy.OFFLINE)
-                    .into(itemImage, new Callback() {
-                        @Override
-                        public void onSuccess() {
+                                .load(uri.toString())
+                                .error(drawable).fit().centerCrop()
+                                .networkPolicy(NetworkPolicy.OFFLINE)
+                                .into(itemImage, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
 
-                        }
+                                    }
 
-                        @Override
-                        public void onError() {
-                            // Try again online if cache failed
-//
-//                            Picasso.with(getActivity())
-//                                    .load(//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getImageURL()
-//                                            "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg\",")
-//                                    .placeholder(drawable).error(drawable)
-//                                    .fit().centerCrop().into(itemImage);
-                        }
-                    });
+                                    @Override
+                                    public void onError() {
+
+                                    }
+                                });
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -477,7 +471,7 @@ public class ProductDetailsFragment extends Fragment {
                     @Override
                     public void onSuccess(Uri uri) {
                         Picasso.with(getActivity())
-                                .load(uri)
+                                .load(uri.toString())
                                 .error(drawable).fit().centerCrop()
                                 .networkPolicy(NetworkPolicy.OFFLINE)
                                 .into(itemImage, new Callback() {
@@ -488,13 +482,7 @@ public class ProductDetailsFragment extends Fragment {
 
                                     @Override
                                     public void onError() {
-                                        // Try again online if cache failed
-//
-//                            Picasso.with(getActivity())
-//                                    .load(//CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).getImageURL()
-//                                            "https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg\",")
-//                                    .placeholder(drawable).error(drawable)
-//                                    .fit().centerCrop().into(itemImage);
+
                                     }
                                 });
 
@@ -517,93 +505,93 @@ public class ProductDetailsFragment extends Fragment {
                 label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);
             }
 
-
-        } else {
-
-
-            //Fetch and display products from Shopping list
-
-            itemName.setText(CenterRepository.getCenterRepository()
-                    .getListOfProductsInShoppingList().get(productListNumber).Category);
-
-            quanitity.setText("1");//CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getQuantity());
-
-            itemdescription.setText(CenterRepository.getCenterRepository()
-                    .getListOfProductsInShoppingList().get(productListNumber).Description);
-
-            String sellCostString = Money.rupees(
-                    BigDecimal.valueOf(CenterRepository
-                            .getCenterRepository().getListOfProductsInShoppingList()
-                            .get(productListNumber).Prize)).toString()
-                    + "  ";
-
-            String buyMRP = Money.rupees(
-                    BigDecimal.valueOf(CenterRepository
-                            .getCenterRepository().getListOfProductsInShoppingList()
-                            .get(productListNumber).Prize)).toString();
-
-            String costString = sellCostString + buyMRP;
-
-            itemSellPrice.setText(costString, BufferType.SPANNABLE);
-
-            Spannable spannable = (Spannable) itemSellPrice.getText();
-
-            spannable.setSpan(new StrikethroughSpan(), sellCostString.length(),
-                    costString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-            mDrawableBuilder = TextDrawable.builder().beginConfig()
-                    .withBorder(4).endConfig().roundRect(10);
-
-            drawable = mDrawableBuilder.build(
-                    String.valueOf(CenterRepository.getCenterRepository()
-                            .getListOfProductsInShoppingList().get(productListNumber)
-                            .Category.charAt(0)),
-                    mColorGenerator.getColor(CenterRepository
-                            .getCenterRepository().getListOfProductsInShoppingList()
-                            .get(productListNumber).Category));
-
-//            Picasso.with(getActivity())
-//                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg" //CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getImageURL()
-//                    ).placeholder(drawable)
-//                    .error(drawable).fit().centerCrop()
-//                    .networkPolicy(NetworkPolicy.OFFLINE)
-//                    .into(itemImage, new Callback() {
-//                        @Override
-//                        public void onSuccess() {
-//
-//                        }
-//
-//                        @Override
-//                        public void onError() {
-//                            // Try again online if cache failed
-//
-//                            Picasso.with(getActivity())
-//                                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg" //CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getImageURL()
-//                                    )
-//                                    .placeholder(drawable).error(drawable)
-//                                    .fit().centerCrop().into(itemImage);
-//                        }
-//                    });
-
-            b = StringToBitMap(CenterRepository.getCenterRepository()
-                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
-
-            if (b.getWidth() < 200)
-                itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
-            else if (b.getWidth() > 200 && b.getWidth() < 500)
-                itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
-            else if (b.getWidth() > 500)
-                itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
-
-
-            LabelView label = new LabelView(getActivity());
-
-            label.setText("0");//CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getDiscount());
-            label.setBackgroundColor(0xffE91E63);
-
-            label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);
-
         }
+//        } else {
+//
+//
+//            //Fetch and display products from Shopping list
+//
+//            itemName.setText(CenterRepository.getCenterRepository()
+//                    .getListOfProductsInShoppingList().get(productListNumber).Category);
+//
+//            quanitity.setText("1");//CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getQuantity());
+//
+//            itemdescription.setText(CenterRepository.getCenterRepository()
+//                    .getListOfProductsInShoppingList().get(productListNumber).Description);
+//
+//            String sellCostString = Money.rupees(
+//                    BigDecimal.valueOf(CenterRepository
+//                            .getCenterRepository().getListOfProductsInShoppingList()
+//                            .get(productListNumber).Prize)).toString()
+//                    + "  ";
+//
+//            String buyMRP = Money.rupees(
+//                    BigDecimal.valueOf(CenterRepository
+//                            .getCenterRepository().getListOfProductsInShoppingList()
+//                            .get(productListNumber).Prize)).toString();
+//
+//            String costString = sellCostString + buyMRP;
+//
+//            itemSellPrice.setText(costString, BufferType.SPANNABLE);
+//
+//            Spannable spannable = (Spannable) itemSellPrice.getText();
+//
+//            spannable.setSpan(new StrikethroughSpan(), sellCostString.length(),
+//                    costString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//
+//            mDrawableBuilder = TextDrawable.builder().beginConfig()
+//                    .withBorder(4).endConfig().roundRect(10);
+//
+//            drawable = mDrawableBuilder.build(
+//                    String.valueOf(CenterRepository.getCenterRepository()
+//                            .getListOfProductsInShoppingList().get(productListNumber)
+//                            .Category.charAt(0)),
+//                    mColorGenerator.getColor(CenterRepository
+//                            .getCenterRepository().getListOfProductsInShoppingList()
+//                            .get(productListNumber).Category));
+//
+////            Picasso.with(getActivity())
+////                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg" //CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getImageURL()
+////                    ).placeholder(drawable)
+////                    .error(drawable).fit().centerCrop()
+////                    .networkPolicy(NetworkPolicy.OFFLINE)
+////                    .into(itemImage, new Callback() {
+////                        @Override
+////                        public void onSuccess() {
+////
+////                        }
+////
+////                        @Override
+////                        public void onError() {
+////                            // Try again online if cache failed
+////
+////                            Picasso.with(getActivity())
+////                                    .load("https://5.imimg.com/data5/RD/OA/MY-50522996/sahiwal-cow-250x250.jpg" //CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getImageURL()
+////                                    )
+////                                    .placeholder(drawable).error(drawable)
+////                                    .fit().centerCrop().into(itemImage);
+////                        }
+////                    });
+//
+//            b = StringToBitMap(CenterRepository.getCenterRepository()
+//                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).Pic.toString());
+//
+//            if (b.getWidth() < 200)
+//                itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 400, 500, false));
+//            else if (b.getWidth() > 200 && b.getWidth() < 500)
+//                itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 700, 500, false));
+//            else if (b.getWidth() > 500)
+//                itemImage.setImageBitmap(Bitmap.createScaledBitmap(b, 900, 500, false));
+//
+//
+//            LabelView label = new LabelView(getActivity());
+//
+//            label.setText("0");//CenterRepository.getCenterRepository().getListOfProductsInShoppingList().get(productListNumber).getDiscount());
+//            label.setBackgroundColor(0xffE91E63);
+//
+//            label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);
+//
+//        }
     }
 
     @Override

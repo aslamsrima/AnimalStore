@@ -164,6 +164,7 @@ public class ProductOverviewFragment extends Fragment {
         CenterRepository.getCenterRepository().clear();
         if (productList.size() == 0) {
             LoadingTxt.setVisibility(View.VISIBLE);
+            header.setVisibility(View.GONE);
             circularProgressBar = (ProgressBar) view.findViewById(R.id.circular_progress1);
             FakeWebServer.getFakeWebServer().getAllProducts(
                     AppConstants.CURRENT_CATEGORY, new FakeWebServer.FakeWebServiceResponseListener() {
@@ -174,6 +175,7 @@ public class ProductOverviewFragment extends Fragment {
                                     setUpUi();
                                     setupViewPager(viewPager);
                                     circularProgressBar.setVisibility(View.GONE);
+                                    header.setVisibility(View.VISIBLE);
                                     LoadingTxt.setVisibility(View.GONE);
                                     SortBy.setAdapter(dataAdapter);
                                     SortTxt.setVisibility(View.VISIBLE);
@@ -187,7 +189,9 @@ public class ProductOverviewFragment extends Fragment {
         } else {
 
             // set data to product map first. View is getting data from there
+            header.setVisibility(View.GONE);
             LoadingTxt.setVisibility(View.VISIBLE);
+
             circularProgressBar = (ProgressBar) view.findViewById(R.id.circular_progress1);
             if (AppConstants.CURRENT_CATEGORY == 0) {
                 FakeWebServer.getFakeWebServer().updateProductMapForCategory("Animal", productList);
@@ -209,6 +213,7 @@ public class ProductOverviewFragment extends Fragment {
             setUpUi();
             setupViewPager(viewPager);
             circularProgressBar.setVisibility(View.GONE);
+            header.setVisibility(View.VISIBLE);
             SortBy.setAdapter(dataAdapter);
             SortTxt.setVisibility(View.VISIBLE);
             SortBy.setVisibility(View.VISIBLE);
@@ -289,7 +294,7 @@ public class ProductOverviewFragment extends Fragment {
                         switch (tab.getPosition()) {
                             case 0:
 
-                                header.setImageResource(R.drawable.header_1);
+                                header.setImageResource(R.drawable.header);
 
                                 bitmap = BitmapFactory.decodeResource(
                                         getResources(), R.drawable.header);

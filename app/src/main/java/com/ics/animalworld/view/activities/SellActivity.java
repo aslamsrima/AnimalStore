@@ -154,7 +154,7 @@ public class SellActivity extends AppCompatActivity {
         price = (EditText) findViewById(R.id.price);
         negotiable = (CheckBox) findViewById(R.id.chk_is_negotiable);
         AddPost = (Button) findViewById(R.id.btnAddPost);
-        supplierName = (EditText) findViewById(R.id.reg_Name_supplier_contact);
+        supplierName = (EditText) findViewById(R.id.reg_supplier_name);
         AddPost.setClickable(false);
 
         //Submit OnClick Listener
@@ -335,6 +335,7 @@ public class SellActivity extends AppCompatActivity {
                     product_name.setVisibility(View.VISIBLE);
                     company_name.setVisibility(View.VISIBLE);
                     weight.setVisibility(View.GONE);
+                    addValidationToViews();
                 }else if (position == 4){
                     AddPost.setClickable(true);
                     milkRec.setVisibility(View.GONE);
@@ -345,6 +346,7 @@ public class SellActivity extends AppCompatActivity {
                     product_name.setVisibility(View.VISIBLE);
                     company_name.setVisibility(View.VISIBLE);
                     weight.setVisibility(View.GONE);
+                    addValidationToViews();
                 }
             }
 
@@ -582,7 +584,7 @@ public class SellActivity extends AppCompatActivity {
             animal.Breed = breed.getText().toString();
         }
         animal.Category = category.getSelectedItem().toString();
-        if(animal.Category.equals("Farming Tools")){
+        if(animal.Category.equals("Farming Tool")){
             animal.Type = "Farming Tools";
             animal.SubCategory = "Farming Tools";
         }else if(animal.Category.equals("Farming Product")){
@@ -601,7 +603,7 @@ public class SellActivity extends AppCompatActivity {
         } else {
             animal.Gender = radioButton.getText().toString();
         }
-        animal.IsPrizeNegoyiable = true;
+        animal.IsPrizeNegotiable = true;
         if (milkRec.getVisibility() == View.GONE) {
             animal.MlkRec = 0;
         } else {
@@ -627,7 +629,7 @@ public class SellActivity extends AppCompatActivity {
         animal.CreatedOn = new Date().toString();
         animal.Status = "Review";
 
-        animal.SupplierContact = supplierContact.getText().toString();
+        animal.SupplierName = supplierName.getText().toString();
 
         animal.Pic = "images/"+animal.CreatedOn+"_"+animal.SupplierContact+".jpg";
         BitMapToString(bitmap,animal.CreatedOn,animal.SupplierContact);
@@ -730,11 +732,11 @@ public class SellActivity extends AppCompatActivity {
             awesomeValidation.addValidation(this, R.id.reg_product_name, RegexTemplate.NOT_EMPTY, R.string.invalid_productName);
         if (company_name.getVisibility() == View.VISIBLE)
             awesomeValidation.addValidation(this, R.id.reg_company_name, RegexTemplate.NOT_EMPTY, R.string.invalid_companyName);
-        awesomeValidation.addValidation(this, R.id.reg_description, "^[a-zA-Z0-9% ]{20,100}$$", R.string.invalid_description);
+        awesomeValidation.addValidation(this, R.id.reg_description, "^[a-zA-Z0-9%,. ]{20,100}$$", R.string.invalid_description);
         awesomeValidation.addValidation(this, R.id.price, "^[0-9]{1,5}$", R.string.invalid_price);
         awesomeValidation.addValidation(this, R.id.reg_city, "^[a-zA-Z]{3,15}$$", R.string.invalid_city);
         awesomeValidation.addValidation(this, R.id.reg_district, "^[a-zA-Z]{3,15}$$", R.string.invalid_district);
-        awesomeValidation.addValidation(this, R.id.reg_Name_supplier_contact, "^[a-zA-Z]{3,15}$$", R.string.invalid_sname);
+        awesomeValidation.addValidation(this, R.id.reg_supplier_name, "^[a-zA-Z]{3,15}$$", R.string.invalid_sname);
     }
 
     private void submitForm(View v) {
