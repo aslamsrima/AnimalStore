@@ -278,12 +278,6 @@ public class ProductDetailsFragment extends Fragment {
             if (type.equals("Animal Food") || type.equals("Animal Medicine") || type.equals("Pet Food") || type.equals("Pet Medicine") ||type.equals("Farming Tools") || type.equals("Farming Product")) {
                 itemName.setText(CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .SubCategory);
-
-                itembreedTxt.setText("Product Name : ");
-
-                itembreed.setText( CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                         .ProductName);
 
                 itemageTxt.setText("Company Name : ");

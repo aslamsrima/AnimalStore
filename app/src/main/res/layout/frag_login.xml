@@ -46,7 +46,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/username"
-                    android:drawableTint="@color/primary"
+                    android:drawableTint="#00695C"
                     android:singleLine="true"
                     android:hint="User Name"
                     android:inputType="textEmailAddress" />
@@ -62,7 +62,7 @@
                     android:layout_marginTop="16dp"
                     android:singleLine="true"
                     android:id="@+id/password"
-                    android:drawableTint="@color/primary"
+                    android:drawableTint="#00695C"
                     android:hint="Password"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
@@ -80,7 +80,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="22dp"
-                android:background="@color/primary"
+                android:background="#00695C"
                 android:text="Sign in"
                 android:textAllCaps="false"
                 android:textColor="#fff"

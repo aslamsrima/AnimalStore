@@ -6,7 +6,7 @@
     android:id="@+id/htab_maincontent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/holo_gray_light"
+    android:background="#00695C"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/Base.MyTheme">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/htab_collapse_toolbar"
@@ -37,7 +37,7 @@
                 android:id="@+id/htab_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                android:background="#00695C"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -46,9 +46,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sort By:"
+                    android:textColor="@color/color_white"
                     android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_black" />
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/Sort"
@@ -74,14 +74,17 @@
         android:indeterminate="true"
         android:layout_gravity="center"
         android:layout_marginTop="70dp"/>
+
     <TextView
         android:id="@+id/loadertxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:layout_gravity="center"
+        android:layout_marginTop="120dp"
         android:text="Loading ..."
         />
+
     <!--<com.rey.material.widget.ProgressView
 
         android:layout_width="42dp"
@@ -96,6 +99,7 @@
         android:id="@+id/htab_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#E5E5E5"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 

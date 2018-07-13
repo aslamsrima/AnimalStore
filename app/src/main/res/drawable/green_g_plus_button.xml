@@ -11,7 +11,7 @@
     android:shape="rectangle">
 
     <!-- view background color -->
-    <solid android:color="#03A14D"></solid>
+    <solid android:color="#00695C"></solid>
 
     <!-- view border color and width -->
     <stroke

@@ -19,7 +19,7 @@
             android:id="@+id/htab_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="#00695C"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
@@ -36,6 +36,7 @@
             android:id="@+id/visit_card_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/color_gray_light"
             android:layout_marginTop="05dp">
 
 
@@ -158,38 +159,6 @@
                     android:textSize="18dp" />
             </LinearLayout>
 
-
-            <LinearLayout
-                android:id="@+id/on_location_linear_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/actual_duration_linear_layout"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="180dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/product_Addreess_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="#000000"
-                    android:textSize="20dp"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:id="@+id/product_Addreess"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="#000000"
-                    android:textSize="18dp" />
-
-            </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/on_location_linear_layout1"
                 android:layout_width="wrap_content"
@@ -225,6 +194,40 @@
                     android:textSize="18dp" />
 
             </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/on_location_linear_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/actual_duration_linear_layout"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="180dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/product_Addreess_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/product_Addreess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#000000"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+
 
         </android.support.v7.widget.CardView>
 

@@ -9,7 +9,7 @@
 
 <resources>
 
-    <style name="MyTheme" parent="Base.MyTheme">
+    <style name="MyTheme" parent="android:Theme.Material">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 

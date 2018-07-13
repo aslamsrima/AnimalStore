@@ -47,7 +47,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/email"
-                    android:drawableTint="#FF4081"
+                    android:drawableTint="#00695C"
                     android:singleLine="true"
                     android:hint="Email"
                     android:inputType="text" />
@@ -63,7 +63,7 @@
                     android:layout_marginTop="10dp"
                     android:singleLine="true"
                     android:id="@+id/password"
-                    android:drawableTint="#FF4081"
+                    android:drawableTint="#00695C"
                     android:hint="Password"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/sign_up_button"
                 android:layout_marginTop="22dp"
-                android:background="@color/primary"
+                android:background="#00695C"
                 android:text="Create My Account"
                 android:textAllCaps="false"
                 android:textColor="#fff"

@@ -12,7 +12,7 @@
     android:layout_marginTop="2dp"
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
-    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardBackgroundColor="@color/holo_gray_bright"
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="@dimen/cardview_default_elevation">
 
@@ -54,7 +54,7 @@
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:text="Item Name"
-                android:textColor="@android:color/background_dark"
+                android:textColor="@color/color_black"
                 android:textSize="15sp" />
 
             <TextView
@@ -96,8 +96,8 @@
                 android:id="@+id/item_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="10dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/item_short_desc"
                 android:ellipsize="marquee"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
