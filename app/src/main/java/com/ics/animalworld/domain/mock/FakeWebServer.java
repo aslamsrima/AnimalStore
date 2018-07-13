@@ -74,71 +74,70 @@ public class FakeWebServer {
 
     public void getAllAnimals(Map<String, Object> animal, int productCategory) {
 
-        productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
+        if (animal != null) {
+            productMap = new ConcurrentHashMap<String, ArrayList<Animals>>();
 
-        ArrayList<Animals> productlist = new ArrayList<Animals>();
-        Animals myAnimal = new Animals();
-        Gson gson = new Gson();
+            ArrayList<Animals> productlist = new ArrayList<Animals>();
+            Animals myAnimal = new Animals();
+            Gson gson = new Gson();
 
-        for (String s : animal.keySet()) {
-            JsonElement jsonElement = gson.toJsonTree(animal.get(s));
-            myAnimal = gson.fromJson(jsonElement, Animals.class);
-            productlist.add(myAnimal);
-        }
+            for (String s : animal.keySet()) {
+                JsonElement jsonElement = gson.toJsonTree(animal.get(s));
+                myAnimal = gson.fromJson(jsonElement, Animals.class);
+                productlist.add(myAnimal);
+            }
 
-        ArrayList<Animals> list = new ArrayList<Animals>();
-        ArrayList<Animals> food = new ArrayList<Animals>();
-        ArrayList<Animals> medicine = new ArrayList<Animals>();
-//        ArrayList<Animals> petslist = new ArrayList<Animals>();
-//        ArrayList<Animals> petsfood = new ArrayList<Animals>();
-//        ArrayList<Animals> petsmedicine = new ArrayList<Animals>();
+            ArrayList<Animals> list = new ArrayList<Animals>();
+            ArrayList<Animals> food = new ArrayList<Animals>();
+            ArrayList<Animals> medicine = new ArrayList<Animals>();
 
-        for (Animals item : productlist) {
-            if (productCategory == 0) {
-                if (item.Category.equals("Animal")) {
-                    if (item.Type.equals("Animal"))
+            for (Animals item : productlist) {
+                if (productCategory == 0) {
+                    if (item.Category.equals("Animal")) {
+                        if (item.Type.equals("Animal"))
+                            list.add(item);
+                        else if (item.Type.equals("Animal Food"))
+                            food.add(item);
+                        else if (item.Type.equals("Animal Medicine"))
+                            medicine.add(item);
+
+                    }
+                } else if (productCategory == 1) {
+                    if (item.Category.equals("Pet")) {
+                        if (item.Type.equals("Pet"))
+                            list.add(item);
+                        else if (item.Type.equals("Pet Food"))
+                            food.add(item);
+                        else if (item.Type.equals("Pet Medicine"))
+                            medicine.add(item);
+                    }
+                } else if (productCategory == 2) {
+                    if (item.Category.equals("Farming Tool")) {
                         list.add(item);
-                    else if (item.Type.equals("Animal Food"))
-                        food.add(item);
-                    else if (item.Type.equals("Animal Medicine"))
-                        medicine.add(item);
-
-                }
-            } else if (productCategory == 1) {
-                if (item.Category.equals("Pet")) {
-                    if (item.Type.equals("Pet"))
+                    }
+                } else if (productCategory == 3) {
+                    if (item.Category.equals("Farming Product")) {
                         list.add(item);
-                    else if (item.Type.equals("Pet Food"))
-                        food.add(item);
-                    else if (item.Type.equals("Pet Medicine"))
-                        medicine.add(item);
-                }
-            }else if (productCategory == 2){
-                if (item.Category.equals("Farming Tool")){
-                    list.add(item);
-                }
-            }else if (productCategory == 3){
-                if (item.Category.equals("Farming Product")){
-                    list.add(item);
+                    }
                 }
             }
-        }
-        if (productCategory == 0) {
-            productMap.put("Animal", list);
-            productMap.put("Animal's Food", food);
-            productMap.put("Animal's Medicine", medicine);
-        } else if (productCategory == 1) {
-            productMap.put("Pet", list);
-            productMap.put("Pet's Food", food);
-            productMap.put("Pet's Medicine", medicine);
-        }else if (productCategory == 2) {
-            productMap.put("Farming Tool", list);
-        }else if (productCategory == 3) {
-            productMap.put("Farming Product", list);
-        }
-        CenterRepository.getCenterRepository().clear();
-        CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
+            if (productCategory == 0) {
+                productMap.put("Animal", list);
+                productMap.put("Animal's Food", food);
+                productMap.put("Animal's Medicine", medicine);
+            } else if (productCategory == 1) {
+                productMap.put("Pet", list);
+                productMap.put("Pet's Food", food);
+                productMap.put("Pet's Medicine", medicine);
+            } else if (productCategory == 2) {
+                productMap.put("Farming Tool", list);
+            } else if (productCategory == 3) {
+                productMap.put("Farming Product", list);
+            }
+            CenterRepository.getCenterRepository().clear();
+            CenterRepository.getCenterRepository().setMapOfProductsInCategory(productMap);
 
+        }
     }
 
     public void updateProductMapForCategory(String category, ArrayList<Animals> animals) {
@@ -151,13 +150,13 @@ public class FakeWebServer {
 
     public void getAllProducts(int productCategory, final FakeWebServiceResponseListener listener) {
         selectedCategory = productCategory;
-        if(productCategory == 0){
+        if (productCategory == 0) {
             mDatabase = FirebaseDatabase.getInstance().getReference().child("Animal");
-        }else if(productCategory == 1){
+        } else if (productCategory == 1) {
             mDatabase = FirebaseDatabase.getInstance().getReference().child("Pet");
-        }else if(productCategory == 2){
+        } else if (productCategory == 2) {
             mDatabase = FirebaseDatabase.getInstance().getReference().child("Farming Tool");
-        }else if(productCategory == 3)
+        } else if (productCategory == 3)
             mDatabase = FirebaseDatabase.getInstance().getReference().child("Farming Product");
 
         mDatabase.addListenerForSingleValueEvent(

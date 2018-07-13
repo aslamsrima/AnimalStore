@@ -42,7 +42,7 @@ public class ProductOverviewFragment extends Fragment {
 
     public static String sortString = "";
     public ProgressBar circularProgressBar;
-    TextView SortTxt, LoadingTxt;
+    TextView SortTxt, LoadingTxt,Nodata;
     ArrayAdapter<String> dataAdapter;
     List<String> animalList;
     ArrayList<Animals> productList;
@@ -84,11 +84,12 @@ public class ProductOverviewFragment extends Fragment {
         collapsingToolbarLayout = (CollapsingToolbarLayout) view
                 .findViewById(R.id.htab_collapse_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
-
+        Nodata = (TextView) view.findViewById(R.id.noitemstxt);
         header = (KenBurnsView) view.findViewById(R.id.htab_header);
         header.setImageResource(R.drawable.header);
         LoadingTxt = (TextView) view.findViewById(R.id.loadertxt);
         LoadingTxt.setVisibility(View.GONE);
+        Nodata.setVisibility(View.GONE);
         tabLayout = (TabLayout) view.findViewById(R.id.htab_tabs);
         // recyclerView = (RecyclerView)view1.findViewById(R.id.product_list_recycler_view);
         mToolbar = (Toolbar) view.findViewById(R.id.htab_toolbar);
@@ -172,14 +173,21 @@ public class ProductOverviewFragment extends Fragment {
                         public void onServiceResponse(boolean success) {
                             if (success) {
                                 try {
-                                    setUpUi();
-                                    setupViewPager(viewPager);
                                     circularProgressBar.setVisibility(View.GONE);
                                     header.setVisibility(View.VISIBLE);
                                     LoadingTxt.setVisibility(View.GONE);
-                                    SortBy.setAdapter(dataAdapter);
-                                    SortTxt.setVisibility(View.VISIBLE);
-                                    SortBy.setVisibility(View.VISIBLE);
+                                    if(CenterRepository.getCenterRepository().getMapOfProductsInCategory() == null){
+                                        setUpUi();
+                                        setupViewPager(viewPager);
+
+                                        SortBy.setAdapter(dataAdapter);
+                                        SortTxt.setVisibility(View.VISIBLE);
+                                        SortBy.setVisibility(View.VISIBLE);
+                                    }else{
+                                        Nodata.setVisibility(View.VISIBLE);
+
+                                    }
+
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }

@@ -38,6 +38,7 @@
     <string name="weight">Weight</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="noRec">No items available currently in this category</string>
 
 
     <string name="register_link"><u>Do not have an Account?</u></string>
