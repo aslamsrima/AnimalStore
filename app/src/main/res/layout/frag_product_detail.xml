@@ -163,7 +163,7 @@
                 android:id="@+id/on_location_linear_layout1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/on_location_linear_layout"
+                android:layout_below="@id/actual_duration_linear_layout"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="220dp"
                 android:orientation="horizontal">

@@ -176,7 +176,7 @@ public class ProductOverviewFragment extends Fragment {
                                     circularProgressBar.setVisibility(View.GONE);
                                     header.setVisibility(View.VISIBLE);
                                     LoadingTxt.setVisibility(View.GONE);
-                                    if(CenterRepository.getCenterRepository().getMapOfProductsInCategory() == null){
+                                    if(CenterRepository.getCenterRepository().getMapOfProductsInCategory() != null){
                                         setUpUi();
                                         setupViewPager(viewPager);
 
