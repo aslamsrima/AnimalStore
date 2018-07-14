@@ -54,6 +54,7 @@ public class ProductOverviewFragment extends Fragment {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TabLayout tabLayout;
     private Spinner SortBy;
+    private String itemCategory;
     //RecyclerView recyclerView;
 
     @Override
@@ -154,14 +155,20 @@ public class ProductOverviewFragment extends Fragment {
         TinyDB tinydb = new TinyDB(this.getContext().getApplicationContext());
         if (AppConstants.CURRENT_CATEGORY == 0){
             productList = tinydb.getListObject("Animal", Animals.class);
+            itemCategory = "Animal";
         }
-        if (AppConstants.CURRENT_CATEGORY == 1)
+        if (AppConstants.CURRENT_CATEGORY == 1){
             productList = tinydb.getListObject("Pet", Animals.class);
-        if (AppConstants.CURRENT_CATEGORY == 2)
+            itemCategory = "Pet";
+        }
+        if (AppConstants.CURRENT_CATEGORY == 2) {
             productList = tinydb.getListObject("Farming Tool", Animals.class);
-        if (AppConstants.CURRENT_CATEGORY == 3)
+            itemCategory = "Farming Tool";
+        }
+        if (AppConstants.CURRENT_CATEGORY == 3) {
             productList = tinydb.getListObject("Farming Product", Animals.class);
-
+            itemCategory = "Farming Product";
+        }
         CenterRepository.getCenterRepository().clear();
         if (productList.size() == 0) {
             LoadingTxt.setVisibility(View.VISIBLE);
@@ -176,7 +183,8 @@ public class ProductOverviewFragment extends Fragment {
                                     circularProgressBar.setVisibility(View.GONE);
                                     header.setVisibility(View.VISIBLE);
                                     LoadingTxt.setVisibility(View.GONE);
-                                    if(CenterRepository.getCenterRepository().getMapOfProductsInCategory() != null){
+                                    if(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                                            .get(itemCategory) != null){
                                         setUpUi();
                                         setupViewPager(viewPager);
 

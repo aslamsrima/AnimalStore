@@ -300,19 +300,16 @@ public class ProductDetailsFragment extends Fragment {
             } else {
                 itemName.setText(CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
+                        .Breed+", "+CenterRepository.getCenterRepository()
+                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                         .SubCategory);
 
-                itembreedTxt.setText("Breed : ");
-
-                itembreed.setText(CenterRepository.getCenterRepository()
-                        .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .Breed);
 
                 itemageTxt.setText("Age : ");
 
-                itemage.setText(CenterRepository.getCenterRepository()
+                itemage.setText(Integer.toString(CenterRepository.getCenterRepository()
                         .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
-                        .Age);
+                        .Age));
 
                 itemgenderTxt.setText("Gender: ");
 
