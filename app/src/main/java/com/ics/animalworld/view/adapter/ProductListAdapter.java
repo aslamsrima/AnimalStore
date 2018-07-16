@@ -64,7 +64,7 @@ public class ProductListAdapter extends
             } else {
                 ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
                 for (Animals item : productList) {
-                    if (item.SubCategory.toLowerCase().equals(sortBy.toLowerCase()))
+                    if (item.District.toLowerCase().equals(sortBy.toLowerCase()))
                         Sortedlist.add(item);
                 }
                 productList.clear();
@@ -80,7 +80,7 @@ public class ProductListAdapter extends
             } else {
                 ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
                 for (Animals item : productList) {
-                    if (item.SubCategory.toLowerCase().equals(sortBy.toLowerCase()))
+                    if (item.District.toLowerCase().equals(sortBy.toLowerCase()))
                         Sortedlist.add(item);
                 }
                 productList.clear();

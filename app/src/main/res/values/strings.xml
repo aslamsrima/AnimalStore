@@ -72,6 +72,7 @@
         <item>Password</item>
     </string-array>
     <string-array name="SubCategory">
+        <item> Animal / Pet</item>
         <item>Food</item>
         <item>Medicine</item>
     </string-array>

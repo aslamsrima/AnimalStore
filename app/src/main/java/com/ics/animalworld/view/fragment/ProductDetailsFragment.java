@@ -379,22 +379,11 @@ public class ProductDetailsFragment extends Fragment {
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
-//                StorageReference islandRef = storageRef.child("images/mountains.jpg");
-//                final long ONE_MEGABYTE = 1024 * 1024;
-//                islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//                    @Override
-//                    public void onSuccess(byte[] bytes) {
-//                        itemImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-//                        // Data for "images/island.jpg" is returns, use this as needed
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception exception) {
-//                        // Handle any errors
-//                    }
-//                });
 
-            storageRef.child("images/mountains.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            String filename ="images/"+CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).CreatedOn+"_"+CenterRepository.getCenterRepository()
+                    .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber).SupplierContact+".jpg";
+            storageRef.child(filename).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     Picasso.with(getActivity())

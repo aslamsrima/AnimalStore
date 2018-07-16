@@ -118,7 +118,7 @@ public class SearchProductFragment extends Fragment {
                 if(Category.getSelectedItem().toString().equals("Animal")){
                     if(SubCategory.getSelectedItem().toString().equals("Food")){
                         subcat="Animal's Food";
-                    }else if(SubCategory.getSelectedItem().toString().equals("Medicine")){
+                    }else if(SubCategory.getSelectedItem().toString().equals("Animal / Pet")){
                         subcat="Animals";
                     }else{
                         subcat="Animal's Medicine";
@@ -127,7 +127,7 @@ public class SearchProductFragment extends Fragment {
                 }else{
                     if(SubCategory.getSelectedItem().toString().equals("Medicine")){
                         subcat="Pet";
-                    }else if(SubCategory.getSelectedItem().toString().equals("Food")){
+                    }else if(SubCategory.getSelectedItem().toString().equals("Animal / Pet")){
                         subcat="Pet's Food";
                     }else{
                         subcat="Pet's Medicine";
