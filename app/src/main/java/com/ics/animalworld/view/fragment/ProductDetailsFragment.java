@@ -399,25 +399,15 @@ public class ProductDetailsFragment extends Fragment {
                 public void onSuccess(Uri uri) {
                     Picasso.with(getActivity())
                             .load(uri.toString())
-                            .error(drawable).fit().centerCrop()
-                            .networkPolicy(NetworkPolicy.OFFLINE)
-                            .into(itemImage, new Callback() {
-                                @Override
-                                public void onSuccess() {
-
-                                }
-
-                                @Override
-                                public void onError() {
-
-                                }
-                            });
+                            .error(drawable).fit().centerInside()
+                            .into(itemImage, null);
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     // Handle any errors
+                    exception.printStackTrace();
                 }
             });
 
