@@ -19,12 +19,16 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ics.animalworld.R;
+import com.ics.animalworld.domain.mock.FakeWebServer;
+import com.ics.animalworld.model.CenterRepository;
 import com.ics.animalworld.model.entities.Product;
+import com.ics.animalworld.util.AppConstants;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
@@ -39,12 +43,16 @@ public class SearchProductFragment extends Fragment {
     private final int REQ_CODE_SPEECH_INPUT = 100;
     ArrayList<Product> searchProductList = new ArrayList<>();
     boolean searchInProgress = false;
-    private TextView heading;
+    private TextView heading,LoadingTxt,Nodata;
+    public ProgressBar circularProgressBar;
     private ImageButton btnSpeak;
     private EditText serchInput;
     private RecyclerView serachListView;
     private Spinner Category,SubCategory;
     String subcat="";
+    String searchString;
+    ProductListAdapter adapter;
+
     /** The search adapter. */
     // private SearchListArrayAdapter searchAdapter;
     /**
@@ -69,7 +77,10 @@ public class SearchProductFragment extends Fragment {
         heading = (TextView) rootView.findViewById(R.id.txtSpeech_heading);
 
         serchInput = (EditText) rootView.findViewById(R.id.edt_search_input);
-
+        Nodata = (TextView) rootView.findViewById(R.id.noitemstxt);
+        LoadingTxt = (TextView) rootView.findViewById(R.id.loadertxt);
+        LoadingTxt.setVisibility(View.GONE);
+        Nodata.setVisibility(View.GONE);
         serchInput.setSelected(true);
         Category = (Spinner) rootView.findViewById(R.id.category);
         SubCategory = (Spinner) rootView.findViewById(R.id.subcategory);
@@ -110,41 +121,84 @@ public class SearchProductFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence inputString, int arg1,
                                       int arg2, int arg3) {
-
+                circularProgressBar = (ProgressBar) rootView.findViewById(R.id.circular_progress1);
                 heading.setText("Showing results for "
                         + inputString.toString().toLowerCase());
                 subcat= "";
-
+                String mainCategory ="";
+                boolean IsDataPresent =false;
                 if(Category.getSelectedItem().toString().equals("Animal")){
                     if(SubCategory.getSelectedItem().toString().equals("Food")){
                         subcat="Animal's Food";
                     }else if(SubCategory.getSelectedItem().toString().equals("Animal / Pet")){
-                        subcat="Animals";
+                        subcat="Animal";
                     }else{
                         subcat="Animal's Medicine";
                     }
+                    mainCategory = "Animal";
 
                 }else{
-                    if(SubCategory.getSelectedItem().toString().equals("Medicine")){
+                    if(SubCategory.getSelectedItem().toString().equals("Animal / Pet")){
                         subcat="Pet";
-                    }else if(SubCategory.getSelectedItem().toString().equals("Animal / Pet")){
+                    }else if(SubCategory.getSelectedItem().toString().equals("Food")){
                         subcat="Pet's Food";
                     }else{
                         subcat="Pet's Medicine";
                     }
+                    mainCategory = "Pet";
                 }
-
+                if(CenterRepository.getCenterRepository().getMapOfProductsInCategory() !=null){
+                        if(CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(mainCategory)!=null){
+                            IsDataPresent=true;
+                        }
+                }
+                searchString = inputString.toString();
                 serachListView.setVisibility(View.GONE);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
                         getActivity().getBaseContext());
                 serachListView.setLayoutManager(linearLayoutManager);
                 serachListView.setHasFixedSize(true);
 
-                ProductListAdapter adapter = new ProductListAdapter(subcat,
-                        getActivity(), inputString.toString());
-                serachListView.setAdapter(adapter);
 
-                serachListView.setVisibility(View.VISIBLE);
+                if(!IsDataPresent){
+                    FakeWebServer.getFakeWebServer().getAllProducts(
+                            AppConstants.CURRENT_CATEGORY, new FakeWebServer.FakeWebServiceResponseListener() {
+                                @Override
+                                public void onServiceResponse(boolean success) {
+                                    if (success) {
+                                        try {
+
+                                            adapter = new ProductListAdapter(subcat,
+                                                    getActivity(), searchString.toString());
+                                            circularProgressBar.setVisibility(View.GONE);
+                                            if(adapter.getItemCount() >0){
+                                                serachListView.setAdapter(adapter);
+                                                serachListView.setVisibility(View.VISIBLE);
+                                            }else{}
+                                                serachListView.setVisibility(View.GONE);
+
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            });
+
+                }else{
+
+                    adapter = new ProductListAdapter(subcat,
+                            getActivity(), searchString.toString());
+                    circularProgressBar.setVisibility(View.GONE);
+                    if(adapter.getItemCount() >0){
+                        serachListView.setAdapter(adapter);
+                        serachListView.setVisibility(View.VISIBLE);
+                    }else
+                        serachListView.setVisibility(View.GONE);
+
+                }
+
+
+
                 adapter.SetOnItemClickListener(new ProductListAdapter.OnItemClickListener() {
 
                     @Override

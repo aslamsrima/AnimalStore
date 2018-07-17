@@ -90,6 +90,21 @@ public class HomeFragment extends Fragment {
                 .setDisplayHomeAsUpEnabled(true);
 
         languageSipnner = (Spinner) view.findViewById(R.id.categoryLanguage);
+        TinyDB tinydb = new TinyDB(getActivity().getApplicationContext());
+        if(!tinydb.getString("lang").isEmpty()){
+
+            switch (tinydb.getString("lang")){
+                case  "en":
+                    languageSipnner.setSelection(0);
+                    break;
+                case "hi":
+                    languageSipnner.setSelection(1);
+                    break;
+                case "mr":
+                    languageSipnner.setSelection(0);
+                    break;
+            }
+        }
 
         toolbar.setNavigationIcon(R.drawable.ic_drawer);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

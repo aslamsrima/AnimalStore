@@ -1,6 +1,7 @@
 
 package com.ics.animalworld.view.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,9 +11,13 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ics.animalworld.R;
+import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
@@ -26,6 +31,10 @@ public class SettingsFragment extends Fragment {
 
     private TextView submitLog;
     private Toolbar mToolbar;
+    private Spinner spinner;
+    private Button btnSave;
+    String languagePref ="";
+    Long selectedValue = 0L;
 
     /**
      * Instantiates a new settings fragment.
@@ -53,6 +62,31 @@ public class SettingsFragment extends Fragment {
                 false);
 
         getActivity().setTitle("Settings");
+
+        final TinyDB tinydb = new TinyDB(getContext());
+
+
+        spinner = (Spinner) rootView.findViewById(R.id.language);
+
+        btnSave = (Button) rootView.findViewById(R.id.dialogButtonSave);
+
+        selectedValue = tinydb.getLong(languagePref,0);
+
+        if(!tinydb.getString("lang").isEmpty()){
+
+            switch (tinydb.getString("lang")){
+                case  "en":
+                    spinner.setSelection(0);
+                    break;
+                case "hi":
+                    spinner.setSelection(1);
+                    break;
+                case "mr":
+                    spinner.setSelection(0);
+                    break;
+            }
+        }
+
 
         mToolbar = (Toolbar) rootView.findViewById(R.id.htab_toolbar);
         if (mToolbar != null) {
@@ -132,101 +166,29 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-  /*      rootView.findViewById(R.id.picasso).setOnClickListener(
-                new OnClickListener() {
 
-                    @Override
-                    public void onClick(View v) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("https://github.com/square/picasso"));
-                        startActivity(browserIntent);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                    }
-                });
+                switch (spinner.getSelectedItemPosition()){
+                    case  0:
+                        tinydb.putString("lang","en");
+                        break;
+                    case 1:
+                        tinydb.putString("lang","hi");
+                        break;
+                    case 2:
+                        tinydb.putString("lang","mr");
+                        break;
+                }
 
-        rootView.findViewById(R.id.acra).setOnClickListener(
-                new OnClickListener() {
+                startActivity(new Intent(getActivity(), ECartHomeActivity.class));
+            }
+        });
 
-                    @Override
-                    public void onClick(View v) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("https://github.com/ACRA/acra"));
-                        startActivity(browserIntent);
 
-                    }
-                });
 
-        rootView.findViewById(R.id.pull_zoom_view).setOnClickListener(
-                new OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        Intent browserIntent = new Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://github.com/Frank-Zhu/PullZoomView"));
-                        startActivity(browserIntent);
-
-                    }
-                });
-
-        rootView.findViewById(R.id.list_buddies).setOnClickListener(
-                new OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        Intent browserIntent = new Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://github.com/jpardogo/ListBuddies"));
-                        startActivity(browserIntent);
-
-                    }
-                });
-
-        rootView.findViewById(R.id.list_jazzy).setOnClickListener(
-                new OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        Intent browserIntent = new Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://github.com/twotoasters/JazzyListView"));
-                        startActivity(browserIntent);
-
-                    }
-                });
-
-        rootView.findViewById(R.id.email_dev).setOnClickListener(
-                new OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        final Intent emailIntent = new Intent(
-                                android.content.Intent.ACTION_SEND);
-                        emailIntent.setType("text/plain");
-                        emailIntent
-                                .putExtra(
-                                        android.content.Intent.EXTRA_EMAIL,
-                                        new String[]{"serveroverloadofficial@gmail.com"});
-                        emailIntent.putExtra(
-                                android.content.Intent.EXTRA_SUBJECT,
-                                "Hello There");
-                        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-                                "Add Message here");
-
-                        emailIntent.setType("message/rfc822");
-
-                        try {
-                            startActivity(Intent.createChooser(emailIntent,
-                                    "Send email using..."));
-                        } catch (android.content.ActivityNotFoundException ex) {
-                            Toast.makeText(getActivity(),
-                                    "No email clients installed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                });
-*/
         return rootView;
     }
 }
