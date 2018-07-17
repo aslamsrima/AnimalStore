@@ -5,16 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.Spanned;
-import android.text.style.StrikethroughSpan;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TextView.BufferType;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,12 +37,12 @@ public class ProductListAdapter extends
         ItemTouchHelperAdapter {
 
     public Context context;
+    public String subcategory;
     Bitmap b;
     ImageView imagView;
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
     private IBuilder mDrawableBuilder;
     private TextDrawable drawable;
-    public String subcategory;
     private String ImageUrl;
     private ArrayList<Animals> productList = new ArrayList<Animals>();
     private OnItemClickListener clickListener;
@@ -55,41 +51,29 @@ public class ProductListAdapter extends
                               String sortBy) {
 
         this.subcategory = subcategoryKey;
+
         TinyDB tinydb = new TinyDB(context.getApplicationContext());
         productList = tinydb.getListObject(subcategoryKey, Animals.class);
+
         if (productList.size() == 0) {
             productList = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
                     .get(subcategoryKey);
-            if (sortBy.equals("")) {
-            } else {
-                ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
+        }
+        ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
+        if (!sortBy.equals("")) {
+            if(productList!=null) {
+
                 for (Animals item : productList) {
-                    if (item.District.toLowerCase().equals(sortBy.toLowerCase()))
+                    if (item.District.toLowerCase().contains(sortBy.toLowerCase()))
                         Sortedlist.add(item);
                 }
-                productList.clear();
-                if (Sortedlist.size() > 0)
-                    productList = Sortedlist;
-                FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);
             }
 
-            tinydb.putListObject(subcategoryKey, productList);
-        } else {
-            if (sortBy.equals("")) {
-                // FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);
-            } else {
-                ArrayList<Animals> Sortedlist = new ArrayList<Animals>();
-                for (Animals item : productList) {
-                    if (item.District.toLowerCase().equals(sortBy.toLowerCase()))
-                        Sortedlist.add(item);
-                }
-                productList.clear();
-                if (Sortedlist.size() > 0)
-                    productList = Sortedlist;
-            }
+            FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, Sortedlist);
+
+        }else{
             FakeWebServer.getFakeWebServer().updateProductMapForCategory(subcategoryKey, productList);
-
-
+            tinydb.putListObject(subcategoryKey,productList);
         }
 
         this.context = context;
@@ -131,7 +115,7 @@ public class ProductListAdapter extends
                 BigDecimal.valueOf(productList.get(position)
                         .Prize)).toString();
 
-        String costString =  buyMRP;
+        String costString = buyMRP;
 
         holder.itemCost.setText(costString);
 
@@ -144,7 +128,7 @@ public class ProductListAdapter extends
                 .endConfig().roundRect(10);
 
         try {
-            String filename ="images/"+productList.get(position).CreatedOn+"_"+productList.get(position).SupplierContact+".jpg";
+            String filename = "images/" + productList.get(position).CreatedOn + "_" + productList.get(position).SupplierContact + ".jpg";
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
             StorageReference islandRef = storageRef.child(filename);

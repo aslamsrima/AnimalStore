@@ -1,4 +1,3 @@
-
 package com.ics.animalworld.view.fragment;
 
 import android.content.ActivityNotFoundException;
@@ -15,10 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,8 +24,9 @@ import android.widget.Toast;
 import com.ics.animalworld.R;
 import com.ics.animalworld.domain.mock.FakeWebServer;
 import com.ics.animalworld.model.CenterRepository;
+import com.ics.animalworld.model.entities.Animals;
 import com.ics.animalworld.model.entities.Product;
-import com.ics.animalworld.util.AppConstants;
+import com.ics.animalworld.util.TinyDB;
 import com.ics.animalworld.util.Utils;
 import com.ics.animalworld.util.Utils.AnimationType;
 import com.ics.animalworld.view.activities.ECartHomeActivity;
@@ -41,17 +39,17 @@ public class SearchProductFragment extends Fragment {
 
     private static final int REQ_SCAN_RESULT = 200;
     private final int REQ_CODE_SPEECH_INPUT = 100;
+    public ProgressBar circularProgressBar;
     ArrayList<Product> searchProductList = new ArrayList<>();
     boolean searchInProgress = false;
-    private TextView heading,LoadingTxt,Nodata;
-    public ProgressBar circularProgressBar;
+    String subcat = "";
+    String searchString;
+    ProductListAdapter adapter;
+    private TextView heading, LoadingTxt, Nodata;
     private ImageButton btnSpeak;
     private EditText serchInput;
     private RecyclerView serachListView;
-    private Spinner Category,SubCategory;
-    String subcat="";
-    String searchString;
-    ProductListAdapter adapter;
+    private Spinner Category, SubCategory;
 
     /** The search adapter. */
     // private SearchListArrayAdapter searchAdapter;
@@ -84,24 +82,78 @@ public class SearchProductFragment extends Fragment {
         serchInput.setSelected(true);
         Category = (Spinner) rootView.findViewById(R.id.category);
         SubCategory = (Spinner) rootView.findViewById(R.id.subcategory);
-         serachListView = (RecyclerView) rootView
+        serachListView = (RecyclerView) rootView
                 .findViewById(R.id.search_list_view);
 
+        SubCategory.setVisibility(View.GONE);
+        serchInput.setVisibility(View.GONE);
+        Category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i > 0) {
 
-         Category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-             @Override
-             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                 if(i>0){
-                     btnSpeak.setClickable(true);
+                    circularProgressBar = (ProgressBar) rootView.findViewById(R.id.circular_progress1);
+                    LoadingTxt.setVisibility(View.VISIBLE);
+                    btnSpeak.setClickable(true);
+                    if (CenterRepository.getCenterRepository() != null) {
+                        if (CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(Category.getSelectedItem().toString()) == null) {
 
-                 }
-             }
+                            TinyDB tinydb = new TinyDB(getContext().getApplicationContext());
+                            ArrayList<Animals> productList = tinydb.getListObject(Category.getSelectedItem().toString(), Animals.class);
 
-             @Override
-             public void onNothingSelected(AdapterView<?> adapterView) {
+                            if (productList.size()==0) {
+                                FakeWebServer.getFakeWebServer().getAllProducts(
+                                        i - 1, new FakeWebServer.FakeWebServiceResponseListener() {
+                                            @Override
+                                            public void onServiceResponse(boolean success) {
+                                                if (success) {
+                                                    try {
+                                                        if(Category.getSelectedItemPosition() == 3 || Category.getSelectedItemPosition()==4)
+                                                            SubCategory.setVisibility(View.GONE);
+                                                        else
+                                                            SubCategory.setVisibility(View.VISIBLE);
+                                                        serchInput.setVisibility(View.VISIBLE);
+                                                        circularProgressBar.setVisibility(View.GONE);
+                                                        LoadingTxt.setVisibility(View.GONE);
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }
+                                        });
+                            } else{
+                                if(Category.getSelectedItemPosition() == 3 || Category.getSelectedItemPosition()==4)
+                                    SubCategory.setVisibility(View.GONE);
+                                else
+                                    SubCategory.setVisibility(View.VISIBLE);
+                                serchInput.setVisibility(View.VISIBLE);
+                                circularProgressBar.setVisibility(View.GONE);
+                                LoadingTxt.setVisibility(View.GONE);
+                                FakeWebServer.getFakeWebServer().updateProductMapForCategory(Category.getSelectedItem().toString(), productList);
+                            }
 
-             }
-         });
+                        } else {
+                            SubCategory.setVisibility(View.VISIBLE);
+                            serchInput.setVisibility(View.VISIBLE);
+                            circularProgressBar.setVisibility(View.GONE);
+                            LoadingTxt.setVisibility(View.GONE);
+                        }
+                        if(i == 3 && i==4)
+                            SubCategory.setVisibility(View.GONE);
+
+                    }
+
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+
+            }
+        });
 
         SubCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -121,82 +173,58 @@ public class SearchProductFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence inputString, int arg1,
                                       int arg2, int arg3) {
-                circularProgressBar = (ProgressBar) rootView.findViewById(R.id.circular_progress1);
+
                 heading.setText("Showing results for "
                         + inputString.toString().toLowerCase());
-                subcat= "";
-                String mainCategory ="";
-                boolean IsDataPresent =false;
-                if(Category.getSelectedItem().toString().equals("Animal")){
-                    if(SubCategory.getSelectedItem().toString().equals("Food")){
-                        subcat="Animal's Food";
-                    }else if(SubCategory.getSelectedItem().toString().equals("Animal / Pet")){
-                        subcat="Animal";
-                    }else{
-                        subcat="Animal's Medicine";
-                    }
-                    mainCategory = "Animal";
+                subcat = "";
 
-                }else{
-                    if(SubCategory.getSelectedItem().toString().equals("Animal / Pet")){
-                        subcat="Pet";
-                    }else if(SubCategory.getSelectedItem().toString().equals("Food")){
-                        subcat="Pet's Food";
-                    }else{
-                        subcat="Pet's Medicine";
-                    }
-                    mainCategory = "Pet";
-                }
-                if(CenterRepository.getCenterRepository().getMapOfProductsInCategory() !=null){
-                        if(CenterRepository.getCenterRepository().getMapOfProductsInCategory().get(mainCategory)!=null){
-                            IsDataPresent=true;
+                switch (Category.getSelectedItemPosition()){
+
+                    case 1:
+                        if (SubCategory.getSelectedItem().toString().equals("Food")) {
+                            subcat = "Animal's Food";
+                        } else if (SubCategory.getSelectedItem().toString().equals("Animal / Pet")) {
+                            subcat = "Animal";
+                        } else {
+                            subcat = "Animal's Medicine";
                         }
+                        break;
+                    case 2:
+                        if (SubCategory.getSelectedItem().toString().equals("Animal / Pet")) {
+                            subcat = "Pet";
+                        } else if (SubCategory.getSelectedItem().toString().equals("Food")) {
+                            subcat = "Pet's Food";
+                        } else {
+                            subcat = "Pet's Medicine";
+                        }
+                        break;
+                    case 3:
+                        subcat = Category.getSelectedItem().toString();
+                        break;
+                    case 4:
+                        subcat = Category.getSelectedItem().toString();
+                        break;
                 }
+
+
+
                 searchString = inputString.toString();
                 serachListView.setVisibility(View.GONE);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
                         getActivity().getBaseContext());
                 serachListView.setLayoutManager(linearLayoutManager);
                 serachListView.setHasFixedSize(true);
+                adapter = new ProductListAdapter(subcat,
+                        getActivity(), searchString.toString());
 
-
-                if(!IsDataPresent){
-                    FakeWebServer.getFakeWebServer().getAllProducts(
-                            AppConstants.CURRENT_CATEGORY, new FakeWebServer.FakeWebServiceResponseListener() {
-                                @Override
-                                public void onServiceResponse(boolean success) {
-                                    if (success) {
-                                        try {
-
-                                            adapter = new ProductListAdapter(subcat,
-                                                    getActivity(), searchString.toString());
-                                            circularProgressBar.setVisibility(View.GONE);
-                                            if(adapter.getItemCount() >0){
-                                                serachListView.setAdapter(adapter);
-                                                serachListView.setVisibility(View.VISIBLE);
-                                            }else{}
-                                                serachListView.setVisibility(View.GONE);
-
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }
-                            });
-
-                }else{
-
-                    adapter = new ProductListAdapter(subcat,
-                            getActivity(), searchString.toString());
-                    circularProgressBar.setVisibility(View.GONE);
-                    if(adapter.getItemCount() >0){
-                        serachListView.setAdapter(adapter);
-                        serachListView.setVisibility(View.VISIBLE);
-                    }else
-                        serachListView.setVisibility(View.GONE);
-
+                if (adapter.getItemCount() > 0) {
+                    serachListView.setAdapter(adapter);
+                    serachListView.setVisibility(View.VISIBLE);
+                    Nodata.setVisibility(View.GONE);
+                } else {
+                    serachListView.setVisibility(View.GONE);
+                    Nodata.setVisibility(View.VISIBLE);
                 }
-
 
 
                 adapter.SetOnItemClickListener(new ProductListAdapter.OnItemClickListener() {
@@ -301,23 +329,23 @@ public class SearchProductFragment extends Fragment {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
                     heading.setText("Showing Results for " + result.get(0));
-                    subcat= "";
-                    if(Category.getSelectedItem().toString().equals("Animal")){
-                        if(SubCategory.getSelectedItem().toString().equals("Food")){
-                            subcat="Animal's Food";
-                        }else if(SubCategory.getSelectedItem().toString().equals("Medicine")){
-                            subcat="Animals";
-                        }else{
-                            subcat="Animal's Medicine";
+                    subcat = "";
+                    if (Category.getSelectedItem().toString().equals("Animal")) {
+                        if (SubCategory.getSelectedItem().toString().equals("Food")) {
+                            subcat = "Animal's Food";
+                        } else if (SubCategory.getSelectedItem().toString().equals("Medicine")) {
+                            subcat = "Animals";
+                        } else {
+                            subcat = "Animal's Medicine";
                         }
 
-                    }else{
-                        if(SubCategory.getSelectedItem().toString().equals("Medicine")){
-                            subcat="Pet";
-                        }else if(SubCategory.getSelectedItem().toString().equals("Food")){
-                            subcat="Pet's Food";
-                        }else{
-                            subcat="Pet's Medicine";
+                    } else {
+                        if (SubCategory.getSelectedItem().toString().equals("Medicine")) {
+                            subcat = "Pet";
+                        } else if (SubCategory.getSelectedItem().toString().equals("Food")) {
+                            subcat = "Pet's Food";
+                        } else {
+                            subcat = "Pet's Medicine";
                         }
                     }
 

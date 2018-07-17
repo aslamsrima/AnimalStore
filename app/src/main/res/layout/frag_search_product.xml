@@ -31,16 +31,18 @@
 
     <RelativeLayout
         android:id="@+id/spinnergrp"
-        android:layout_below="@+id/txtSpeech_heading"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtSpeech_heading">
 
         <Spinner
             android:id="@+id/category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
             android:entries="@array/Category"
-            android:layout_marginTop="5dip" />
+            style="Widget.MyApp.HeaderBar.Spinner"/>
 
         <Spinner
             android:id="@+id/subcategory"
@@ -48,8 +50,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="56dp"
-            android:entries="@array/SubCategory" />
+            android:layout_marginTop="5dip"
+            android:layout_marginEnd="40dp"
+            android:entries="@array/SubCategory"
+            style="Widget.MyApp.HeaderBar.Spinner"
+            />
 
     </RelativeLayout>
 
