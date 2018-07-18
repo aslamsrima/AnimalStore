@@ -101,7 +101,7 @@ public class HomeFragment extends Fragment {
                     languageSipnner.setSelection(1);
                     break;
                 case "mr":
-                    languageSipnner.setSelection(0);
+                    languageSipnner.setSelection(2);
                     break;
             }
         }

@@ -29,7 +29,8 @@
     <string name="Description">वर्णन</string>
     <string name="City">शहर</string>
     <string name="District">जिल्हा</string>
-    <string name="SupplierContact">Supplier Contact</string>
+    <string name="SupplierContact">विक्रेत्याचा फोन नंबर</string>
+
     <string name="Price">Price</string>
     <string name="Negotiable">Is Price Negotiable?</string>
     <string name="ProductName">उत्पादनाचे नांव</string>

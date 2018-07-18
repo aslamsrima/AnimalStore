@@ -30,8 +30,8 @@
     <string name="Description">विवरण</string>
     <string name="City">शहर</string>
     <string name="District">जिला</string>
-    <string name="SupplierContact">Supplier Contact</string>
-    <string name="Price">Price</string>
+    <string name="SupplierContact">विक्रेता का फोन नंबर</string>
+    <string name="Price">भाव</string>
     <string name="Negotiable">Is Price Negotiable?</string>
     <string name="ProductName">उत्पाद का नाम</string>
     <string name="CompanyName">कंपनी का नाम</string>
@@ -41,17 +41,17 @@
 
 
 
-    <string name="invalid_breed">Please enter a valid Breed</string>
-    <string name="invalid_price">Please enter a valid price</string>
-    <string name="invalid_productName">Please enter a valid Product Name</string>
-    <string name="invalid_city">Please enter a valid City</string>
-    <string name="invalid_district">Please enter a valid District</string>
-    <string name="invalid_companyName">Please enter a valid Company Name</string>
-    <string name="invalid_description">Description should be of atleast 20 characters</string>
-    <string name="invalid_weight">Please enter a valid weight</string>
-    <string name="invalid_mlkrec">Please enter a valid Milk Record</string>
-    <string name="invalid_phone">Please enter a valid Phone</string>
-    <string name="invalid_age">Age must be between 1 and 15.</string>
+    <string name="invalid_breed">कृपया योग्य नस्ल दर्ज करें</string>
+    <string name="invalid_price">कृपया योग्य भाव दर्ज करें</string>
+    <string name="invalid_productName">कृपया योग्य उत्पाद का नाम दर्ज करें</string>
+    <string name="invalid_city">कृपया योग्य शहर दर्ज करें</string>
+    <string name="invalid_district">कृपया योग्य जिला दर्ज करें</string>
+    <string name="invalid_companyName">कृपया योग्य कंपनी का नाम दर्ज करें</string>
+    <string name="invalid_description">विवरण कम से कम 20 अक्षर का होना चाहिए</string>
+    <string name="invalid_weight">कृपया योग्य वजन दर्ज करें</string>
+    <string name="invalid_mlkrec">कृपया योग्य प्रति दिन दूध रिकॉर्ड दर्ज करें</string>
+    <string name="invalid_phone">कृपया योग्य फोन नंबर दर्ज करें</string>
+    <string name="invalid_age">उम्र 1 से 15 के बीच होनी चाहिए</string>
     <string name="categories"><u>Categories</u></string>
 
 

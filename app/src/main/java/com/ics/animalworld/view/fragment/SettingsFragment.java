@@ -82,7 +82,7 @@ public class SettingsFragment extends Fragment {
                     spinner.setSelection(1);
                     break;
                 case "mr":
-                    spinner.setSelection(0);
+                    spinner.setSelection(2);
                     break;
             }
         }

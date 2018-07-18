@@ -138,8 +138,6 @@ public class SearchProductFragment extends Fragment {
                             circularProgressBar.setVisibility(View.GONE);
                             LoadingTxt.setVisibility(View.GONE);
                         }
-                        if(i == 3 && i==4)
-                            SubCategory.setVisibility(View.GONE);
 
                     }
 
