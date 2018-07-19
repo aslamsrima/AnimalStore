@@ -101,14 +101,14 @@ public class SearchProductFragment extends Fragment {
                             TinyDB tinydb = new TinyDB(getContext().getApplicationContext());
                             ArrayList<Animals> productList = tinydb.getListObject(Category.getSelectedItem().toString(), Animals.class);
 
-                            if (productList.size()==0) {
+                            if (productList.size() == 0) {
                                 FakeWebServer.getFakeWebServer().getAllProducts(
                                         i - 1, new FakeWebServer.FakeWebServiceResponseListener() {
                                             @Override
                                             public void onServiceResponse(boolean success) {
                                                 if (success) {
                                                     try {
-                                                        if(Category.getSelectedItemPosition() == 3 || Category.getSelectedItemPosition()==4)
+                                                        if (Category.getSelectedItemPosition() == 3 || Category.getSelectedItemPosition() == 4)
                                                             SubCategory.setVisibility(View.GONE);
                                                         else
                                                             SubCategory.setVisibility(View.VISIBLE);
@@ -121,8 +121,8 @@ public class SearchProductFragment extends Fragment {
                                                 }
                                             }
                                         });
-                            } else{
-                                if(Category.getSelectedItemPosition() == 3 || Category.getSelectedItemPosition()==4)
+                            } else {
+                                if (Category.getSelectedItemPosition() == 3 || Category.getSelectedItemPosition() == 4)
                                     SubCategory.setVisibility(View.GONE);
                                 else
                                     SubCategory.setVisibility(View.VISIBLE);
@@ -153,19 +153,6 @@ public class SearchProductFragment extends Fragment {
             }
         });
 
-        SubCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
         serchInput.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -176,7 +163,7 @@ public class SearchProductFragment extends Fragment {
                         + inputString.toString().toLowerCase());
                 subcat = "";
 
-                switch (Category.getSelectedItemPosition()){
+                switch (Category.getSelectedItemPosition()) {
 
                     case 1:
                         if (SubCategory.getSelectedItem().toString().equals("Food")) {
@@ -203,41 +190,7 @@ public class SearchProductFragment extends Fragment {
                         subcat = Category.getSelectedItem().toString();
                         break;
                 }
-
-
-
-                searchString = inputString.toString();
-                serachListView.setVisibility(View.GONE);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
-                        getActivity().getBaseContext());
-                serachListView.setLayoutManager(linearLayoutManager);
-                serachListView.setHasFixedSize(true);
-                adapter = new ProductListAdapter(subcat,
-                        getActivity(), searchString.toString());
-
-                if (adapter.getItemCount() > 0) {
-                    serachListView.setAdapter(adapter);
-                    serachListView.setVisibility(View.VISIBLE);
-                    Nodata.setVisibility(View.GONE);
-                } else {
-                    serachListView.setVisibility(View.GONE);
-                    Nodata.setVisibility(View.VISIBLE);
-                }
-
-
-                adapter.SetOnItemClickListener(new ProductListAdapter.OnItemClickListener() {
-
-                    @Override
-                    public void onItemClick(View view, int position) {
-
-                        Utils.switchFragmentWithAnimation(R.id.frag_container,
-                                new ProductDetailsFragment(subcat, position, false),
-                                ((ECartHomeActivity) (getContext())), null,
-                                AnimationType.SLIDE_LEFT);
-
-                    }
-                });
-//                (new ProductListAdapter("Animals",getActivity().getApplicationContext(),""));
+                searchItems(inputString.toString());
 
             }
 
@@ -346,31 +299,7 @@ public class SearchProductFragment extends Fragment {
                             subcat = "Pet's Medicine";
                         }
                     }
-
-                    serachListView.setVisibility(View.GONE);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
-                            getActivity().getBaseContext());
-                    serachListView.setLayoutManager(linearLayoutManager);
-                    serachListView.setHasFixedSize(true);
-
-                    ProductListAdapter adapter = new ProductListAdapter(subcat,
-                            getActivity(), result.get(0));
-                    serachListView.setAdapter(adapter);
-
-                    serachListView.setVisibility(View.VISIBLE);
-                    adapter.SetOnItemClickListener(new ProductListAdapter.OnItemClickListener() {
-
-                        @Override
-                        public void onItemClick(View view, int position) {
-
-                            Utils.switchFragmentWithAnimation(R.id.frag_container,
-                                    new ProductDetailsFragment("Animals", position, false),
-                                    ((ECartHomeActivity) (getContext())), null,
-                                    AnimationType.SLIDE_LEFT);
-
-                        }
-                    });
-
+                    searchItems(result.get(0).toString());
                     break;
                 }
 
@@ -386,5 +315,41 @@ public class SearchProductFragment extends Fragment {
         }
 
     }
+
+    private void searchItems(String inputString) {
+        searchString = inputString;
+        serachListView.setVisibility(View.GONE);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                getActivity().getBaseContext());
+        serachListView.setLayoutManager(linearLayoutManager);
+        serachListView.setHasFixedSize(true);
+        adapter = new ProductListAdapter(subcat,
+                getActivity(), searchString.toString());
+
+        if (adapter.getItemCount() > 0) {
+            serachListView.setAdapter(adapter);
+            serachListView.setVisibility(View.VISIBLE);
+            Nodata.setVisibility(View.GONE);
+        } else {
+            serachListView.setVisibility(View.GONE);
+            Nodata.setVisibility(View.VISIBLE);
+        }
+
+
+        adapter.SetOnItemClickListener(new ProductListAdapter.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(View view, int position) {
+
+                Utils.switchFragmentWithAnimation(R.id.frag_container,
+                        new ProductDetailsFragment(subcat, position, false),
+                        ((ECartHomeActivity) (getContext())), null,
+                        AnimationType.SLIDE_LEFT);
+
+            }
+        });
+
+    }
+
 
 }
